@@ -1,0 +1,8 @@
+#!/bin/bash 
+
+iceweasel &
+icedove   &
+gajim     &
+gwibber   &
+exaile    &
+deluge    &

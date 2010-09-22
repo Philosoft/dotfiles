@@ -1,0 +1,16 @@
+\documentclass[a4paper,12pt]{report}
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[russian,english]{babel}
+\usepackage[pdftex,unicode]{hyperref}
+\usepackage{indentfirst}
+\usepackage[dvips]{graphicx}
+
+\begin{document}
+\chapter{Лекция №1}
+R~--- критерий; x_1, x_2, ..., x_{n} ~--- вариационные переменные (рычаги).
+
+R = f_0(x_1, x_2, ..., x_n)
+
+
+\end{document}

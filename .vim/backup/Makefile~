@@ -1,0 +1,9 @@
+CC=gcc
+FILES=base64.c
+OPTS=-o base64 -Wextra
+
+base64:
+	${CC} ${FILES}
+
+clean:
+	rm -rf ./*.o

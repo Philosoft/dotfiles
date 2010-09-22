@@ -1,0 +1,7 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =5
+let g:netrw_dirhist_1='/home/philosoft'
+let g:netrw_dirhist_2='/home/philosoft/.vim'
+let g:netrw_dirhist_3='/home/philosoft/.vim/colors'
+let g:netrw_dirhist_4='/home/philosoft/Downloads/pidgin-2.7.1/libpurple/protocols/oscar'
+let g:netrw_dirhist_5='/home/philosoft/Downloads/pidgin-2.7.1/libpurple/protocols'

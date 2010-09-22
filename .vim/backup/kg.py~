@@ -1,0 +1,156 @@
+#!/usr/bin/env python
+#*-* coding: utf8 *-*
+
+import pygtk
+pygtk.require('2.0')
+import gtk
+
+class App():
+    def redraw(self, da, event):
+        self.style = self.da.get_style()
+        self.gc = self.style.fg_gc[gtk.STATE_NORMAL]
+        color = self.da.get_colormap().alloc(0, 0xFFFF, 0)
+        self.gc.foreground = color
+        self.draw_line()
+
+    def draw_line(self):
+        self.da.window.draw_rectangle(self.gc, True, 0, 0, self.da.get_size_request()[0], self.da.get_size_request()[1])
+        points = self.algo((int(self.x1), int(self.y1)), (int(self.x2), int(self.y2)))
+        self.da.window.draw_points(self.gc, points)
+
+
+    def get_vals(self, widget):
+        self.x1 = self.e_x1.get_text()
+        self.y1 = self.e_y1.get_text()
+        self.x2 = self.e_x2.get_text()
+        self.y2 = self.e_y2.get_text()
+        self.redraw(self.da, None)
+
+    def algo(self, (x1, y1), (x2, y2)):
+        #инициализация переменных
+        points = []
+        x = x1
+        y = y1
+        Dx = abs(x2 - x1)
+        Dy = abs(y2 - y1)
+        if x2 - x1 == 0:
+            s1 = 0
+        elif x2 > x1:
+            s1 = 1
+        else:
+            s1 = -1
+        if y2 - y1 == 0:
+            s2 = 0
+        elif y2 > y1:
+            s2 = 1
+        else:
+            s2 = -1
+#обмен значений Dx и Dy в зависимости от углового коэффициента наклона отрезка
+        if Dy > Dx:
+            tmp = Dx
+            Dx = Dy
+            Dy = tmp
+            swap = 1
+        else:
+            swap = 0
+#инициализация e с поправкой на половину пиксела
+        e = 2*Dy - Dx
+        #print x, y, Dx, Dy, s1, s2, swap, e
+#основной цикл
+        for i in range(0, Dx + 1):
+            #print '(' + str(x) + '; ' + str(y) + ')'
+            points.append((x, y))
+            while e == 0 or e > 0:
+                if swap == 1:
+                    x = x + s1
+                else:
+                    y = y + s2
+                e = e - 2*Dx
+            if swap == 1:
+                y = y + s2
+            else:
+                x = x + s1
+            e = e + 2*Dy
+        return points
+
+    def __init__(self):
+        '''Build up GUI and set up signals'''
+        w = gtk.Window(gtk.WINDOW_TOPLEVEL)
+        w.set_title('Комп графика. Лаба №1')
+        w.connect("delete_event", lambda w,e: gtk.main_quit())
+
+        self.hb1 = gtk.HBox(False, 0)
+        w.add(self.hb1)
+        self.hb1.show()
+
+        self.vb1 = gtk.VBox(False, 0)
+        self.hb1.pack_start(self.vb1, True, True, 0)
+        self.vb1.show()
+
+        self.da = gtk.DrawingArea()
+        self.da.set_size_request(400, 300)
+        self.hb1.pack_end(self.da, True, True, 0)
+        self.da.set_events(gtk.gdk.POINTER_MOTION_MASK |
+                           gtk.gdk.POINTER_MOTION_HINT_MASK)
+        self.da.connect("expose-event", self.redraw)
+        self.da.show()
+
+        self.hb2 = gtk.HBox(False, 5)
+        self.vb1.pack_start(self.hb2, True, True, 0)
+        self.hb2.show()
+
+        self.l_x1 = gtk.Label('x1')
+        self.hb2.pack_start(self.l_x1, True, True, 0)
+        self.l_x1.show()
+
+        self.e_x1 = gtk.Entry()
+        self.e_x1.set_max_length(4)
+        self.hb2.pack_start(self.e_x1, True, True, 0)
+        self.e_x1.show()
+
+        self.l_y1 = gtk.Label('y1')
+        self.hb2.pack_start(self.l_y1, True, True, 0)
+        self.l_y1.show()
+
+        self.e_y1 = gtk.Entry()
+        self.e_y1.set_max_length(4)
+        self.hb2.pack_start(self.e_y1, True, True, 0)
+        self.e_y1.show()
+
+        self.hb3 = gtk.HBox(False, 5)
+        self.vb1.pack_start(self.hb3, True, True, 0)
+        self.hb3.show()
+
+        self.l_x2 = gtk.Label('x2')
+        self.hb3.pack_start(self.l_x2)
+        self.l_x2.show()
+
+        self.e_x2 = gtk.Entry()
+        self.e_x2.set_max_length(4)
+        self.hb3.pack_start(self.e_x2)
+        self.e_x2.show()
+
+        self.l_y2 = gtk.Label('y2')
+        self.hb3.pack_start(self.l_y2, True, True, 0)
+        self.l_y2.show()
+
+        self.e_y2 = gtk.Entry()
+        self.e_y2.set_max_length(4)
+        self.hb3.pack_start(self.e_y2, True, True, 0)
+        self.e_y2.show()
+
+        self.checkbutton = gtk.CheckButton('Antialiasing')
+        self.vb1.pack_start(self.checkbutton, True, True, 0)
+        self.checkbutton.show()
+
+        self.b = gtk.Button('Рисовать')
+        self.b.connect('clicked', self.get_vals)
+        self.vb1.pack_start(self.b, False, False, 0)
+        self.b.show()
+
+        w.show()
+
+if __name__ == '__main__':
+    a = App()
+    a.algo((0, 0), (5, 1))
+    gtk.main()

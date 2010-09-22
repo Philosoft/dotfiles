@@ -1,0 +1,54 @@
+#!/bin/bash 
+
+###########
+# Функции #
+###########
+
+# @function: safe_run
+# @param:
+#   $1 - command which should be checked on existenes
+#   $2 - command which must be run if $1 exist
+#   $3 - command which must be run if $1 doesn't exist
+function safe_run()
+{
+  if [ `command -v $1` ]; then
+    $2
+  else
+    $3
+  fi
+}
+
+#################
+# Главная часть #
+#################
+
+# На всякий случай
+`dropbox start`
+
+if [ -z "$1" ]; then
+  if [ `command -v zenity` ]; then
+    f=`zenity --file-selection`
+  else
+    echo "У вас не установлена программа zenity"
+    exit 1
+  fi
+else
+  f=$1
+fi
+
+url=`dropbox puburl "$f"`
+if [ -z `echo $url | grep http` ]; then
+  echo "Нужно указать файл в вашем Dropbox-каталоге"
+  exit 1
+else
+  msg="<b>Ваша ссылка:</b> <i>$url</i>"
+  if [ `command -v xsel` ]; then
+    echo $url | xsel -i
+    echo $url | xsel -ibp
+    msg=$msg"\n<b>Скопирована в буфер обмена</b>"
+  fi
+  echo $msg
+  if [ `command -v notify-send` ]; then
+    notify-send -t 5000 "Ссылка скопирована в буфер обмена."
+  fi
+fi

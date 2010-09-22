@@ -1,0 +1,33 @@
+#!/bin/bash 
+
+#Description:
+#Рисует схему взаимосвязей заголовочных файлов
+
+# USAGE: script dir outf maxdepth
+
+#Check for params & set defaults
+if [ -z $1 ]; then
+  src_dir='./'
+else
+  src_dir=$1
+fi
+
+if [ -z $2 ]; then
+  output_file='./headers_graph.dot'
+else
+  output_file=$2
+fi
+
+if [ -z $3 ]; then
+  maxdepth='1'
+else
+  maxdepth=$3
+fi
+
+#main part
+echo -e "digraph G\n{" > $output_file
+list=`find $src_dir -maxdepth $maxdepth -type f -iname "*.c" -print`
+grep "#include" $list -H | sort -u | sed -e 's/^/"/' | sed -e 's/:/"/' | sed -e 's/\#include/ -> /' | sed -e 's/>/> "/' | sed -e 's/$/"/' >> $output_file
+echo -e "\n}" >> $output_file
+dot -Tpng -o $output_file.png $output_file 
+exit 0

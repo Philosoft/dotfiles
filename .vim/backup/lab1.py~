@@ -1,0 +1,165 @@
+#!/usr/bin/python3
+
+import math
+
+colors = {
+            'default': "\033[0m",
+
+            'red'    : "\033[31m",
+            'green'  : "\033[32m",
+            'yellow' : "\033[33m"
+            }
+
+def color(color, _str):
+    return colors[color] + _str + colors['default']
+
+def f0(x):
+    return ((-1) * x * x * x - 12 * x * x - 45 * x + 12)
+
+# ======= Исходные данные ======= #
+l_bound = -10
+r_bound = -4
+e = 0.01
+k = (3 - math.sqrt(5)) / 2
+# =============================== #
+
+print()
+print("====================")
+print(color('green', "Перебор без точности"))
+print("====================")
+
+i = 0
+_min = f0(l_bound)
+for x in range(l_bound + 1, r_bound + 1):
+    i += 1
+    y = f0(x)
+    if y < _min:
+        _min = y
+
+print("Экстремум:", color('red', str(_min)))
+print("Затрачено шагов:", color('yellow', '\033[1m' + str(i)))
+
+print()
+print("===================")
+print(color('green', "Перебор с точностью"))
+print("===================")
+
+i = 0
+_min_x = l_bound
+_min = f0(_min_x)
+for x in range(l_bound + 1, r_bound + 1):
+    i += 1
+    y = f0(x)
+    if y < _min:
+        _min = y
+        _min_x = x
+# Увеличиваем точность
+x = _min_x - 1
+till = _min_x + 1
+while x < till:
+    i += 1
+    y = f0(x)
+    if y < _min:
+        _min = y
+        _min_x = x
+    x += e
+print("Экстремум:", color('red', str(_min)))
+print("Затрачено шагов:", '\033[1m' + color('yellow', str(i)))
+
+print()
+print("=========")
+print(color('green', "Дихотомия"))
+print("=========")
+
+a = l_bound
+b = r_bound
+quarter = (b - a) / 4
+x1 = a + quarter
+x2 = x1 + quarter
+x3 = x2 + quarter
+length = (b - a)
+i = 0
+while length > e:
+    print(a, b)
+    tmp_l = f0(a)
+    tmp_r = f0(b)
+    if tmp_l <= tmp_r:
+        b = x3
+    else:
+        a = x1
+    quarter = (b - a) / 4
+    x1 = a + quarter
+    x2 = x1 + quarter
+    x3 = x2 + quarter
+    i += 1
+    length = b - a
+print("Экстремум:", 'f0(' + str(a) + ') =', color('red', str(f0(a))), 'or', 'f0(' + str(b) + ') =', color('red', str(f0(b))))
+print("Затрачено шагов:", '\033[1m' + color('yellow', str(i)))
+
+print()
+print("===============")
+print(color('green', "Золотое сечение"))
+print("===============")
+a = l_bound
+b = r_bound
+length = b - a
+x1 = a + length * k
+x2 = b - length * k
+y_a = f0(a)
+y_b = f0(b)
+
+i = 0
+while length > e:
+    print(a, b)
+    i += 1
+    if y_a <= y_b:
+        b = x2
+        y_b = f0(b)
+        x2 = x1
+        length = b - a
+        x1 = a + k * length
+    else:
+        a = x1
+        y_a = f0(a)
+        x1 = x2
+        length = b - a
+        x2 = b - k * length
+print("Экстремум:", color('red', str(f0(a))), 'or', color('red', str(f0(b))))
+print("Затрачено шагов:", '\033[1m' + color('yellow', str(i)))
+
+print()
+print("======================")
+print(color('green', "Методи чисел Фибоначчи"))
+print("======================")
+
+a = l_bound
+b = r_bound
+N = (b - a) / e
+fib = [1, 1]
+fib_num = 0
+i = 1
+while N > fib_num:
+    fib_num = fib[i] + fib[i - 1]
+    fib.append(fib_num)
+    i += 1
+
+steps = i
+h = (b - a) / fib[i]
+i -= 2
+b = a + h * fib[i]
+y_a = f0(a)
+y_b = f0(b)
+while i != 0:
+    print(a, b)
+    i -= 1
+    if y_a > y_b and a < b or y_a < y_b and a > b:
+        a = b
+        b += h * fib[i]
+    else:
+        a = b
+        b -= h * fib[i]
+    y_a = f0(a)
+    y_b = f0(b)
+
+print("Экстремум:", 'f0(' + str(b) + ') =', color('red', str(y_b)))
+print("Затрачено шагов:", '\033[1m' + color('yellow', str(steps)))

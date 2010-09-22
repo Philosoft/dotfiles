@@ -1,0 +1,14 @@
+#!/bin/bash 
+
+i=6
+mac=''
+
+while [ $i != 0 ];
+do
+  tmp1=`shuf ololo | head -n 1` 
+  tmp2=`shuf ololo | head -n 1`
+  mac="$mac$tmp1$tmp2:"
+  i=`expr $i - 1`
+done
+
+echo "$mac"

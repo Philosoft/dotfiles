@@ -1,0 +1,61 @@
+! Шрифты {{{
+! *faceName:FreeSans:style=Medium
+! *font: xft:FreeSans-12
+Xft.dpi: 96.0
+Xft.hinting: true
+Xft.hintstyle: hintfull
+Xft.antialias: true
+Xft.rgba: rgb
+! }}}
+
+!Cursor theme {{{
+Xcursor.theme: Neutral_Plus
+!}}}
+
+!Цветовая схема консли {{{
+*background: #3f3f3f
+*foreground: #dcdcdc
+! Black (not tango) + DarkGrey
+*color0:  #222222
+*color8:  #709080
+! DarkRed + Red
+*color1:  #cc9393
+*color9:  #dca3a3
+! DarkGreen + Green
+*color2:  #60b48a
+*color10: #c3bf9f
+! DarkYellow + Yellow
+*color3:  #dfaf8f
+*color11: #f0dfaf
+! DarkBlue + Blue
+*color4:  #71c5f4
+*color12: #94bff3
+! DarkMangenta + Mangenta
+*color5:  #cf6171
+*color13: #cf9ebe
+!DarkCyan + Cyan (both not tango) 
+*color6:  #418179
+*color14: #93e0e3
+! LightGrey + White
+*color7:  #dcdcdc
+*color15: #ffffff
+! }}}
+
+! urxvt {{{
+urxvt.scrollBar: true
+urxvt.scrollstyle: plain
+urxvt.scrollBar_floating: true
+urxvt.scrollBar_right: false
+!urxvt*scrollColor: #202020
+urxvt*scrollColor: #bcbcbc
+urxvt.termName: xterm
+urxvt.preeditType: root
+urxvt*urlLauncher: iceweasel
+urxvt*matcher.button: 3
+urxvt.saveLines: 65535
+urxvt.perl-ext-common: default,matcher,searchable-scrollback
+urxvt.cursorColor: #d8d8d8
+urxvt*font: xft:DejaVu Sans Mono:size=10
+!urxvt*font: xft:Monaco:size=10
+urxvt*cutchars: `"()'*<>[]{|}
+! }}}

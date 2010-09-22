@@ -1,0 +1,17 @@
+2008/09/03
+    - Add MPD support.
+    - Add more options to play window's buffer. Thanks to Nikola Petrov.
+2008/09/02
+    - Auto refresh play window using CursorHold event.
+    - Now user can customize the playlist format.
+2008/09/01
+    - Add basic playlist save and load support.
+    - Show current playlist and volume in statusline.
+    - Add shuffle, repeat command.
+    - Add playlist sort command.
+    - The key map are mostly redefined.
+2008/08/31
+    - Change from XMMSSync to XMMS to gain more control.
+    - Fix a bug when play the last song in the playlist, remove any
+      entry will cause an out of range error.
+    - When encouter encoding error of id3, use file name instead.
