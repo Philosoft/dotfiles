@@ -15,7 +15,7 @@ xsetroot -cursor_name left_ptr
 # Автозагрузка
 dropbox start &
 xscreensaver -no-splash &
-(sleep 3 ; feh --bg-scale "$(ls /home/philosoft/Downloads/Konackan.com | shuf | head -n 1)"&)
+(sleep 5; feh --bg-scale "$(find /home/philosoft/Downloads/Konachan.com -type f | shuf | head -n 1)")&
 
 # Запуск WM
 #exec openbox-session
