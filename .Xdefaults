@@ -53,8 +53,10 @@ urxvt.preeditType: root
 urxvt*urlLauncher: iceweasel
 urxvt*matcher.button: 3
 urxvt.saveLines: 65535
-urxvt.perl-ext-common: default,matcher,searchable-scrollback
+urxvt.perl-ext-common: default,matcher,searchable-scrollback,tabbed
 urxvt.cursorColor: #d8d8d8
+URxvt*scrollTtyOutput: False
+URxvt*scrollWithBuffer: True
 !urxvt*font: xft:DejaVu Sans Mono:size=10
 urxvt*font: xft:Monaco:size=10
 urxvt*cutchars: `"()'*<>[]{|}
