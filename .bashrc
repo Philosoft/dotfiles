@@ -85,13 +85,14 @@ makespectrums()
 # }}}
 
 # Автозапуск {{{
-if [ -x /usr/games/fortune ]; then
-    fortune
-fi
 if [ -z $DISPLAY ]; then
   echo "#######################";
   echo "# Starting X in 1 sec #";
   echo "#######################";
   sleep 1 && sudo /etc/init.d/gdm stop ; exec startx > /dev/null
+else
+    if [ -x /usr/games/fortune ]; then
+        fortune
+    fi
 fi
 # }}}
