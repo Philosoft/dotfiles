@@ -1,1 +1,2 @@
-set bel-style off
+set bell-style off
+set bell-style none
