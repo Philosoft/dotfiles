@@ -304,7 +304,8 @@ awful.rules.rules = {
                      border_color = beautiful.border_normal,
                      focus = true,
                      keys = clientkeys,
-                     buttons = clientbuttons } },
+                     buttons = clientbuttons },
+      callback = awful.client.setslave },
     { rule = { class = "MPlayer" },
       properties = { floating = true } },
     { rule = { class = "pinentry" },
@@ -313,6 +314,7 @@ awful.rules.rules = {
       properties = { floating = true } },
 
     -- My preferences
+     -- Start windows as slave
     -- Set Iceweasel to always map on tags number 3 of screen 1.
     { rule = { class = "Iceweasel" },
        properties = { tag = tags[1][3] } },
