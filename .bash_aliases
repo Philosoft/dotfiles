@@ -8,7 +8,12 @@ if [ -x /usr/bin/dircolors ]; then
     alias egrep='egrep --color=auto'
 fi
 
-alias la='ls -Alh'
+### independent
+alias ls='ls --color=auto'
+alias grep='grep --color=auto'
+alias egrep='egrep --color=auto' 
+
+alias la='ls -Alh --color=auto'
 alias ncmpc='ncmpc -c'
 alias mc='mc -S zenburn'
 alias openports='netstat --all --numeric --programs --inet'

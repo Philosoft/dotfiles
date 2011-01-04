@@ -28,8 +28,8 @@ set spelllang=en,ru          " Языки для проверки правопи
 set encoding=utf-8
 set fileencodings=utf-8,cp1251,koi8-r,cp866
 set termencoding=utf-8 
-" Позволяет передвигаться по постым строкам
-set virtualedit=all
+" Позволяет передвигаться по пустым строкам
+set virtualedit=block
 "}
 
 filetype on
