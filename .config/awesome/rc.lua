@@ -9,6 +9,8 @@ require("naughty")
 -- Виджеты
 require("vicious")
 
+--require("shifty")
+
 -- Загружаем Debian-menu
 require("debian.menu")
 
@@ -47,7 +49,7 @@ layouts =
 tags = {
   names  = {"α", "β", "γ", "δ", "ε", "ζ", "η", "θ", "ι"},
   layout = { layouts[4], layouts[10], layouts[10], layouts[4], layouts[1],
-             layouts[2], layouts[6],  layouts[5],  layouts[10] }
+             layouts[2], layouts[6],  layouts[6],  layouts[10] }
 }
 for s = 1, screen.count() do
     -- Each screen has its own tag table.
@@ -65,7 +67,7 @@ myawesomemenu = {
 }
 
 mymainmenu = awful.menu({ items = { { "awesome", myawesomemenu, beautiful.awesome_icon },
-                                    { "Debian", debian.menu.Debian_menu.Debian },
+                                    { "Debian", debian.menu.Debian_menu.Debian},
                                     { "Выключить", "/home/philosoft/bin/shutdown_dialog.sh" }
                                   }
                         })
@@ -75,10 +77,6 @@ mylauncher = awful.widget.launcher({ image = image(beautiful.awesome_icon),
 -- }}}
 
 -- Wibox {{{ 
--- Network usage applet
-netwidget = widget( { type = "textbox" } )
-vicious.register( netwidget, vicious.widgets.net, "<span color='#CC9393'>up: ${eth0 down_kb}</span> <span color='#7F9F7F'>down: ${eth0 up_kb}</span>", 3 )
-
 -- Часики
 mytextclock = awful.widget.textclock({ align = "right" }, "%a %d %b %H:%M")
 
@@ -155,7 +153,6 @@ for s = 1, screen.count() do
         },
         mylayoutbox[s],
         mytextclock,
- --       netwidget,
         s == 1 and mysystray or nil,
         mytasklist[s],
         layout = awful.widget.layout.horizontal.rightleft
@@ -172,8 +169,6 @@ root.buttons(awful.util.table.join(
 -- }}}
 
 -- Key bindings {{{ 
-awful.key({ }, "Print", function () awful.util.spawn("scrot '%Y-%m-%d_$wx$h_scrot.png'") end)
---("scrot -e 'mv $f ~/ 2>/dev/null'") end)
 globalkeys = awful.util.table.join(
     awful.key({ modkey,           }, "Left",   awful.tag.viewprev       ),
     awful.key({ modkey,           }, "Right",  awful.tag.viewnext       ),
@@ -297,7 +292,7 @@ root.keys(globalkeys)
 
 -- {{{ Rules
 awful.rules.rules = {
---    {size_hints_honor = true },
+    {size_hints_honor = true },
     -- All clients will match this rule.
     { rule = { },
       properties = { border_width = beautiful.border_width,
@@ -308,15 +303,11 @@ awful.rules.rules = {
       callback = awful.client.setslave },
     { rule = { class = "MPlayer" },
       properties = { floating = true } },
-    { rule = { class = "pinentry" },
-      properties = { floating = true } },
-    { rule = { class = "gimp" },
-      properties = { floating = true } },
 
     -- My preferences
      -- Start windows as slave
-    -- Set Iceweasel to always map on tags number 3 of screen 1.
-    { rule = { class = "Iceweasel" },
+    -- Set Firefox to always map on tags number 3 of screen 1.
+    { rule = { class = "Firefox" },
        properties = { tag = tags[1][3] } },
     { rule = { class = "Icedove" },
       properties = { tag = tags[1][5] } },
@@ -331,7 +322,17 @@ awful.rules.rules = {
 -- Signal function to execute when a new client appears.
 client.add_signal("manage", function (c, startup)
     -- Add a titlebar
-    -- awful.titlebar.add(c, { modkey = modkey })
+    c:add_signal("property:floating", function(c)
+        if awful.layout.floating.get(c) then
+            awful.titlebar.add(c, { modkey = modkey })
+        else
+            awful.titlebar.remove(f)
+        end
+    end)
+
+    if awful.client.floating.get(c) then
+        awful.titlebar.add(c, {modkey = modkey})
+    end
 
     -- Enable sloppy focus
     c:add_signal("mouse::enter", function(c)
@@ -354,8 +355,12 @@ client.add_signal("manage", function (c, startup)
     end
 end)
 
-client.add_signal("focus", function(c) c.border_color = beautiful.border_focus end)
-client.add_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
+client.add_signal("focus", function(c)
+    c.border_color = beautiful.border_focus
+end)
+client.add_signal("unfocus", function(c)
+    c.border_color = beautiful.border_normal
+end)
 -- }}}
 
 -- Autostart {{{
@@ -366,8 +371,4 @@ function run_once(prg)
   end
   awful.util.spawn_with_shell("pgrep -u $USER -x " .. prg .. " ++ (" .. prg .. ")")
 end
-
---awful.util.spwan_with_shell("run_once.sh dropbox start")
---run_once("dropbox start")
-awful.util.spawn_with_shell("deluge")
 -- }}}

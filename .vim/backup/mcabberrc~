@@ -1,9 +1,9 @@
-set jid = thephilosoft@gmail.com
+set jid = philosoft@mrkostik.ru 
 
 # If password is not given, it will be interactively asked for.
 # Note: if the password contains leading or trailing spaces, you must
 # enclose it with quotes: set password = " example password "
-set password = 5557600cnhtrjpf
+set password = 5557600
 
 # You can provide a server name if you want mcabber to connect
 # to a specific server.
@@ -418,7 +418,7 @@ set color_rosternewmsg = red
 # - 0: (default) Date and time
 # - 1: Time only
 # - 2: None
-#set time_prefix = 0
+set time_prefix = 0
 #
 # When a contact sends "/me ", mcabber displays "*user ", where user
 # is the local part of the contact's JID.

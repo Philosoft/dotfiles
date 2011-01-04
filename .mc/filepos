@@ -1,42 +1,65 @@
-/home/philosoft/.nexuiz/data/config.cfg 455;62
-/home/philosoft/Dropbox/welinux/root/awesome/comment 26;44
-/home/philosoft/.fonts/fonts.xml 15;0
-/home/philosoft/tmp/.fonts.conf.bak 61;0
-/home/philosoft/projects/универ/5-й семестр/Оптимизация/2/f0_plot 8;98
-/home/philosoft/projects/универ/5-й семестр/Компьютерная графика/1/lab1/mainwindow.ui 36;1
-/home/philosoft/projects/универ/5-й семестр/Компьютерная графика/1/lab1/moc_mainwindow.cpp 70;0
-/home/philosoft/projects/универ/5-й семестр/Компьютерная графика/1/lab1/ui_mainwindow.h 22;0
-/home/philosoft/tmp/AntiAlias2.py 52;0
-/home/philosoft/.vodovod/vodovod.conf 10;12
-/home/philosoft/Dropbox/welinux/media/by Aesdana/comment 10;12
-/home/philosoft/Dropbox/welinux/media/SDSWANDERER/1.txt 27;92
-/home/philosoft/.Xdefaults 50;21
-/home/philosoft/projects/jbot/plugins/autoanswer.py 121;50
-/home/philosoft/projects/jbot/jbot.py 134;17
-/home/philosoft/projects/jbot/config.py 6;15
-/home/philosoft/projects/jbot/common.py 44;0
-/home/philosoft/projects/jbot/plugins/autoanswer.txt 1;119
-/home/philosoft/projects/jbot/plugins/conference.py 12;1
-/home/philosoft/projects/jbot/plugins/tuk.py 75;0
-/home/philosoft/projects/jbot/plugins/logger.py 127;0
-/home/philosoft/Downloads/paramiko-1.7.6.zip#uzip/paramiko-1.7.6/demos/demo_sftp.py 107;9
-/home/philosoft/Downloads/paramiko-1.7.6.zip#uzip/paramiko-1.7.6/demos/demo.py 150;25
-/home/philosoft/tmp/archs/lfs/tools/binutils-2.20/Makefile 12089;0
-/home/philosoft/tmp/archs/lfs/tools/binutils-2.20/makefile.vms 49;0
-/home/philosoft/tmp/debs/awesome/awesome-3.4.7/draw.c 56;0
-/home/philosoft/bin/mencoder.sh 1;188
-/home/philosoft/bin/mpdupd.sh 21;89
-/home/philosoft/.lyrics/Pain Of Salvation - A Trace Of Blood.txt 1;1
-/home/philosoft/.lyrics/Pain Of Salvation - The Trace Of Blood.txt 59;29
-/home/philosoft/tmp/jbot/jbot.py 211;0
-/home/philosoft/tmp/jbot/common.py 32;0
-/usr/share/gajim/src/common/connection_handlers.py 705;30
-/usr/share/gajim/src/common/xmpp/features_nb.py 106;8
-/usr/share/gajim/src/common/xmpp/auth_nb.py 349;1
-/usr/share/gajim/src/profile_window.py 269;0
-/home/philosoft/.vim/plugin/acp.vim 10;19
-/home/philosoft/.vim/syntax/python.vim 125;44
-/home/philosoft/.vim/ftplugin/python.vim 1;17
-/home/philosoft/Downloads/python.vim 304;15
-/home/philosoft/.vim/ftplugin/python3.0.vim 111;0
-/home/philosoft/.nexuiz/data/data/maps/the_turn.mapinfo 6;7
+/home/philosoft/tmp/debs/kbdd-git/build_from_git.sh 31;2
+/home/philosoft/tmp/debs/awesome/ewmh.c 281;0
+/home/philosoft/tmp/debs/awesome/screen.c 623;32
+/home/philosoft/tmp/debs/awesome/screen.h 55;0
+/usr/share/awesome/lib/awful/screen.lua 50;17
+/usr/share/awesome/lib/awful/hooks.lua 161;0
+/usr/share/awesome/lib/awful/client.lua 1;12
+/usr/share/awesome/lib/shifty.lua 21;0
+/home/philosoft/tmp/bd.py 315;0
+/home/philosoft/bin/vwupd.sh 33;0
+/tmp/awesome-3.4.8/lib/awful/rules.lua.in 108;1
+/home/philosoft/tmp/debs/awesome/lib/awful/rules.lua.in 67;0
+/home/philosoft/tmp/debs/awesome/lib/awful/client.lua.in 851;0
+/home/philosoft/tmp/debs/awesome/luaa.c 730;0
+/home/philosoft/tmp/debs/awesome/luadoc/client.lua 137;0
+/home/philosoft/.xonotic/data/config.cfg 90;30
+/home/philosoft/.nexuiz/data/data/maps/boris_pie.mapinfo 9;17
+/home/philosoft/0byte-read-only/lib/db.inc 74;0
+/tmp/mpd-0.16~alpha2/Makefile 12685;0
+/home/philosoft/fkg4.py 303;0
+/home/philosoft/foreign_kg_4.cpp 365;0
+/home/philosoft/framework.py 164;0
+/home/philosoft/kg.py 82;0
+/home/philosoft/mega_plan.sh 8;0
+/home/philosoft/pgame.py 335;0
+/home/philosoft/pgame_float.py 174;0
+/home/philosoft/Downloads/vimpager 86;0
+/home/philosoft/krnl_cfg 8;28
+/home/philosoft/bin/timer 7;32
+/home/philosoft/bin/change_wallpapers.sh 4;9
+/home/philosoft/bin/brut.py 50;0
+/home/philosoft/bin/backup_zim.sh 88;8
+/home/philosoft/.config/awesome/rc.lua 182;0
+/home/philosoft/tmp/foreign_kg.pas 227;0
+/home/philosoft/fkg4.cpp 168;16
+/home/philosoft/projects/универ/5-й семестр/Оптимизация/4/fall_plot 24;23
+/home/philosoft/projects/универ/5-й семестр/Оптимизация/4/f0_plot 13;0
+/home/philosoft/projects/универ/5-й семестр/Оптимизация/4/f1_plot 12;1
+/home/philosoft/projects/универ/5-й семестр/Оптимизация/4/f_rozenbroka 8;13
+/tmp/gleanor_104/stringoz.pp 138;0
+/home/philosoft/projects/универ/5-й семестр/Оптимизация/2/f_blahblah 7;1
+/home/philosoft/tmp/debs/numlockx/numlockx-1.2/Makefile 658;0
+/home/philosoft/tmp/debs/kbdd/src/kbdd.c 307;0
+/home/philosoft/tmp/debs/kbdd/src/Makefile.am 6;0
+/home/philosoft/tmp/debs/kbdd/configure 1;1
+/home/philosoft/SRoW.txt 15;0
+/tmp/Tutorial.py 54;22
+/home/philosoft/Downloads/tripwire-2.4.2-src.tar.bz2#utar/tripwire-2.4.2-src/src/core/archive.cpp 307;0
+/home/philosoft/Downloads/aide-0.15.1.tar.gz#utar/aide-0.15.1/src/be.c 12;0
+/home/philosoft/Downloads/aide-0.15.1.tar.gz#utar/aide-0.15.1/src/base64.c 326;0
+/home/philosoft/Downloads/aide-0.15.1.tar.gz#utar/aide-0.15.1/src/aide.c 650;0
+/home/philosoft/Dropbox/welinux/№1/новичкам/openoffice/notes.txt 9;12
+/home/philosoft/Dropbox/welinux/№1/новичкам/openoffice/openoffice.txt 14;607
+/home/philosoft/tmp/agilia/tmp/mpkg/mpkgsupport/file_routines.cpp 145;0;3849
+/home/philosoft/tmp/agilia/tmp/mpkg/mpkgsupport/constants.h 26;0;608
+/home/philosoft/projects/research/base64/base64.c 166;0;3316
+/home/philosoft/tmp/mpkg/build_all 24;16;1174
+/home/philosoft/tmp/mpkg/lib/CMakeLists.txt 53;0;1684
+/home/philosoft/tmp/alfs/build_env.sh 46;0;1050
+/var/abs/local/yaourtbuild/hotot-hg/PKGBUILD 31;0;750
+/tmp/1.txt 22;4;1486
+/home/philosoft/.vimrc 2;0;33
+/tmp/csnippets-0.0.9/uclib/integer.h 73;0;1382
+/home/philosoft/tmp/0byte-read-only/_helpers/0byte.sql.bz2 367;0;11459
+/home/philosoft/projects/универ/3-й семестр/Архитектура ЭВМ/lab1.c 45;0;957

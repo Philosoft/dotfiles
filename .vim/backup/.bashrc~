@@ -43,8 +43,7 @@ fi
 # }}}
 
 export PATH="~/bin:$PATH"
-
-export GTK_IM_MODULE='XIM'
+export EDITOR='vim'
 
 # less с цветами {{{
 export LESS_TERMCAP_mb=$'\E[01;31m'
@@ -85,13 +84,17 @@ makespectrums()
 # }}}
 
 # Автозапуск {{{
-if [ -x /usr/games/fortune ]; then
-    fortune
-fi
-if [ -z $DISPLAY ]; then
-  echo "#######################";
-  echo "# Starting X in 1 sec #";
-  echo "#######################";
-  sleep 1 && sudo /etc/init.d/gdm stop ; exec startx
+if [[ -z $DISPLAY ]]; then
+  echo 'Start X [Y/n]? ';
+  read awnser;
+echo "#######################";
+echo "# Starting X in 1 sec #";
+echo "#######################";
+sleep 1 && sudo service gdm stop ; exec startx &> /dev/null;
+  fi
+else
+    if [[ $(command -v fortune) ]]; then
+        fortune;
+    fi
 fi
 # }}}

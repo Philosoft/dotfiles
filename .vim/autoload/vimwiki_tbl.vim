@@ -19,6 +19,12 @@ let s:textwidth = &tw
 
 " Misc functions {{{
 function! s:wide_len(str) "{{{
+  " vim73 has new function that gives correct string width.
+  if exists("*strdisplaywidth")
+    return strdisplaywidth(a:str)
+  endif
+
+  " get str display width in vim ver < 7.2
   if !g:vimwiki_CJK_length
     let ret = strlen(substitute(a:str, '.', 'x', 'g'))
   else
@@ -396,7 +402,7 @@ function! vimwiki_tbl#format(lnum, ...) "{{{
     let row = repeat(' ', indent).row
     call setline(lnum, row)
   endfor
-
+  
   let &tw = s:textwidth
 endfunction "}}}
 
@@ -431,7 +437,7 @@ function! vimwiki_tbl#create(...) "{{{
   for r in range(rows - 1)
     call add(lines, row)
   endfor
-
+  
   call append(line('.'), lines)
 endfunction "}}}
 
@@ -448,7 +454,7 @@ function! vimwiki_tbl#reset_tw(lnum) "{{{
   if !s:is_table(line)
     return
   endif
-
+  
   let s:textwidth = &tw
   let &tw = 0
 endfunction "}}}
@@ -466,7 +472,7 @@ function! vimwiki_tbl#move_column_left() "{{{
   endif
 
   if cur_col > 0
-    call vimwiki_tbl#format(line('.'), cur_col-1, cur_col)
+    call vimwiki_tbl#format(line('.'), cur_col-1, cur_col) 
     call cursor(line('.'), 1)
     if !s:is_separator(getline('.'))
       call search('\%(|[^|]\+\)\{'.(cur_col-1).'}| .', 'eW')
@@ -487,7 +493,7 @@ function! vimwiki_tbl#move_column_right() "{{{
   endif
 
   if cur_col < s:col_count(line('.'))-1
-    call vimwiki_tbl#format(line('.'), cur_col, cur_col+1)
+    call vimwiki_tbl#format(line('.'), cur_col, cur_col+1) 
     call cursor(line('.'), 1)
     if !s:is_separator(getline('.'))
       call search('\%(|[^|]\+\)\{'.(cur_col+1).'}| .', 'eW')

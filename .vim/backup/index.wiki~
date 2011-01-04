@@ -4,11 +4,15 @@
 
 [[The rules of the Internet]]
 
+== На рассмотрение ==
+# etckeeper
+
 == BSFF ==
 word is «стол»
 
+#archlinux-talks@freenode
+
 == Some stuff ==
-  * MyUrgentTasks — things to be done _yesterday_!
   * ProjectGutenberg -- good books r power
   * ScratchPad — various temporary stuff
   * [[Todo]]
@@ -24,8 +28,10 @@ word is «стол»
 ===== Bash programming =====
 see in man bash and /usr/share/doc/bash/examples/ (in pkg bash-doc)
 {{{class="brush: bash" command -v comm # проверить существует ли команда}}}
-
-====== Пройтись по каталогам ======
+[[ Работает быстрее чем [ ибо встроено, но не по позиксу
+цвета кошернее получать через tput setaf
+использовать echo с любыми параметрами не по позиксу (юз притф инстед люк)
+про кошерность искать по слову bashism
 
 ===== Bash shourtcuts =====
   * [[Buil-in]]
@@ -36,8 +42,6 @@ see in man bash and /usr/share/doc/bash/examples/ (in pkg bash-doc)
   * [[tint2]]
   * [[conky]]
   * [[setxkbmap]]
-  * xset
-  * xcompmgr
   * [[vim]]
     * [[vimwiki]]
     * plugins
@@ -61,7 +65,3 @@ see in man bash and /usr/share/doc/bash/examples/ (in pkg bash-doc)
 === C/C++ ===
   * [[String]]
   * [[File]]
-
-=== POSIX ===
-
-== Windows desktop ==

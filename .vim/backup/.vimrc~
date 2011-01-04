@@ -29,7 +29,7 @@ set encoding=utf-8
 set fileencodings=utf-8,cp1251,koi8-r,cp866
 set termencoding=utf-8 
 " Позволяет передвигаться по постым строкам
-set virtualedit=all
+" set virtualedit=all
 "}
 
 filetype on
@@ -61,11 +61,6 @@ set backspace=indent,eol,start
 ""set sidescrolloff=7
 ""set sidescroll=1
 ""}
-
-""set ts=4
-""set sts=4
-""set et
-""set sw=4
 
 "=== Поиск === {
 set incsearch "поиск по мере набора

@@ -4,153 +4,203 @@
 import pygtk
 pygtk.require('2.0')
 import gtk
+import math
 
-class App():
-    def redraw(self, da, event):
+three_d = [[0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0]]
+two_d   = [[0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0]]
+
+one_points = two_points = three_points = military = cabinet = False
+
+class App(gtk.Builder):
+    def __init__(self):
+        super(App, self).__init__()
+        self.add_from_file('gui.ui')
+        self.connect_signals(self)
+        self.window1.show_all()
+        self.da = self.drawingarea1
         self.style = self.da.get_style()
         self.gc = self.style.fg_gc[gtk.STATE_NORMAL]
-        color = self.da.get_colormap().alloc(0, 0xFFFF, 0)
-        self.gc.foreground = color
-        self.draw_line()
+        self.gc.set_function(gtk.gdk.INVERT)
 
-    def draw_line(self):
-        self.da.window.draw_rectangle(self.gc, True, 0, 0, self.da.get_size_request()[0], self.da.get_size_request()[1])
-        points = self.algo((int(self.x1), int(self.y1)), (int(self.x2), int(self.y2)))
-        self.da.window.draw_points(self.gc, points)
+        self.state = False
+
+        gtk.main()
+
+    def __getattr__(self, attr):
+        obj = self.get_object(attr)
+        if not obj:
+            raise AttributeError('ololo')
+        setattr(self, attr, obj)
+        return obj
+
+    def quit(self, widget, event):
+        gtk.main_quit()
+
+    def mil_cb(self, widget):
+        pass
+    def cab_cb(self, widget):
+        pass
+
+    def rb_cb(self, widget):
+        pass
+
+    def draw(self):
+        l = int(self.e_d.get_text())
+        if self.one_rb.get_active():
+            i = 0
+            while i < 8:
+                two_d[i][0] = round(float(three_d[i][0]) / (1 + float(three_d[i][2]) / float(l)))
+                two_d[i][1] = round(float(three_d[i][1]) / (1 + float(three_d[i][2]) / float(l)))
+                i += 1
+        elif self.two_rb.get_active():
+            i = 0
+            while i < 8:
+                two_d[i][0] = round(float(three_d[i][0]) / ((1 + float(three_d[i][0]) / float(l) + float(three_d[i][2]) / float(l))))
+                two_d[i][1] = round(float(three_d[i][1]) / ((1 + float(three_d[i][0]) / float(l) + float(three_d[i][2]) / float(l))))
+                i += 1
+        elif self.three_rb.get_active():
+            i = 0
+            while i < 8:
+                two_d[i][0] = round(float(three_d[i][0]) /
+                                    (1
+                                    + float(three_d[i][0]) / float(l)
+                                    + float(three_d[i][1]) / float(l)
+                                    + float(three_d[i][2]) / float(l)))
+                two_d[i][1] = round(float(three_d[i][1]) /
+                                    (1
+                                    + float(three_d[i][1]) / float(l)
+                                    + float(three_d[i][0]) / float(l)
+                                    + float(three_d[i][2]) / float(l)))
+                i += 1
+        elif self.military_rb.get_active():
+            i = 0
+            while i < 8:
+                two_d[i][0] = round(three_d[i][0] - three_d[i][2]*math.cos(0.785))
+                two_d[i][1] = round(three_d[i][1] - three_d[i][2]*math.sin(0.785))
+                i += 1
+        elif self.cabinet_rb.get_active():
+            i = 0
+            while i < 8:
+                two_d[i][0] = round(three_d[i][0] - three_d[i][2]*0.5*math.cos(0.785))
+                two_d[i][1] = round(three_d[i][1] - three_d[i][2]*0.5*math.sin(0.785))
+                i += 1
+
+        # рисуем
+        self.da.window.draw_rectangle(self.style.bg_gc[gtk.STATE_NORMAL], True, 0, 0, 1000, 1000)
+        for i in [1, 3, 4]:
+            self.da.window.draw_line(self.gc, two_d[0][0], two_d[0][1], two_d[i][0], two_d[i][1])
+        for i in [6, 4]:
+            self.da.window.draw_line(self.gc, two_d[7][0], two_d[7][1], two_d[i][0], two_d[i][1])
+        for i in [1, 4, 6]:
+            self.da.window.draw_line(self.gc, two_d[5][0], two_d[5][1], two_d[i][0], two_d[i][1])
+        for i in [1, 3, 6]:
+            self.da.window.draw_line(self.gc, two_d[2][0], two_d[2][1], two_d[i][0], two_d[i][1])
+        self.da.window.draw_line(self.gc, two_d[3][0], two_d[3][1], two_d[7][0], two_d[7][1])
 
 
-    def get_vals(self, widget):
-        self.x1 = self.e_x1.get_text()
-        self.y1 = self.e_y1.get_text()
-        self.x2 = self.e_x2.get_text()
-        self.y2 = self.e_y2.get_text()
-        self.redraw(self.da, None)
+    def moving(self, widget):
+        (dx, dy, dz) = (int(self.move_x.get_text()), int(self.move_y.get_text()), int(self.move_z.get_text()))
+        i = 0
+        self.draw()
+        while i < 8:
+            three_d[i][0] = three_d[i][0] + dx
+            three_d[i][1] = three_d[i][1] + dy
+            three_d[i][2] = three_d[i][2] + dz
+            i += 1
+        self.draw()
 
-    def algo(self, (x1, y1), (x2, y2)):
-        #инициализация переменных
-        points = []
-        x = x1
-        y = y1
-        Dx = abs(x2 - x1)
-        Dy = abs(y2 - y1)
-        if x2 - x1 == 0:
-            s1 = 0
-        elif x2 > x1:
-            s1 = 1
-        else:
-            s1 = -1
-        if y2 - y1 == 0:
-            s2 = 0
-        elif y2 > y1:
-            s2 = 1
-        else:
-            s2 = -1
-#обмен значений Dx и Dy в зависимости от углового коэффициента наклона отрезка
-        if Dy > Dx:
-            tmp = Dx
-            Dx = Dy
-            Dy = tmp
-            swap = 1
-        else:
-            swap = 0
-#инициализация e с поправкой на половину пиксела
-        e = 2*Dy - Dx
-        #print x, y, Dx, Dy, s1, s2, swap, e
-#основной цикл
-        for i in range(0, Dx + 1):
-            #print '(' + str(x) + '; ' + str(y) + ')'
-            points.append((x, y))
-            while e == 0 or e > 0:
-                if swap == 1:
-                    x = x + s1
-                else:
-                    y = y + s2
-                e = e - 2*Dx
-            if swap == 1:
-                y = y + s2
-            else:
-                x = x + s1
-            e = e + 2*Dy
-        return points
+    def scaling(self, widget):
+        # чтение оотв энтри
+        (Sx, Sy, Sz) = (float(self.scale_x.get_text()), float(self.scale_y.get_text()), float(self.scale_z.get_text()))
+        (dx, dy, dz) = (three_d[0][0], three_d[0][1], three_d[0][2])
+        i = 0
+        self.draw()
+        while i < 8:
+            three_d[i][0] = three_d[i][0] - dx
+            three_d[i][1] = three_d[i][1] - dy
+            three_d[i][2] = three_d[i][2] - dz #{перемещаем точку][ левая верхняя - в начало координат}
 
-    def __init__(self):
-        '''Build up GUI and set up signals'''
-        w = gtk.Window(gtk.WINDOW_TOPLEVEL)
-        w.set_title('Комп графика. Лаба №1')
-        w.connect("delete_event", lambda w,e: gtk.main_quit())
+            three_d[i][0] = three_d[i][0] * Sx
+            three_d[i][1] = three_d[i][1] * Sy
+            three_d[i][2] = three_d[i][2] * Sz  #{масштабируем}
 
-        self.hb1 = gtk.HBox(False, 0)
-        w.add(self.hb1)
-        self.hb1.show()
+            three_d[i][0] = three_d[i][0] + dx
+            three_d[i][1] = three_d[i][1] + dy
+            three_d[i][2] = three_d[i][2] + dz  # {перемещаем обратно}
+            i += 1
+        self.draw()
 
-        self.vb1 = gtk.VBox(False, 0)
-        self.hb1.pack_start(self.vb1, True, True, 0)
-        self.vb1.show()
+    def rotate(self, widget):
+        (alpha_x, alpha_y, alpha_z) = (float(self.rotate_x.get_text()) * 0.0171,
+                                       float(self.rotate_y.get_text()) * 0.0171,
+                                       float(self.rotate_z.get_text()) * 0.0171)
+        (dx, dy, dz) = (three_d[0][0], three_d[0][1], three_d[0][2])
+        (rotate_x, rotate_y, rotate_z) = (self.rx_rb.get_active(), self.ry_rb.get_active(), self.rz_rb.get_active())
+        i = 0
+        self.draw()
+        rotate_x = rotate_z = rotate_y = True
+        while i < 8:
+            three_d[i][0] = three_d[i][0] - dx
+            three_d[i][1] = three_d[i][1] - dy
+            three_d[i][2] = three_d[i][2] - dz  #{в цикле перемещаем фигуру в начало координат}
+            i += 1
+        if rotate_x:
+            i = 0
+            while i < 8:
+                tmp = three_d[i][1]
+                three_d[i][1] = tmp*math.cos(alpha_x) - three_d[i][2]*math.sin(alpha_x)
+                three_d[i][2] = tmp*math.sin(alpha_x) + three_d[i][2]*math.cos(alpha_x)
+                i += 1
+        if rotate_y:
+            i = 0
+            while i < 8:
+                tmp = three_d[i][0]
+                three_d[i][0] = tmp*math.cos(alpha_y) - three_d[i][2]*math.sin(alpha_y)
+                three_d[i][2] = tmp*math.sin(alpha_y) + three_d[i][2]*math.cos(alpha_y)
+                i += 1
+        if rotate_z:
+            i = 0
+            while i < 8:
+                tmp = three_d[i][0]
+                three_d[i][0] = tmp*math.cos(alpha_z) - three_d[i][1]*math.sin(alpha_z)
+                three_d[i][1] = tmp*math.sin(alpha_z) + three_d[i][1]*math.cos(alpha_z)
+                i += 1
+        i = 0
+        while i < 8:
+            three_d[i][0] = three_d[i][0] + dx
+            three_d[i][1] = three_d[i][1] + dy
+            three_d[i][2] = three_d[i][2] + dz  #{перемещаем фигуру обратно на место}
+            i += 1
+        self.draw()
 
-        self.da = gtk.DrawingArea()
-        self.da.set_size_request(400, 300)
-        self.hb1.pack_end(self.da, True, True, 0)
-        self.da.set_events(gtk.gdk.POINTER_MOTION_MASK |
-                           gtk.gdk.POINTER_MOTION_HINT_MASK)
-        self.da.connect("expose-event", self.redraw)
-        self.da.show()
+    def read(self, widget):
+        d = int(self.length.get_text())
+        x = 500 - round(d/2.0)# {тут 365 - середина DrawingArea по иксу][ у тебя свое значение тут будет}
+        y = 200 - round(d/2.0)# {соответсвенно 224 - середина по игрику}
+        three_d[0][0] = x
+        three_d[0][1] = y
+        three_d[0][2] = 0
+        three_d[1][0] = x+d
+        three_d[1][1] = y
+        three_d[1][2] = 0
+        three_d[2][0] = x+d
+        three_d[2][1] = y+d
+        three_d[2][2] = 0
+        three_d[3][0] = x
+        three_d[3][1] = y+d
+        three_d[3][2] = 0
+        three_d[4][0] = x
+        three_d[4][1] = y
+        three_d[4][2] = d
+        three_d[5][0] = x+d
+        three_d[5][1] = y
+        three_d[5][2] = d
+        three_d[6][0] = x+d
+        three_d[6][1] = y+d
+        three_d[6][2] = d
+        three_d[7][0] = x
+        three_d[7][1] = y+d
+        three_d[7][2] = d
+        self.draw()
 
-        self.hb2 = gtk.HBox(False, 5)
-        self.vb1.pack_start(self.hb2, True, True, 0)
-        self.hb2.show()
-
-        self.l_x1 = gtk.Label('x1')
-        self.hb2.pack_start(self.l_x1, True, True, 0)
-        self.l_x1.show()
-
-        self.e_x1 = gtk.Entry()
-        self.e_x1.set_max_length(4)
-        self.hb2.pack_start(self.e_x1, True, True, 0)
-        self.e_x1.show()
-
-        self.l_y1 = gtk.Label('y1')
-        self.hb2.pack_start(self.l_y1, True, True, 0)
-        self.l_y1.show()
-
-        self.e_y1 = gtk.Entry()
-        self.e_y1.set_max_length(4)
-        self.hb2.pack_start(self.e_y1, True, True, 0)
-        self.e_y1.show()
-
-        self.hb3 = gtk.HBox(False, 5)
-        self.vb1.pack_start(self.hb3, True, True, 0)
-        self.hb3.show()
-
-        self.l_x2 = gtk.Label('x2')
-        self.hb3.pack_start(self.l_x2)
-        self.l_x2.show()
-
-        self.e_x2 = gtk.Entry()
-        self.e_x2.set_max_length(4)
-        self.hb3.pack_start(self.e_x2)
-        self.e_x2.show()
-
-        self.l_y2 = gtk.Label('y2')
-        self.hb3.pack_start(self.l_y2, True, True, 0)
-        self.l_y2.show()
-
-        self.e_y2 = gtk.Entry()
-        self.e_y2.set_max_length(4)
-        self.hb3.pack_start(self.e_y2, True, True, 0)
-        self.e_y2.show()
-
-        self.checkbutton = gtk.CheckButton('Antialiasing')
-        self.vb1.pack_start(self.checkbutton, True, True, 0)
-        self.checkbutton.show()
-
-        self.b = gtk.Button('Рисовать')
-        self.b.connect('clicked', self.get_vals)
-        self.vb1.pack_start(self.b, False, False, 0)
-        self.b.show()
-
-        w.show()
-
-if __name__ == '__main__':
-    a = App()
-    a.algo((0, 0), (5, 1))
-    gtk.main()
+a = App()

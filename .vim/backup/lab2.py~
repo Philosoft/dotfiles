@@ -2,155 +2,313 @@
 
 import math
 
+import sys
+from optparse import OptionParser
+
+parser = OptionParser()
+parser.add_option("-x", dest="p0_x", default=0, type="int")
+parser.add_option("-y", dest="p0_y", default=0, type="int")
+parser.add_option("-r", "--rozen", dest="func_flag", action="store_true", default=False)
+parser.add_option("-s", "--simplex", dest="simplex_flag", action="store_true", default=False)
+parser.add_option("-e", dest="e", default=0.001, type="float")
+parser.add_option("-k", dest="k", default=3, type="float")
+(opt, args) = parser.parse_args()
+
 ####### Global definitions #######
 a = 3
 b = 3
 c = 1
 d = 2
-alpha = 15
+alpha = 1
 
-h = 1
-(x0, y0) = (0, 0)
-##################################
+h = opt.e
+(x0, y0) = (opt.p0_x, opt.p0_y)
 
 def f0(x, y):
     return (((x - a)*math.cos(alpha) + (y - b) * math.sin(alpha))**2 / c**2 + ((y - b) * math.cos(alpha) - (x - a) * math.sin(alpha))**2 / d**2 )
 
 def f_rozenbrok(x, y):
     return 100 * (y - x**2)**2 + (1 - x)**2
+##################################
 
-dx = dy = 1
-while dx != 0 or dy != 0:
-### проход по иксу
-    f_x1 = f0(x0, y0)
-    x = x0 + h
-    f_x2 = f0(x, y0)
-    i = 0
-    print("#######", i, "#######")
-    print("x =", x0)
-    print("f_x2 =", f_x2)
-    print("f_x1 =", f_x1)
-    while f_x2 < f_x1:
-        i += 1
-        f_x1 = f_x2
-        x += h
-        f_x2 = f0(x, y0)
+####### Paul's method #######
+def paul(x0, y0, func):
+    dx = dy = 1
+    while dx != 0 or dy != 0:
+        ### проход по иксу
+        f_x1 = func(x0, y0)
+        x = x0 + h
+        f_x2 = func(x, y0)
+        i = 0
+        print("Прямой ход")
         print("#######", i, "#######")
-        print("x =", x)
+        print("x =", x0)
         print("f_x2 =", f_x2)
         print("f_x1 =", f_x1)
-    x -= h
-    print("#################")
-    print("x =", x)
-    print("x_min =", f_x1)
-    dx = x - x0
-    print("dx =", dx)
-
-### проход по игреку
-    f_y1 = f0(x, y0)
-    y = y0 + h
-    f_y2 = f0(x, y)
-    i = 0
-    print("#######", i, "#######")
-    print("y =", y0)
-    print("f_y2 =", f_y2)
-    print("f_y1 =", f_y1)
-    while f_y2 < f_y1:
-        i += 1
-        f_y1 = f_y2
-        y += h
-        f_y2 = f0(x, y)
-        print("#######", i, "#######")
-        print("y =", y)
-        print("f_y2 =", f_y2)
-        print("f_y1 =", f_y1)
-
-    y -= h
-    print("#################")
-    print("y =", y)
-    print("y_min =", f_y1)
-    dy = y - y0
-    print("dy =", dy)
-
-### Прыжки
-    x0 = x
-    y0 = y
-    print("Совершён прыжок в", '(' + str(x0) + ';' + str(y0) + ')')
-
-    f_cur = f0(x0, y0)
-    f_fut = f0(x0 + dx, y0 + dx)
-    while f_fut < f_cur:
-        x0 += dx
-        y0 += dy
-        f_cur = f_fut
-        f_fut = f0(x0, y0)
-        print("Совершён прыжок в", '(' + str(x0) + ';' + str(y0) + ')')
-
-dx = dy = 1
-x0 = 0
-y0 = 0
-while dx != 0 or dy != 0:
-### проход по иксу
-    f_x1 = f_rozenbrok(x0, y0)
-    x = x0 + h
-    f_x2 = f_rozenbrok(x, y0)
-    i = 0
-    print("#######", i, "#######")
-    print("x =", x0)
-    print("f_x2 =", f_x2)
-    print("f_x1 =", f_x1)
-    while f_x2 < f_x1:
-        i += 1
-        f_x1 = f_x2
+        while f_x2 < f_x1:
+            i += 1
+            f_x1 = f_x2
+            x += h
+            f_x2 = func(x, y0)
+            print("####### " + str(i) + " #######")
+            print("x =", x)
+            print("f_x2 =", f_x2)
+            print("f_x1 =", f_x1)
+        i = 0
+        x -= h
+        print("Обратный ход")
+        while f_x2 > f_x1:
+            i += 1
+            f_x2 = f_x1
+            x -= h
+            f_x1 = func(x, y0)
+            print("####### " + str(i) + " #######")
+            print("x =", x)
+            print("f_x2 =", f_x2)
+            print("f_x1 =", f_x1)
         x += h
-        f_x2 = f_rozenbrok(x, y0)
-        print("#######", i, "#######")
+        print("#################")
         print("x =", x)
-        print("f_x2 =", f_x2)
-        print("f_x1 =", f_x1)
-    x -= h
-    print("#################")
-    print("x =", x)
-    print("x_min =", f_x1)
-    dx = x - x0
-    print("dx =", dx)
+        print("x_min =", f_x1)
+        dx = x - x0
+        print("dx =", dx)
 
-### проход по игреку
-    f_y1 = f_rozenbrok(x, y0)
-    y = y0 + h
-    f_y2 = f_rozenbrok(x, y)
-    i = 0
-    print("#######", i, "#######")
-    print("y =", y0)
-    print("f_y2 =", f_y2)
-    print("f_y1 =", f_y1)
-    while f_y2 < f_y1:
-        i += 1
-        f_y1 = f_y2
-        y += h
-        f_y2 = f_rozenbrok(x, y)
-        print("#######", i, "#######")
-        print("y =", y)
+        ### проход по игреку
+        f_y1 = func(x, y0)
+        y = y0 + h
+        f_y2 = func(x, y)
+        i = 0
+        print("Прямой ход")
+        print("####### " + str(i) + " #######")
+        print("y =", y0)
         print("f_y2 =", f_y2)
         print("f_y1 =", f_y1)
+        while f_y2 < f_y1:
+            i += 1
+            f_y1 = f_y2
+            y += h
+            f_y2 = func(x, y)
+            print("####### " + str(i) + " #######")
+            print("y =", y)
+            print("f_y2 =", f_y2)
+            print("f_y1 =", f_y1)
+        i = 0
+        y -= h
+        print("Обратный ход")
+        while f_y2 > f_y1:
+            i += 1
+            f_y2 = f_y1
+            y -= h
+            f_y1 = func(x, y)
+            print("####### " + str(i) + " #######")
+            print("y =", y)
+            print("f_y2 =", f_y2)
+            print("f_y1 =", f_y1)
+        y += h
+        print("#################")
+        print("y =", y)
+        print("y_min =", f_y1)
+        dy = y - y0
+        print("dy =", dy)
 
-    y -= h
-    print("#################")
-    print("y =", y)
-    print("y_min =", f_y1)
-    dy = y - y0
-    print("dy =", dy)
-
-### Прыжки
-    x0 = x
-    y0 = y
-    print("Совершён прыжок в", '(' + str(x0) + ';' + str(y0) + ')')
-
-    f_cur = f_rozenbrok(x0, y0)
-    f_fut = f_rozenbrok(x0 + dx, y0 + dx)
-    while f_fut < f_cur:
-        x0 += dx
-        y0 += dy
-        f_cur = f_fut
-        f_fut = f_rozenbrok(x0, y0)
+        ### Прыжки
+        x0 = x
+        y0 = y
         print("Совершён прыжок в", '(' + str(x0) + ';' + str(y0) + ')')
+
+        f_cur = func(x0, y0)
+        f_fut = func(x0 + dx, y0 + dx)
+        while f_fut < f_cur:
+            x0 += dx
+            y0 += dy
+            f_cur = f_fut
+            f_fut = func(x0, y0)
+            print("Совершён прыжок в", '(' + str(x0) + ';' + str(y0) + ')')
+####### end of Paul's method #######
+
+
+####### Simplex method #######
+def simplex_find_max_point(f1, f2, f3):
+    fmax = f1
+    if f2 > fmax:
+        fmax = f2
+    if f3 > fmax:
+        fmax = f3
+
+    return fmax
+
+def simplex_main(f_0, f_1, f_2, p0, p1, p2, func=f0):
+    print("======= Новая итерация =======")
+    print("| [шаг 3] Определяем вершины")
+    print(" `", p0, p1, p2)
+    print(" |", f_0, f_1, f_2)
+    # определяем вершины
+    fmax = simplex_find_max_point(f_0, f_1, f_2)
+    fh = fmax
+    if fmax == f_0:
+        ph = p0
+        if f_1 > f_2:
+            fg = f_1
+            pg = p1
+            fl = f_2
+            pl = p2
+        else:
+            fg = f_2
+            pg = p2
+            fl = f_1
+            pl = p1
+    elif fmax == f_1:
+        ph = p1
+        if f_0 > f_2:
+            fg = f_0
+            pg = p0
+            fl = f_2
+            pl = p2
+        else:
+            fg = f_2
+            pg = p2
+            fl = f_0
+            pl = p0
+    elif fmax == f_2:
+        ph = p2
+        if f_0 > f_1:
+            fg = f_0
+            pg = p0
+            fl = f_1
+            pl = p1
+        else:
+            fg = f_1
+            pg = p1
+            fl = f_0
+            pl = p0
+    print(" |", ph, pg, pl)
+    print(" |", fh, fg, fl)
+
+
+# определяем центр тяжести
+    print("| [шаг 4] Ищем центр тяжести")
+    if fmax == f_0:
+        pc = [ (p1[0] + p2[0]) / 2, (p1[1] + p2[1]) / 2 ]
+    elif fmax == f_1:
+        pc = [ (p0[0] + p2[0]) / 2, (p0[1] + p2[1]) / 2 ]
+    else:
+        pc = [ (p0[0] + p1[0]) / 2, (p0[1] + p1[1]) / 2 ]
+    fc = func(pc[0], pc[1])
+    print(" ` pc =", pc)
+    print(" | fc =", fc)
+
+# отражение
+    print("| [шаг 5] Отражение")
+    pn = [ (1 + alpha) * pc[0] - alpha * ph[0], (1 + alpha) * pc[1] - alpha * ph[1] ]
+    fn = func(pn[0],  pn[1])
+    print(" ` pn =", pn)
+    print(" | fn =", fn)
+
+# step 6
+    print("| [шаг 6]")
+    if fn < fl:
+        print(" ` [6.1] Растяжение")
+        pr = [ (1 - beta) * pc[0] - beta * pn[0], (1 - beta) * pc[1] - beta * pn[1] ]
+        fr = func(pr[0], pr[1])
+        print(" | pr =", pr)
+        print(" | fr =", fr)
+        if fr < fl:
+            ph = pr
+            fh = fr
+            print(" ` going to step 10")
+            #goto: step 10
+        else:
+            ph = pn
+            print(" ` going to step 10")
+            fh = fn
+            #goto: step 10
+    elif fl <= fn and fn <= fg:
+        print(" ` 6.2")
+        ph = pn
+        fh = fn
+    elif fn > fg:
+        print(" ` 6.3")
+        #goto step 7
+        # step 7 - сжатие
+        print("| [шаг 7] Сжатие")
+        if fn < fh:
+            ps = [ gamma * pn[0] + (1 - gamma) * pc[0], gamma * pn[1] + (1 - gamma) * pc[1] ]
+        else:
+            ps = [ gamma * ph[0] + (1 - gamma) * pc[0], gamma * ph[1] + (1 - gamma) * pc[1] ]
+        fs = func(ps[0], ps[1])
+        print(" ` ps =", ps)
+        print(" | fs =", fs)
+        # step 8
+        print("| [шаг 8]")
+        if fs < fh:
+            print(" ` переносим ph в ps")
+            ph = ps
+            fh = fs
+            #goto step 10
+        else:
+            #goto step 9
+            # step 9 - уменьшение размеров
+            print("| [шаг 9] Уменьшение размеров")
+            print(" ` двигаем pg")
+            pg = [ pg[0] - (pg[0] - pl[0]) / 2, pg[1] - (pg[1] - pl[1]) / 2 ]
+            fg = func(pg[0], pg[1])
+            print("  ` pg =", pg)
+            print("  | fg =", fg)
+            print(" | двигаем ph")
+            ph = [ ph[0] - (pg[0] - pl[0]) / 2, ph[1] - (ph[1] - pl[1]) / 2 ]
+            fh = func(ph[0], ph[1])
+            print("  ` ph =", ph)
+            print("  | fh =", fh)
+
+    print("| [шаг 10]")
+    f = (fh + fg + fl) / 3
+    #sigma = math.sqrt( (fg - f)**2 / 3 + (fl - f)**2 / 3 + (fh - f)**2 / 3 )
+    sigma = math.sqrt( ((fg -f)**2 + (fl - f)**2 + (fh - f)**2) / 3 )
+    print(" ` sigma =", sigma)
+    print(" | ph =", ph)
+    print(" | fh =", fh)
+    if sigma < opt.e:
+        return [False, fh, fg, fl, ph, pg, pl]
+    else:
+        return [True, fh, fg, fl, ph, pg, pl]
+
+length = opt.k
+alpha = 1
+beta = 2
+gamma = 0.5
+e = opt.e
+p0 = [opt.p0_x, opt.p0_y]
+
+# как по методичке
+p1 = [p0[0] + length, p0[1]]
+p2 = [p1[0], p1[1] + length]
+
+if not opt.simplex_flag:
+    if opt.func_flag:
+        paul(opt.p0_x, opt.p0_y, func = f_rozenbrok)
+    else:
+        paul(opt.p0_x, opt.p0_y, func = f0)
+else:
+    if not opt.func_flag:
+        f_0 = f0(p0[0], p0[1])
+        f_1 = f0(p1[0], p1[1])
+        f_2 = f0(p2[0], p2[1])
+
+        flag = True
+        ret_arr = [flag, f_0, f_1, f_2, p0, p1, p2]
+        while flag:
+            flag = ret_arr[0]
+            ret_arr = simplex_main(ret_arr[1], ret_arr[2], ret_arr[3], ret_arr[4], ret_arr[5], ret_arr[6])
+
+        print("Ответ:", ret_arr[4])
+    else:
+        f_0 = f_rozenbrok(p0[0], p0[1])
+        f_1 = f_rozenbrok(p1[0], p1[1])
+        f_2 = f_rozenbrok(p2[0], p2[1])
+        flag = True
+        ret_arr = [flag, f_0, f_1, f_2, p0, p1, p2]
+        while flag:
+            flag = ret_arr[0]
+            ret_arr = simplex_main(ret_arr[1], ret_arr[2], ret_arr[3], ret_arr[4], ret_arr[5], ret_arr[6], func=f_rozenbrok)
+
+        print("Ответ:", ret_arr[4])

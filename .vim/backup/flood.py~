@@ -40,7 +40,8 @@ colours = {
             }
 opts = {'bots': 'bots.txt', 'nick': 'TEST_BOT'}
 
-servs = ['jabber.ru', 'jabber.org', 'xmpp.ru', 'jabber.jp', 'jabber.ua', 'jabber.freenet.de', 'ugatu.net', 'jabber.linux.it', 'nerd.pl', 'sudouser.ru', 'jabber.ukrwest.net',  'wippien.com']
+#servs = ['jabber.ru', 'jabber.org', 'xmpp.ru', 'jabber.jp', 'jabber.ua', 'jabber.freenet.de', 'ugatu.net', 'jabber.linux.it', 'nerd.pl', 'sudouser.ru', 'jabber.ukrwest.net',  'wippien.com']
+servs = ['jabber.ru', 'jabber.jp']
 ####### global definitions end #######
 
 ####### functions start #######
@@ -211,7 +212,9 @@ class Bot:
 
 #target_room = "simpleApps@conference.jabber.ru"
 #target_room = "qvest@conference.jabber.ru"
-target_jid = "ginonfire@jabber.ru"
+#target_jid = "ginonfire@jabber.ru"
+#target_room = "курилка@conference.jabber.ru"
+#target_room = 'sex@conference.jabber.ru'
 i = 0
 
 while i < 30:
@@ -227,9 +230,10 @@ while i < 30:
         print colours['cyan'], "Начали флудить", colours['default']
         j = 0
         while j < 16:
-            time.sleep(2)
+            time.sleep(1)
             print j,
-            bot.msg_send(target_jid, " http://qvest.wen.ru - очень полезный сайт спешите!")#msg_set[random.randrange(0, len(msg_set))])
+           # bot.room_send_msg(target_room, "Все идём конерецыю курилка@conference.jabber.ru все сасут курилка круче всех на!1111 Вы все лохи на!1111 Еби вас конь!!111")#msg_set[random.randrange(0, len(msg_set))])
+            bot.msg_send('ololo', 'thephilosoft@gmail.com')
             bot.helper()
             j += 1
         bot.stop()
