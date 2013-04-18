@@ -1,14 +1,53 @@
+"=== Vundle === {
+set nocompatible
+filetype off
+set rtp+=~/.vim/vundle.git/
+call vundle#rc()
+
+" == bundles == {
+	" = examples {
+	" original repos on github
+	" Bundle 'tpop/vim-fugitive'
+	" vim-script repos
+	" Bundle 'FuzzyFinder'
+	" non git-hub repos
+	" Bundle 'git://git.blah.com/lol.git
+	" }
+Bundle 'FuzzyFinder'
+Bundle 'python.vim'
+Bundle 'vimwiki'
+Bundle 'L9'
+Bundle 'zencoding-vim'
+Bundle 'vim-scripts/bufexplorer.zip'
+
+Bundle 'scrooloose/nerdtree'
+Bundle 'scrooloose/nerdcommenter'
+Bundle 'tmhedberg/matchit'
+Bundle 'tpope/vim-surround'
+Bundle 'weierophinney/paster.vim'
+Bundle 'majutsushi/tagbar'
+"Bundle 'fholgado/minibufexpl.vim'
+Bundle 'sjl/gundo.vim'
+
+Bundle 'altercation/vim-colors-solarized'
+Bundle 'tomasr/molokai'
+" }
+
+filetype plugin indent on
+"}
 "=== Внешний вид === {
 set nu
 syn on
-set foldenable
-set fdm=indent
-set foldopen=block,insert,jump,mark,percent,quickfix,search,tag,undo
+"set foldenable
+"set fdm=indent
+"set foldopen=block,insert,jump,mark,percent,quickfix,search,tag,undo
 
 "Разный фон для gui и консоли   
+let g:molokai_original=1
+colorscheme molokai
 if has("gui_running")
-    set bg=light
-    colorscheme desert
+    set guioptions-=m
+    set guioptions-=T
 else
     set bg=dark
 endif
@@ -43,17 +82,31 @@ let g:session_dir='~/.vim/sessions/'
 ""}
 
 ""=== Оступы === {
-set shiftwidth=4
-set softtabstop=4
 set tabstop=4
+set softtabstop=0
+set shiftwidth=4
 set smarttab
-set expandtab
+"set expandtab
 set shiftround
 set ai
 set smartindent
+inoremap # X#
 "backspace стирает отступ и перевод строки
 set backspace=indent,eol,start
+"Shortcut to rapidly toggle `set list`
+nmap <leader>l :set list!<CR>
+" Use the same symbols as TextMate for tabstops and EOLs
+set listchars=tab:▸·,eol:¬
+set list
+set showbreak=↪
 ""}
+
+" включает поддержку строк вида vim:st=2‥
+set modeline
+
+" переключение между буферами
+nmap <c-p> :bp<CR>
+nmap <c-n> :bn<CR>
 
 ""=== Прокрутка === {
 ""set scrolloff=7
@@ -82,16 +135,15 @@ set showmode
 set statusline=%<%f%h%m
 set statusline+=%#Error#%r%*%=
 set statusline+=\ type=%Y
-set statusline+=\ format=%{&fileformat}
-set statusline+=\ file=%{&fileencoding}
-set statusline+=\ enc=%{&encoding}
-set statusline+=\ %b\ 0x%B\ %l,%c%V\ %P
+set statusline+=\ Line:\ %l/%L 
 set wildmenu                " использовать wildmenu ...
 set wildcharm=<TAB>         " ... с авто-дополнением
 set cmdheight=2             " Command line height 2 
 "}
 
 set sessionoptions-=blank "Не сохранять пустые окна
+
+nmap <leader>\ :nohl<cr>
 
 "Изменяемые размеры окон
 set modifiable
@@ -117,4 +169,57 @@ let python_highlight_all=1
 set grepprg=grep\ -nH\ $*
 "let g:tex_flavor='latex'
 "set iskeyword+=:
+
 "}}}
+
+
+" {{{ nmapings
+nmap р h
+nmap о j
+nmap л k
+nmap д l
+
+nmap ц w
+nmap Ц W
+nmap и b
+nmap И b
+nmap а f
+nmap А F
+
+nmap щ o
+nmap Щ O
+
+nmap Ж :
+
+nmap т n
+nmap Т N
+" }}}
+
+" {{{
+imap <C-ц> <C-w>
+" }}}
+
+function! ToggleNumbering()
+	if(&relativenumber == 1)
+		set number
+	else
+		set relativenumber
+	endif
+endfunc
+
+nnoremap <leader>r :call ToggleNumbering()<CR>
+" tagbar {
+let g:tagbar_left=1
+nnoremap <silent> <F9> :TagbarToggle<CR>
+" }
+
+nnoremap <F5> :GundoToggle<CR>
+" NERDTree {
+map <F2> :NERDTreeToggle<CR>
+" }
+"
+" commands {
+
+"command Thtml :%!tidy -q -i --show-errors 0 "Tidy up hmtl in current buffer
+
+" }
