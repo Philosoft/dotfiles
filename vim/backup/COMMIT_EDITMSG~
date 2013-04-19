@@ -335,6 +335,7 @@
 #	deleted:    .xinitrc
 #	deleted:    .xscreensaver
 #	deleted:    .xxkbrc
+#	modified:   vim/backup/COMMIT_EDITMSG~
 #
 # Changes not staged for commit:
 #   (use "git add <file>..." to update what will be committed)

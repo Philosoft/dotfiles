@@ -13,7 +13,6 @@ call vundle#rc()
 	" non git-hub repos
 	" Bundle 'git://git.blah.com/lol.git
 	" }
-Bundle 'FuzzyFinder'
 Bundle 'python.vim'
 Bundle 'vimwiki'
 Bundle 'L9'
@@ -26,8 +25,11 @@ Bundle 'tmhedberg/matchit'
 Bundle 'tpope/vim-surround'
 Bundle 'weierophinney/paster.vim'
 Bundle 'majutsushi/tagbar'
-"Bundle 'fholgado/minibufexpl.vim'
 Bundle 'sjl/gundo.vim'
+Bundle 'nathanaelkane/vim-indent-guides'
+Bundle 'kien/rainbow_parentheses.vim'
+Bundle 'kien/ctrlp.vim'
+Bundle 'tomtom/tcomment_vim'
 
 Bundle 'altercation/vim-colors-solarized'
 Bundle 'tomasr/molokai'
