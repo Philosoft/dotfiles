@@ -40,7 +40,7 @@ filetype plugin indent on
 "=== Внешний вид === {
 set nu
 syn on
-"set foldenable
+set foldenable
 "set fdm=indent
 "set foldopen=block,insert,jump,mark,percent,quickfix,search,tag,undo
 
@@ -84,11 +84,11 @@ let g:session_dir='~/.vim/sessions/'
 ""}
 
 ""=== Оступы === {
-set tabstop=4
-set softtabstop=0
-set shiftwidth=4
+set tabstop=2
+set softtabstop=2
+set shiftwidth=2
 set smarttab
-"set expandtab
+set expandtab
 set shiftround
 set ai
 set smartindent
@@ -155,23 +155,10 @@ map ц W
 "}}}
 
 "=== Плагины === {{{
-"vimwiki
-let wiki = {}
-let wiki.nested_syntaxes = {'python': 'python', 'c++': 'cpp', 'sh': 'sh', 'xml': 'xml', 'vim': 'vim', 'c': 'c', 'config': 'config', 'lua': 'lua'}
-let g:vimwiki_list = [wiki]
-let g:vimwiki_list = [{'html_header': '~/vimwiki_html/syntax_hl/header.tpl'}]
-let g:vimwiki_list = [{'path_html': '~/vimwiki_html'}]
-
 " Python.vim
 let python_highlight_all=1
 
 "autocmd FileType python set omnifunc=pythoncomplete#Complete
-
-"latex-suite
-set grepprg=grep\ -nH\ $*
-"let g:tex_flavor='latex'
-"set iskeyword+=:
-
 "}}}
 
 
