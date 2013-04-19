@@ -1,8 +1,0 @@
-Как создать iso-образ
-user@machine:~/img$ genisoimage -iso-level 3 -J -joliet-long -R -v -o imagename.iso /dir
-• -iso-level 3 обеспечивает длинные имена файлов
-• -J Joliet
-• -joliet-long длинющие имена в этой системе
-• -R  Rock Ridge (нужно для нормального чтения диска под windows)
-• -o имя образа
-• -v verbose
