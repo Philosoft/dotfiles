@@ -1,0 +1,7 @@
+#!/bin/bash
+
+if [[ -z $1 ]]; then
+    exit 1
+fi
+
+mencoder "$1" -o "${1}.avi" -vf scale=-1:presize=ntsc -oac mp3lame -lameopts preset=standard -ovc lavc -lavcopts vcodec=mpeg4:trell:v4mv:mbd=2:cbp:mv0:qprd:qns=3

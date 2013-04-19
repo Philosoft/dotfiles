@@ -1,0 +1,39 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+int main(int argc, char** argv)
+{
+	int a = -1, b = -1;
+	int fail_counter = -1;
+	char str_a[5], str_b[5];
+
+	while( (fail_counter < 3) &&  (a < 0 || a > 9999 ) )
+	{
+		printf("Введите 1е число: ");
+		fail_counter++;
+		scanf("%i", &a);
+	}
+	if(fail_counter == 3)
+	{
+		printf("Нет, ну сколько можно? Я умываю руки!\n");
+		exit(EXIT_FAILURE);
+	}
+
+	fail_counter = -1;
+
+	while( (fail_counter < 3) && (b < 0 || b > 9999))
+	{
+		printf("Введите 2е число: ");
+		fail_counter++;
+		scanf("%i", &b);
+	}
+	if(fail_counter == 3)
+	{
+		printf("Нет, ну сколько можно? Я умываю руки!\n");
+		exit(EXIT_FAILURE);
+	}
+
+	printf("a = %i\nb = %i\n", a, b);
+	
+	exit(EXIT_SUCCESS);
+}

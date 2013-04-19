@@ -1,0 +1,105 @@
+#!/bin/bash 
+
+# TODO
+# 1. Replace icon_* vars defs with array
+# 2. Ignore myself msgs in MUC
+# 3. Some sounds?
+# 4. Unread events
+
+#############
+# Variables #
+#############
+icons_dir='/home/philosoft/.config/awesome/naughtyicons/'
+icon_avail=$icons_dir'available.png'
+icon_away=$icons_dir'away.png'
+icon_na=$icons_dir'extended-away.png'
+icon_off=$icons_dir'offline.png'
+icon_dnd=$icons_dir'dnd.png'
+icon_invis=$icons_dir'invisible.png'
+
+# $1 is type of event ["MSG", "STATUS", "UNREAD" ]
+  # if $1 == "MSG"
+    # $2 is direction [ "IN", "MUC", "OUT" ]
+    # if $2 == "IN"
+      # $3 is jid
+    # if $2 == "MUC"
+      # $3 is jid (of conference)
+
+    # if $2 == "IN" or "MUC"
+      # $4 is a name of file with msg
+
+    # if $2 == "OUT"
+      # $4 is empty
+
+event_type=$1
+jid=$3
+msg_file=$4
+
+#############
+# Functions #
+#############
+
+#@function notify
+#@description: shows notifies with naughty
+#@usage: notify title text icon
+function notify()
+{
+  echo "naughty.notify{ title = '$1', text = '$2', icon = '$3' }" | awesome-client
+}
+
+if [ $event_type =  "MSG" ]; then
+  case "$2" in
+    IN)
+      if [ -n "$msg_file" -a -f "$msg_file" ]; then
+        message=`cat $msg_file`
+        beep -f 500 &
+        notify $jid $message
+        rm $msg_file
+      fi
+      ;;
+    MUC)
+      if [ -n "$msg_file" -a -f "$msg_file" ]; then
+        message=`cat $msg_file`
+        notify $jid "MSG: $message"
+        rm $msg_file
+      fi
+      ;;
+  esac
+elif [ $event_type = "STATUS" ]; then
+  case "$2" in
+    '_')
+      msg="Отключен"
+      icon=$icon_off
+     ;;
+    'O')
+      msg="Онлайн"
+      icon=$icon_avail
+     ;;
+    'F')
+      echo "naughty.notify({title = '$3', text = 'is chatty.'})" | awesome-client
+     ;;
+    'A')
+      msg="Отошёл"
+      icon=$icon_away
+     ;;
+    'N')
+      msg="Недоступен"
+      icon=$icon_na
+     ;;
+    'D')
+      msg='does not want to be disturbed.'
+      icon=$icon_dnd
+     ;;
+    'I')
+      msg="Невидим"
+      icon=$icon_invis
+     ;;
+    '?')
+      echo "naughty.notify({title = 'ERROR', text = 'Something broke.'})" | awesome-client
+     ;;
+    'X')
+      msg="has a request."
+     ;;
+  esac
+  notify $jid $msg $icon
+fi

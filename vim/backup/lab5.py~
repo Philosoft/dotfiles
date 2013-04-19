@@ -1,0 +1,75 @@
+# -*-  coding: utf-8 -*-
+
+from math import cos
+
+# Constants {
+a = 0.013
+d_x = 0.1
+tmax = 100.0
+X = 1.0
+d_t = 0.5 * d_x**2
+# }
+
+def fi(x):
+    return 25 - 2 * (x + 1)**2
+
+#FIXME radians?
+def f1(t):
+    return t + 5 * cos(t) + 18
+
+def f2(t):
+    return 17 + 0.15 * t
+
+T = []
+f_len = int(round(tmax / d_t) + 2)
+s_len = int(round(X / d_x) + 2)
+for i in range(f_len):
+    T.append([])
+for i in range(f_len):
+    for j in range(s_len):
+        T[i].append(0.0)
+
+c = 0
+i = 0.0
+while i < X + 0.00001:
+    T[0][c] = fi(i)
+    c += 1
+    i = round(i * 1000) / 1000.0
+    i += d_x
+
+c = 0
+i = 0.0
+while i < tmax + d_t:
+    T[c][0] = f1(i)
+    c += 1
+    i += d_t
+
+c = 0
+i = 0.0
+while i < tmax + d_t:
+    T[c][int(X/d_x)] = f2(i)
+    c += 1
+    i = round(i * 1000) / 1000.0
+    i += d_t
+
+k = 1
+j = d_t
+while j < tmax:
+    c = 1
+    i = d_x
+    while i < X:
+        T[k][c] = a * d_t / (d_x**2) * (T[k-1][c+1] - 2.0 * T[k-1][c] + T[k-1][c-1]) + T[k-1][c]
+        #print 't =', round(j * 1000) / 1000.0, 'l =', round(i * 1000) / 1000.0, 'T =', round(T[k][c] * 1000) / 1000.0
+        c += 1
+        i = round(i * 1000) / 1000.0
+        i += d_x
+    k += 1
+    j += d_t
+
+i = 0
+while i < round(tmax / d_t) + 1:
+    j = 0
+    while j < round(X / d_x) + 1:
+        print i * d_t, j * d_x, T[i][j]
+        j += 1
+    i += 1

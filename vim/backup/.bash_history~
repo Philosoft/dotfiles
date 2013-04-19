@@ -1,0 +1,2818 @@
+
+#1329104974
+echo '' > .bash_history 
+#1329108383
+htop
+#1329071565
+mocp
+#1329156145
+cmus
+#1329158705
+mocp
+#1329233451
+mkdir canvas
+#1329233457
+mv canvas.html canvas
+#1329233468
+ln -sT canvas/canvas.html canvas.html
+#1329233471
+cd canvas/
+#1329233474
+git init
+#1329233480
+git add canvas.html
+#1329234292
+mv ../app.js ./
+#1329234316
+git add *js
+#1329234319
+git status
+#1329234338
+git commit -m 'Initial commit'
+#1329234348
+git branch libcanvas-tutor
+#1329234352
+git branch
+#1329234357
+git branch 00help
+#1329234362
+git branch --help
+#1329234397
+git branch
+#1329234405
+git branch 00help rm
+#1329234408
+git branch rm 00help 
+#1329234412
+git branch 
+#1329234422
+git branch --help
+#1329234432
+git branch -d 00help
+#1329234434
+git branch -d rm
+#1329234437
+git branch
+#1329234445
+git checkout libcanvas-tutor
+#1329234449
+git branch
+#1329234452
+git status
+#1329234461
+git branch master
+#1329234467
+git checkout master
+#1329234475
+git add canvas.html
+#1329234489
+git commit -m 'complete form of html-file'
+#1329234499
+git checkout libcanvas-tutor
+#1329234563
+ls -lh ../canvas*
+#1329235099
+rm ../canvas.html 
+#1329239686
+git add *
+#1329239689
+git commit
+#1329241003
+cd /tmp
+#1329241119
+gnuplot --version
+#1329241007
+vim plot
+#1329241193
+gnuplot -p plot
+#1329241197
+vim plot
+#1329241204
+gnuplot -p plot
+#1329243671
+evince out.ps 
+#1329243683
+ls -lh out.ps 
+#1329243689
+cp out.ps Dropbox/
+#1329243266
+gnuplot
+#1329244582
+pacman-color -Ss cups-pdf
+#1329244524
+evince даша.ps 
+#1329244622
+cp даша.ps Dropbox/Public/
+#1329244648
+mv Dropbox/Public/{даша.ps,Даша.ps}
+#1329244659
+mv Dropbox/Public/{Даша.ps,out.ps}
+#1329244674
+get_drop_link.sh Dropbox/Public/out.ps 
+#1329245225
+cat .bash_aliases 
+#1329245757
+evince d.pdf 
+#1329245765
+file d.pdf 
+#1329229397
+cmus
+#1329244601
+yaourt -S cups-pdf
+#1329247409
+ls /usr/share/zsh/
+#1329247410
+ls /usr/share/zsh/functions/
+#1329247415
+ls /usr/share/zsh/functions/Prompts/
+#1329247425
+source /usr/share/zsh/functions/Prompts/prompt_adam
+#1329247482
+zsh
+#1329247429
+zsh
+#1329248071
+cd Downloads/
+#1329248079
+ls *torrent
+#1329248082
+rm *torrent
+#1329248086
+mv surround.zip /tmp
+#1329248088
+cd /tmp
+#1329248090
+unzip surround.zip 
+#1329248102
+mv doc/surround.txt ~/.vim/doc/
+#1329248112
+mv plugin/surround.vim ~/.vim/plugin/
+#1329248114
+vim
+#1329248156
+ls ~/.vim/plugin/
+#1329248161
+ls ~/.vim/plugin/ -lh
+#1329248185
+vim ~/.vim/plugin/surround.vim 
+#1329248232
+vim
+#1329327803
+latex *tex
+#1329327824
+evince *dvi
+#1329327888
+latex *tex
+#1329327916
+cp Dropbox/Public/univer/4й\ курс/7й\ семестр/распределёнка/raspred.tex /tmp
+#1329327919
+cd /tmp
+#1329327923
+latex raspred.tex 
+#1329327946
+yaourt -Ss fontenc
+#1329327966
+yaourt -Ss t2a
+#1329327972
+reset; yaourt -Ss latex
+#1329328016
+yaourt -S latex-extra
+#1329328049
+pacman -S latexe
+#1329328052
+pacman -Ss latexe
+#1329328061
+yaourt -S texlive-latexextra
+#1329328127
+evince Dropbox/Public/univer/4й\ курс/7й\ семестр/распределёнка/rasdvi
+#1329328138
+evince Dropbox/Public/univer/4й\ курс/7й\ семестр/распределёнка/raspred.dvi 
+#1329328170
+evince Dropbox/Public/univer/4й\ курс/7й\ семестр/распределёнка/raspred.pdf
+#1329328594
+latex *tex
+#1329328642
+yaourt -Ss latexcyr
+#1329328667
+yaourt -Ss langcyr
+#1329328676
+yaourt -S texlive-langcyrillic
+#1329328686
+latex *tex
+#1329328700
+evince *dvi
+#1329328908
+latex *tex && evince *dvi
+#1329329331
+yaourt -Ss weird
+#1329329341
+yaourt -Ss queer
+#1329329371
+latex *tex && evince *dvi
+#1329414621
+cd canvas/
+#1329414624
+latex *tex && evince *dvi
+#1329415419
+pid=$(pgrep luakit) ; movs=$(ls -lh /proc/$pid/fd | grep Flash) ; echo $movs
+#1329415431
+pid=$(pgrep luakit) ; movs=$(ls -lh /proc/$pid/fd | grep -i flash) ; 
+#1329415434
+pid=$(pgrep luakit) ; movs=$(ls -lh /proc/$pid/fd | grep -i flash) ; echo $movs
+#1329415440
+pgrep luakit
+#1329415481
+pid=$(pgrep luakit) ; movs=$(ls -lh /proc/$pid/fd | grep Flash | cut -f 10) ;  echo $movs
+#1329415488
+pid=$(pgrep luakit) ; movs=$(ls -lh /proc/$pid/fd | grep Flash | cut -f 10 -d' ') ;  echo $movs
+#1329415493
+pid=$(pgrep luakit) ; movs=$(ls -lh /proc/$pid/fd | grep Flash | cut -f 9 -d' ') ;  echo $movs
+#1329415530
+pid=$(pgrep luakit) ; movs=$(ls -lh /proc/$pid/fd | grep Flash | cut -f 9 -d' ') ;  for i in "$movs" ; do mplayer /proc/$pid/fd/$i ; done
+#1329415554
+pid=$(pgrep luakit) ; movs=$(ls -lh /proc/$pid/fd | grep Flash | cut -f 9 -d' ') ;  for i in $movs ; do mplayer /proc/$pid/fd/$i ; done
+#1329415374
+vim .bashrc
+#1329416033
+. .bashrc
+#1329416039
+luakit_flash_watch 
+#1329417377
+pid=$(pgrep luakit) ; movs=$(ls -lh /proc/$pid/fd | grep Flash | cut -f 9 -d' ') ;  for i in "$movs" ; do mplayer /proc/$pid/fd/$i ; done
+#1329417389
+pid=$(pgrep luakit) ; movs=$(ls -lh /proc/$pid/fd | grep Flash | cut -f 9 -d' ') ;  for i in $movs ; do mplayer /proc/$pid/fd/$i ; done
+#1329418156
+vifm
+#1329418970
+mocp
+#1329488920
+cmus
+#1329490354
+wathcflash.sh 
+#1329491478
+reset; latex *tex && evince *dvi
+#1329498715
+yaourt -Ss pygame
+#1329500566
+mc
+#1329502549
+mc
+#1329502658
+cd ..
+#1329502664
+cd tmp
+#1329502667
+mkdir pygame
+#1329502669
+cd pygame
+#1329502983
+chmod +x ./test.py 
+#1329502988
+./test.py 
+#1329502995
+python2 ./test.py 
+#1329503885
+python2
+#1329504086
+p
+#1329504088
+python2 ./test.py 
+#1329504914
+python2
+#1329505367
+python2 ./test.py 
+#1329511306
+rm Downloads/1.3.2.pdf 
+#1329546991
+mc
+#1329547309
+pumount sdb1
+#1328728882
+mc
+#1329488927
+mocp
+#1329548745
+yaourt -Su
+#1329549036
+sip 
+#1329549040
+sip --help
+#1329549044
+man sip 
+#1329549050
+sip -h
+#1329549068
+sip -V
+#1329549151
+mc
+#1329549180
+yaourt -Sua
+#1329549646
+yaourt -S nvidia-utils-bumblebee
+#1329552752
+vncconnect 192.168.1.1
+#1329552754
+vncconnect 192.168.1.2
+#1329552758
+vncviewr 192.168.1.2
+#1329552762
+vncviewer 192.168.1.2
+#1329553459
+zsh
+#1329577538
+feh Downloads/*png
+#1329583942
+wget http://upload.wikimedia.org/wikipedia/commons/6/62/%D0%94%D0%B5%D0%BC%D0%BE%D0%BD%D1%82%D0%B0%D0%B6_%D1%80%D0%B5%D0%BB%D1%8C%D1%81_%28%D0%92%D0%BE%D1%80%D0%BE%D0%BD%D0%B5%D0%B6%29.ogv
+#1329585314
+zsh
+#1329583417
+man mencoder
+#1329585829
+mc
+#1329585911
+mv 01-Allegro.mp3 test.wav
+#1329585977
+mv test.wav test.mp3 ; ffmpeg -i test.mp3 -o test.wav
+#1329585992
+ffmpeg -i test.mp3 test.wav
+#1329586000
+file test.wav 
+#1329585939
+man ffmpeg
+#1329576276
+cmus
+#1329590825
+thunar --help
+#1329590608
+yaourt -Syua
+#1329592152
+yaourt -Rdcc nvidia-bumblebee
+#1329592257
+yaourt -Syua
+#1329594005
+pacman -Ss nvidia
+#1329594010
+pacman -Ss nvidia-ut
+#1329593928
+sudo -s
+#1329594037
+yaourt -S nvidia-bumblebee
+#1329596631
+glxspheres 
+#1329596561
+sudo -s
+#1329576745
+mc
+#1329597873
+optirun glxspheres 
+#1329597891
+su
+#1329597918
+optirun glxspheres 
+#1329597931
+optirun glxgears
+#1329597944
+cd tmp/xonotic/
+#1329597953
+cd Xonotic/
+#1329597966
+optirun ./xonotic-linux64-glx
+#1329598328
+htop
+#1329598413
+yaourt -Ss gnuconc
+#1329598419
+yaourt -Ss gnuco
+#1329598422
+yaourt -Ss gnuc
+#1329598536
+command -v gnuconcept
+#1329598548
+pkgfile $(command -v gnuconcept)
+#1329598561
+pkgfile --help
+#1329598589
+pkgfile $(command -v gnuconcept) -vs
+#1329598593
+pkgfile $(command -v gnuconcept) -vi
+#1329598597
+pkgfile $(command -v gnuconcept) -vu
+#1329598599
+su
+#1329598884
+df
+#1329598892
+yaourt -S gnucach
+#1329598902
+yaourt -S gnucash
+#1329598982
+gnucash
+#1329599575
+rtorrent
+#1329599587
+ls -a
+#1329599606
+ncdu
+#1329599649
+ls .nv
+#1329599658
+du -sh .thumbnails/
+#1329599680
+yaourt -Ss cgoban
+#1329599720
+yaourt -Ss nautilus
+#1329599732
+yaourt -Ss macos
+#1329601969
+cat ../resluts 
+#1329602004
+ls music_collection/
+#1329602006
+ls music_collection/*
+#1329602009
+ls music_collection/*/*
+#1329602047
+ls /usr/bin/
+#1329602061
+ls /usr/bin/sudo -lh
+#1329602089
+fftw-wisdom
+#1329602093
+fftw-wisdom --help
+#1329602149
+man fftw-wisdom
+#1329602137
+fftw-wisdom -cv
+#1329601665
+yaourt -Ss catalog
+#1329601762
+yaourt -Ss earth
+#1329601849
+yaourt -Ss minecraft
+#1329601876
+yaourt -S minetest
+#1329602600
+minetest
+#1329599818
+mc
+#1329627392
+vim /etc/xdg/awesome/rc.lua 
+#1329628396
+vim .rtorrent.rc
+#1329628417
+cp /usr/share/doc/rtorrent/rtorrent.rc ./.rtorrent.rc
+#1329628490
+mkdir .rtorrent
+#1329628502
+mkdir .rtorrent/session
+#1329628505
+mkdir .rtorrent/torrents
+#1329628780
+mv Downloads/Castle.S04E15.rus.LostFilm.TV.torrent .rtorrent/torrents/
+#1329628782
+rtorrent
+#1329628420
+vim .rtorrent.rc
+#1329629966
+cd tmp/pygame/
+#1329629968
+python2 test
+#1329629970
+python2 test.py 
+#1329634599
+echo noop | sudo tee /sys/block/sdb/queue/scheduler 
+#1329639337
+zsh
+#1329633373
+mocp
+#1329668189
+cd tmp/pygame/
+#1329668193
+python2 test.py 
+#1329668257
+python2
+#1329668303
+python2 test.py 
+#1329668459
+python2
+#1329668527
+python2 test.py 
+#1329672750
+man yaourt
+#1329672797
+man yaourtrc
+#1329662561
+cmus
+#1329677178
+ssh 192.168.1.2
+#1329674201
+mocp
+#1329752527
+pacman-color -Ss pygame
+#1329754704
+python2
+#1329755050
+python2 test.py 
+#1329755355
+reset; python2 test.py 
+#1329755464
+python
+#1329755467
+python2
+#1329755575
+reset; python2 test.py 
+#1329757284
+python2
+#1329757432
+PAGER=less python2 test.py 
+#1329757518
+reset; python2 test.py 
+#1329759629
+cd Dropbox/Public/univer/4й\ курс/8й\ семестр/Геометрическое\ моделирование/Лекции/
+#1329759638
+latex Геометрическое\ моделирование.tex && evince *dvi
+#1329759697
+cp test.py hermit.py
+#1329759781
+python2 hermit.py 
+#1329760155
+python2
+#1329761411
+cd tmp/pygame/
+#1329761415
+python2 test.py 
+#1329762066
+python2
+#1329763153
+reset; python2 hermit.py 
+#1329751619
+cmus
+#1329837614
+pacman -S dvi2pdf
+#1329837618
+pacman -Ss dvi2pdf
+#1329837621
+pacman -Ss dvi2
+#1329837623
+pacman -Ss dvito
+#1329837627
+yaourt -Ss dvi2
+#1329837632
+yaourt -Ss dvito
+#1329837653
+dvipdf Геометрическое\ моделирование.dvi 
+#1329837662
+zathura  Геометрическое\ моделирование.pdf 
+#1329838339
+ln -sT /home/philosoft/Dropbox/Public/univer/4й\ курс/8й\ семестр/ univer
+#1329838345
+ls -lh | grep uni
+#1329844347
+grep lines test.py 
+#1329844369
+reset; python2 hermit.py 
+#1329849475
+latex Геометрическое\ моделирование.tex && evince *dvi
+#1329849490
+dvipdf Геометрическое\ моделирование.dvi 
+#1329766156
+python2
+#1329926685
+python2 shtraf.py 
+#1329927934
+gnuplot
+#1329928308
+python2 shtraf.py 
+#1329930296
+python2
+#1329930323
+python2 litovka.py 
+#1329930467
+python2 litovka.py > /tmp/t
+#1329930541
+head /tmp/t
+#1329930548
+gnuplot
+#1329930632
+wc -l /tmp/t
+#1329930681
+head /tmp/t1
+#1329930687
+python2 litovka.py > /tmp/t1
+#1329930691
+gnuplot
+#1329930780
+python2 litovka.py > /tmp/t2
+#1329930782
+gnuplot
+#1329930817
+python2 litovka.py > /tmp/t2
+#1329930822
+gnuplot
+#1329931830
+python2
+#1329931889
+glade-3 
+#1329932121
+python2 litovka.py 
+#1329932280
+python2 litovka.py  > /tmp/t
+#1329932368
+python2 litovka.py > /tmp/t
+#1329932488
+glade-3 litovka.ui 
+#1329932508
+python2 litovka.py > /tmp/t
+#1329932584
+less /tmp/t
+#1329932605
+python2 litovka.py 
+#1329933640
+reset; python2 litovka.py 
+#1329974665
+mocp
+#1329986158
+python2 tmp/pygame/hermit.py 
+#1329932291
+gnuplot
+#1330011293
+python2
+#1330012567
+python2 litovka.py 
+#1330014631
+python2
+#1330014730
+python2 litovka.py  | head -n 500
+#1330014957
+python2 litovka.py  
+#1330015892
+pid=$(pgrep luakit) ; movs=$(ls -lh /proc/$pid/fd | grep Flash | cut -f 9 -d' ') ;  for i in $movs ; do mplayer /proc/$pid/fd/$i ; done
+#1330016133
+python2 ready_lit.py 
+#1330016603
+reset; python2 ready_lit.py 
+#1330016994
+python2
+#1330017139
+htop
+#1330017227
+LC_ALL='en_US.UTF_8' reset; python2 ready_lit.py 
+#1330017353
+python2 lab6_from_j.py 
+#1329981117
+cmus
+#1330022627
+bc -l
+#1330022684
+python2 lab6_from_j.py 
+#1330025652
+zsh --help
+#1330025673
+mzn zsh
+#1330025676
+man zsh
+#1330025698
+mv .zshrc .zshrc_real
+#1330025704
+mv buggy .zshrc
+#1330025745
+zsh
+#1330026196
+for i in Видео Фото Общедоступные Музыка Книги Игры Картинки Загрузки Документы install ; do mkdir $i ; done
+#1330026199
+zsh
+#1330026232
+for i in Видео Фото Общедоступные Музыка Книги Игры Картинки Загрузки Документы install ; do mv $i тест ; done
+#1330026327
+unset (
+#1330026329
+set
+#1330026335
+export
+#1330026347
+export set
+#1330026349
+set
+#1330026360
+zsh
+#1330026234
+zsh
+#1330026412
+zsh --version
+#1330057031
+rm .zshrc
+#1330057042
+mv .zshrc{_real,}
+#1330057044
+zsh
+#1330096628
+ls тест
+#1330096631
+rm -rf тест
+#1330096640
+cd ~
+#1330097164
+python2 ready_lit.py 
+#1329629143
+FBReader Эко\ -\ Роза\ другого\ имени.fb2
+#1329629278
+chmsee Understanding\ Linux\ Network\ Internals\ \(2005\).chm 
+#1329629588
+thunar ./
+#1329629669
+unzip selfservicelinux.zip
+#1329629692
+unzip selfservicelinux.zip l
+#1329629696
+unzip l selfservicelinux.zip 
+#1329629700
+unzip -t selfservicelinux.zip 
+#1329629706
+unzip -l selfservicelinux.zip 
+#1329629721
+echo ./self*
+#1329629726
+unzip selfservicelinux.zip 
+#1329629745
+unzip ss.zip 
+#1329634563
+pmount sdv1
+#1329634567
+pmount sdb1
+#1329634802
+sync
+#1329636053
+pumount sdb1
+#1329636059
+pmount sdb1
+#1329636072
+md5sum Spartacus.Vengeance.s01e02.rus.LostFilm.TV.avi 
+#1329636320
+pumount sdb1
+#1329639367
+sudo pm-suspend ; sudo swapoff -a ; sudo swapon -a 
+#1329639453
+sudo pm-hibernate ; sudo swapoff -a ; sudo swapon -a 
+#1329662547
+md5sum House.S08E1* Castle.S04E1* Spartacus.Vengeance.s01e0*
+#1329663453
+mv Incomplete/ .Incomplete
+#1329667187
+pmount sdb1
+#1329667192
+ls /dev/sd*
+#1329667209
+pmount sdb1
+#1329667218
+mkdir tmp
+#1329667221
+mv bubble_sort.asm tmp
+#1329667225
+mv phil.asm tmp
+#1329667230
+mv Презентация_01.ppt tmp
+#1329667277
+pumount sdb1
+#1329668954
+yaourt -Syua
+#1329669519
+mv 1997\ Empire\ Of\ Emptiness/ "1997 - Empire of Emptiness"
+#1329669525
+easytag ./
+#1329671037
+evince *dvi
+#1329672526
+mv 1999\ The\ Mirror\ Of\ Ages/ "1999 - The Mirror of Ages"
+#1329672532
+easytag ./
+#1329674829
+md5sum *
+#1329676558
+mv .Incomplete/ Incomplete
+#1329677137
+find . -type f -exec md5sum {} \;
+#1329677157
+find . -type f -exec md5sum {} \; | grep -vi galadriel
+#1329677173
+find . -type f -exec md5sum {} \; | grep -vi galadriel > /tmp/list1
+#1329677257
+ls -lh /tmp/list1 
+#1329677290
+cd /tmp
+#1329677297
+diff -u list{1,2}
+#1329677310
+head list{1,2}
+#1329677324
+sort list1
+#1329677338
+cat list1 | sort > /tmp/list11
+#1329677347
+cat list2 | sort > /tmp/list22
+#1329677355
+diff -u /tmp/list{11,22}
+#1329677368
+rm list{1,11,2,22}
+#1329677376
+zsh
+#1329706614
+pmount sdb1
+#1329706656
+pumount sdb1
+#1329706670
+yaourt -Syua
+#1329706936
+yaourt -Ss android
+#1329708571
+zsh
+#1329754296
+mv test.py lab.py
+#1329754306
+get_drop_link.sh  lab.py 
+#1329760646
+rm lab.py
+#1329760656
+mv test.py lab.py
+#1329760661
+get_drop_link.sh  lab.py 
+#1329761803
+mv test.py lab.py
+#1329761824
+get_drop_link.sh  lab.py 
+#1329761831
+	* [X] ¿¿¿¿¿¿¿¿¿¿¿¿ ¿¿¿¿¿¿ ¿1 (pure html)
+#1329761832
+¿4
+#1329761832
+* [ ] ¿¿¿¿¿¿¿¿¿¿¿¿ ¿¿¿¿¿¿ ¿5
+#1329761832
+* [ ] ¿¿¿¿¿¿¿¿¿¿¿¿ ¿¿¿¿¿¿ ¿6
+#1329761832
+* [ ] ¿¿¿¿¿¿¿¿¿¿¿¿ ¿¿¿¿¿¿ ¿7
+#1329761851
+get_drop_link.sh  lab.py 
+#1329766730
+htop
+#1329766737
+sudo pm-hibernate 
+#1329792245
+htop
+#1329793808
+pmount sdb1
+#1329793845
+pumount /sdb1
+#1329793858
+yaourt -Syua
+#1329794923
+zsh
+#1329837046
+pmount sdb1
+#1329837723
+man mv
+#1329837840
+mount
+#1329837846
+pumount sdb1
+#1329838313
+yaourt -Syua
+#1329840493
+java -jar edsim51.jar
+#1329840951
+mv src materials
+#1329849546
+yaourt -Syua
+#1329852768
+[19~
+#1329854319
+ls ~/.mc
+#1329854326
+vim ~/.mc/history 
+#1329854802
+man vifm
+#1329879707
+pmount sdb1
+#1329879908
+pumount sdv1
+#1329879913
+pumount sdb1
+#1329880958
+mplayer *wmv
+#1329881391
+easytag ./
+#1329881433
+mv 2000\ Oblivion/ "2000 - Oblivion"
+#1329924706
+python opt_lab3.py
+#1329924710
+python2 opt_lab3.py
+#1329924744
+python2 opt_lab4.py
+#1329924906
+grep -H --color 7  *
+#1329924919
+grep -Hr --color 7 ../
+#1329924951
+egrep -Hr --color '7[ \*]' ../
+#1329924989
+[B
+#1329927459
+python2 opt_lab4.py
+#1329931405
+python2 lab.py
+#1329934449
+ssh 192.168.1.4
+#1329934472
+ssh 192.168.1.5
+#1329973808
+rm *
+#1329973811
+df
+#1329973867
+pmount sdb1
+#1329973915
+pumount sdb1
+#1329973921
+audacity afrodita_-_valera.mp3
+#1329974139
+ls -lh afrodita_-_valera.mp3 
+#1329974150
+chmod 666 afrodita_-_valera.mp3 
+#1329974151
+ls -lh afrodita_-_valera.mp3 
+#1329974155
+audacity afrodita_-_valera.mp3
+#1329997966
+pmount /dev/sdb1
+#1329998410
+pumount sdb1
+#1329998424
+pmount sdb1
+#1329998452
+md5sum House.S08E13.rus.LostFilm.TV.avi > House.S08E13.rus.LostFilm.TV.avi.md5
+#1329998458
+sync
+#1329999137
+pmount sdb1
+#1329999145
+pmount sdc1
+#1329999157
+md5sum Spartacus.Vengeance.s01e04.rus.LostFilm.TV.avi > Spartacus.Vengeance.s01e04.rus.LostFilm.TV.avi.md5
+#1329999207
+pumount sdb1
+#1329999209
+pumount sdc1
+#1329999225
+wathcflash.sh 
+#1330000901
+pmount sdb1
+#1330000904
+ls /dev/sd*
+#1330000906
+ls /dev/sdb
+#1330000910
+pmount /dev/sdb
+#1330000931
+pumount sdb1
+#1330000935
+pumount sdb
+#1330017388
+nohup zathura litovka.pdf &
+#1330020650
+yaourt -Syua
+#1330021786
+yaourt -Su
+#1330021794
+yaourt -Syu
+#1330021799
+yaourt -Syyu
+#1330023646
+htop
+#1330023663
+openports 
+#1330023863
+ssh 192.168.1.2
+#1330051802
+htop
+#1330059564
+yaourt -Syua
+#1330095879
+vncviewer 192.168.1.2
+#1330097190
+ssh 192.168.1.2
+#1329628991
+mc
+#1330097248
+pwd
+#1330097252
+ifconfig
+#1330097483
+pid=$(pgrep luakit) ; movs=$(ls -lh /proc/$pid/fd | grep Flash | cut -f 9 -d' ') ;  for i in $movs ; do mplayer /proc/$pid/fd/$i ; done
+#1330097262
+ssh 192.168.1.2
+#1330097674
+reset; python2 ready_lit.py 
+#1330097734
+glade-3 *ui
+#1330097806
+reset; python2 ready_lit.py 
+#1330100122
+python2
+#1330100175
+reset; python2 ready_lit.py 
+#1330100187
+python2
+#1330100246
+reset; python2 ready_lit.py 
+#1330101742
+python2
+#1330101821
+export LC_ALL='en_US.UTF-8'
+#1330101824
+reset; python2 ready_lit.py 
+#1330101903
+python2
+#1330101981
+ls *c
+#1330102544
+gcc test.c 
+#1330102610
+reset; gcc test.c 
+#1330102851
+python2 ready_lit.py 
+#1330102862
+htop
+#1330104252
+reset; python2 ready_lit.py 
+#1330105486
+glade-3 litovka.ui 
+#1330105504
+reset; python2 ready_lit.py 
+#1330106756
+glade-3 litovka.ui 
+#1330106926
+reset; python2 ready_lit.py 
+#1330104302
+vifm
+#1330109823
+yaourt -Syua
+#1330109976
+gcc test.
+#1330109978
+gcc test.c
+#1330109986
+vim test.c
+#1330110010
+gcc test.c
+#1330110285
+gcc test.c -lm
+#1330110301
+./a.out 
+#1330110352
+gcc test.c -lm && ./a.out 
+#1330110017
+vim test.c
+#1330153222
+yaourt -Ss mupdf
+#1330153239
+yaourt -S mupdf
+#1330153455
+man moc
+#1330153310
+man mupdf
+#1330151930
+mocp
+#1330154171
+sudo rc.d start sshd
+#1330184770
+fortune
+#1330187784
+xrandr
+#1330188238
+vncviewer 192.168.1.2
+#1330189597
+:b 5
+#1330189739
+cd tmp/pygame/
+#1330189742
+python2 hermit.py 
+#1330190263
+python2
+#1330190286
+python2 hermit.py 
+#1330190921
+python2
+#1330191021
+python2 hermit.py 
+#1330191092
+python2
+#1330191159
+python2 hermit.py 
+#1330153959
+cmus
+#1330195039
+mocp
+#1330195547
+vncviewer 192.168.1.2
+#1330196975
+mplayer Downloads/Incomplete/*
+#1330204439
+vim /usr/share/zsh/functions/Prompts/prompt_adam2_setup 
+#1330235363
+htop
+#1330235424
+wathcflash.sh 
+#1330235426
+pid=$(pgrep luakit) ; movs=$(ls -lh /proc/$pid/fd | grep Flash | cut -f 9 -d' ') ;  for i in $movs ; do mplayer /proc/$pid/fd/$i ; done
+#1330243630
+mv .zshrc .zshrc_real
+#1330243634
+gedit .zshrc
+#1330243664
+zsh
+#1330244231
+mv .zshrc{_real,}
+#1330269594
+grep -i iro /proc/cpuinfo 
+#1330269598
+grep -i core /proc/cpuinfo 
+#1330269608
+cat /proc/cpuinfo 
+#1330269619
+glxgears -info
+#1330244234
+zsh
+#1330280869
+man nohup
+#1330280910
+info 'nohup invocation'
+#1330280918
+info nohup 
+#1330241135
+cmus
+#1330281395
+man moc
+#1330281454
+ls .moc
+#1330281518
+echo $HOME
+#1330281393
+mocp
+#1330281461
+vim .moc/config
+#1330318543
+zsh
+#1330366557
+python2 ready_lit.py 
+#1330403437
+pumount sdb1
+#1330441381
+xinput test 6
+#1330441389
+xinput test 2
+#1330441406
+man xinput
+#1329850045
+zsh
+#1330524598
+cd books_collection/Художественная\ литература/Дойль\ Артур\ Конан/Серия\ о\ Шерлоке\ Холмсе/Приключения\ Шерлока\ Холмса/
+#1330524625
+egrep '<[/]*>' 1.\ Скандал\ в\ Богемии.fb2 
+#1330524639
+egrep '<[>]^*>' 1.\ Скандал\ в\ Богемии.fb2 
+#1330524650
+egrep '<[>]^>' 1.\ Скандал\ в\ Богемии.fb2 
+#1330524654
+egrep '<[>]^' 1.\ Скандал\ в\ Богемии.fb2 
+#1330524658
+egrep '<[>]^*' 1.\ Скандал\ в\ Богемии.fb2 
+#1330524660
+head 1.\ Скандал\ в\ Богемии.fb2 
+#1330524694
+cat 1.\ Скандал\ в\ Богемии.fb2  |  sed 's/<[>]^*>//g'
+#1330524709
+cat 1.\ Скандал\ в\ Богемии.fb2  |  sed 's/<.*>//g'
+#1330524717
+cat 1.\ Скандал\ в\ Богемии.fb2  |  sed 's/<.?>//g'
+#1330524731
+cat 1.\ Скандал\ в\ Богемии.fb2  |  sed 's/<[>]^.*>//g'
+#1330524737
+cat 1.\ Скандал\ в\ Богемии.fb2  |  sed 's/<[>]^.?>//g'
+#1330526650
+command -v deluge
+#1330528633
+pid=$(pgrep luakit) ; movs=$(ls -lh /proc/$pid/fd | grep Flash | cut -f 9 -d' ') ;  for i in $movs ; do mplayer /proc/$pid/fd/$i ; done
+#1330534010
+ping 8.8.8.8
+#1330534016
+cat /etc/resolv.conf
+#1330534023
+ping github.com
+#1330534110
+ping ya.ru
+#1330534430
+cd ~
+#1330534435
+cd ~
+#1330525466
+cmus
+#1330535766
+python2 ready_lit.py 
+#1330541746
+uptime
+#1330543411
+pkill firefox ; pkill thunderbird-bin 
+#1330543667
+sudo rc.d start bumblebeed 
+#1330543692
+xev
+#1330543702
+dmesg
+#1330543721
+xinput 
+#1330543734
+xinput list
+#1330543761
+xinput test-xi2
+#1330543768
+xinput
+#1330543790
+optirun nexuiz
+#1330544710
+less .X.log 
+#1330544766
+kbdd --help
+#1330544774
+kbdd -n
+#1330544790
+cat .xinitrc 
+#1330544795
+pgrep dbuss
+#1330544798
+pgrep dbus
+#1330544802
+cat .bashrc
+#1330544674
+htop
+#1330571863
+cd .config/awesome/
+#1330571870
+git clone https://github.com/cedlemo/blingbling.git
+#1330571891
+cd blingbling/
+#1330571897
+git tag
+#1330571899
+git tags
+#1330571902
+git branch
+#1330571909
+git status
+#1330571915
+git log
+#1330613612
+ping gmail.com
+#1330615032
+ls univer
+#1330615036
+ls univer/Микроконтроллеры/
+#1330615040
+ls univer/Микроконтроллеры/Доки\ от\ Дьякова/
+#1330615607
+cd ~/univer/Микроконтроллеры/
+#1330615612
+cd Эмулятор/
+#1330616036
+pid=$(pgrep luakit) ; movs=$(ls -lh /proc/$pid/fd | grep Flash | cut -f 9 -d' ') ;  for i in $movs ; do mplayer /proc/$pid/fd/$i ; done
+#1330616057
+pid=$(pgrep luakit) ; movs=$(ls -lh /proc/$pid/fd | grep Flash | cut -f 9 -d' ') ;  for i in $movs ; do echo $i; done
+#1330616066
+pid=$(pgrep luakit) ; movs=$(ls -lh /proc/$pid/fd | grep Flash | cut -f 9 -d' ') ;  echo $movs
+#1330616076
+pid=$(pgrep luakit) ; movs=$(ls -lh /proc/$pid/fd | grep Flash | cut -f 9 -d' ') ;  
+#1330616079
+echo $pid
+#1330616087
+ls -lh /proc/$pid/fd/ 
+#1330616092
+ls -lh /proc/$pid/fd/  | grep Flash
+#1330616106
+mplayer /proc/$pid/fd/17
+#1330615617
+java -jar edsim51.jar 
+#1330617170
+alsamixer 
+#1330617173
+mplayer /proc/$pid/fd/17
+#1330619281
+ls -lh /proc/$pid/fd/  | grep Flash
+#1330619295
+pid=$(pgrep luakit) ; movs=$(ls -lh /proc/$pid/fd | grep Flash | cut -f 10 -d' ') ;  for i in $movs ; do mplayer /proc/$pid/fd/$i ; done
+#1330701163
+ls /etc/dnsmasq.conf 
+#1330700967
+sudo -s
+#1330702882
+FBReader 
+#1330705272
+mocp
+#1330798903
+ls *vim
+#1330544854
+zsh
+#1330837973
+pid=$(pgrep luakit) ; movs=$(ls -lh /proc/$pid/fd | grep Flash | cut -f 10 -d' ') ;  for i in $movs ; do mplayer /proc/$pid/fd/$i ; done
+#1330839365
+ls Downloads/
+#1330839383
+ls 0inbox/
+#1330839408
+pacman -Ss transmission
+#1330839428
+yaourt -Ss transmission
+#1330837198
+yaourt -Syua
+#1330839523
+pacman -Ss transmission
+#1330839533
+yaourt -S transmission-{cli,gtk,qt}
+#1330843248
+cd music/Pain\ Of\ Salvation\ -\ Discography/Albums/2004\ -\ Be/
+#1330843259
+cd ~/music_collection/Pain\ of\ Salvation/2004\ -\ Be/_album_info/
+#1330843264
+feh -F *
+#1330844047
+tail .cache/awesome/history
+#1330839881
+mc
+#1330839949
+cd ../.themes/
+#1330839966
+unzip ambiance_blue_theme_suite_by_satya164-d396ttt.zip
+#1330839979
+tar xavf Ambiance\ Blue.tar.gz 
+#1330840155
+7za x hope_gtk3_by_grvrulz-d3erqkz.7z
+#1330842954
+feh -F *
+#1330843188
+mv Cover.jpg front.jpg
+#1330843192
+easytag ./
+#1330843661
+mv 01.\ Animae\ Partus\ \(\'I\ Am\'\).mp3 01.\ Animae\ Partus.mp3
+#1330843671
+mv 03.\ Imago\ \(Homines\ Partus\).mp3 03.\ Imago.mp3
+#1330843683
+mv 04.\ Pluvius\ Aestivus\ -\ Of\ Summer\ Rain\ \(Homines\ Fabula\ Initium\).mp3 04.\ Pluvius\ Aestivus.mp3
+#1330843692
+mv 05.\ Lilium\ Cruentus\ \(Deus\ Nova\)\ -\ On\ The\ Loss\ Of\ Innocence.mp3 05.\ Lilium\ Cruentus.mp3
+#1330843702
+mv 06.\ Nauticus\ \(Drifting\)\ .mp3 06.\ Nauticus.mp3
+#1330843715
+mv 07.\ Dea\ Pecuniae\ -\ i\)\ Mr.\ Money,\ ii\)\ Permanere,\ iii\)\ I\ Raise\ My\ Glass.mp3 07.\ Dea\ Pecuniae.mp3
+#1330843723
+mv 08.\ Vocari\ Dei\ -\ Sordes\ Aetas\ -\ Mess\ Age.mp3 08.\ Vocari\ Dei.mp3
+#1330843734
+mv 09.\ Diffidentia\ \(Breaching\ The\ Core\)\ -\ Exitus\ -\ Drifting\ II.mp3 09.\ Diffidentia.mp3
+#1330843740
+mv 10.\ Nihil\ Morari\ \(Homines\ Fabula\ Finis\).mp3 10.\ Nihil\ Morari.mp3
+#1330843748
+mv 12.\ Omni.mp3
+#1330843757
+mv 12.\ Omni\ -\ Permanere_.mp3 12.\ Omni.mp3
+#1330843769
+mv 13.\ Iter\ Impius\ -\ Martius,\ Son\ Of\ Mars\ -\ Obitus\ Dictinus.mp3 13.\ Iter\ Impius.mp3
+#1330843827
+feh -F *
+#1330885617
+pid=$(pgrep luakit) ; movs=$(ls -lh /proc/$pid/fd | grep Flash | cut -f 10 -d' ') ;  for i in $movs ; do mplayer /proc/$pid/fd/$i ; done
+#1330873370
+yaourt -Syua ; zsh
+#1330959081
+cd tmp/pygame/
+#1330959084
+python2 hermit.py 
+#1330962678
+nohup oocalc Downloads/Лабораторная\ работа\ номер\ 2.xlsx &
+#1330962697
+nohup lo Downloads/Лабораторная\ работа\ номер\ 2.xlsx &
+#1330966275
+resetl python2 hermit.py 
+#1330966282
+reset; python2 hermit.py 
+#1330971468
+xz --help
+#1330971477
+xz -d На\ диск.tar.xz 
+#1330971486
+tar xavvf На\ диск.tar 
+#1330971510
+mkdir libs
+#1330971537
+mkdir libs_and_hermit
+#1330971555
+tar cf libs_and_hermit.tar libs_and_hermit/
+#1330971572
+gzip libs_and_hermit.tar 
+#1330971576
+ls -lh libs_and_hermit
+#1330971579
+ls -lh libs_and_hermit*
+#1330960130
+zsh
+#1330973350
+pid=$(pgrep luakit) ; movs=$(ls -lh /proc/$pid/fd | grep Flash | cut -f 10 -d' ') ;  for i in $movs ; do mplayer /proc/$pid/fd/$i ; done
+#1330972604
+python2
+#1331001124
+yaourt -Syua
+#1331000530
+vifm
+#1331002236
+alsamixer 
+#1331002244
+mplayer Downloads/Incomplete/*
+#1331003056
+dropbox start
+#1331004322
+yaourt -Syua
+#1331004335
+gcc -V
+#1331004338
+gcc -v
+#1331044604
+yaourt -Syua
+#1331046485
+cd univer/Микроконтроллеры/
+#1331046490
+cd Эмулятор/
+#1331047288
+pid=$(pgrep luakit) ; movs=$(ls -lh /proc/$pid/fd | grep Flash | cut -f 10 -d' ') ;  for i in $movs ; do mplayer /proc/$pid/fd/$i ; done
+#1331046575
+java -jar edsim51.jar 
+#1331058812
+cp Downloads/Project1.exe /tmp
+#1331058837
+mc Dropbox/ Dropbox/
+#1331058700
+mc /tmp Downloads/
+#1331133275
+wathcflash.sh 
+#1331062209
+zsh
+#1331135364
+xev
+#1331135539
+xprop
+#1331135549
+xprop | grep -i class
+#1331135559
+xprop | egrep -i 'class|name'
+#1331135630
+xprop
+#1331004612
+zsh
+#1331136555
+chsh --help
+#1331136559
+man chsh 
+#1331136593
+chsh
+#1331136619
+chsh -s zsh
+#1331136625
+chsh -s /bin/zsh
+#1331136629
+command -v zsh
+#1331137212
+yaourt -Ss visual
+#1331137217
+man pacman
+#1331137245
+reset; yaourt -Ss visual python
+#1331137269
+reset; yaourt -Ss vpython
+#1331137970
+synclient --help
+#1331137977
+man synclient 
+#1331137985
+man synaptics
+#1331138032
+man syndaemon 
+#1331138078
+syndaemon 
+#1331138091
+syndaemon -d
+#1331137384
+yaourt -S python-vpython
+#1331138716
+vpython 
+#1331139035
+cat > /tmp/test.py
+#1331139045
+vim /tmp/test.py 
+#1331139053
+python2 /tmp/test.py 
+#1331139102
+python2
+#1331139627
+wathcflash.sh 
+#1331139816
+python2 /tmp/test.py 
+#1331140344
+export PAGER='less'
+#1331140358
+python2 /tmp/test.py 
+#1331142078
+pid=$(pgrep luakit) ; movs=$(ls -lh /proc/$pid/fd | grep Flash | cut -f 10 -d' ') ;  for i in $movs ; do mplayer /proc/$pid/fd/$i ; done
+#1331138921
+man syndaemon
+#1331131155
+cmus
+#1331147188
+zsh
+#1331186454
+pid=$(pgrep luakit) ; movs=$(ls -lh /proc/$pid/fd | grep Flash | cut -f 10 -d' ') ;  for i in $movs ; do mplayer /proc/$pid/fd/$i ; done
+#1331187013
+yaourt -Ss rosseta
+#1331187020
+yaourt -Ss rosetta
+#1331187038
+yaourt -Ss folding
+#1331187066
+yaourt -Ss foldingat
+#1331187093
+yaourt -S foldingathome-{gpu-nvidia,smp}
+#1331187118
+sudo -s
+#1331187546
+yaourt -S foldingathome-smp
+#1331187580
+pacman -Ql foldingathome-smp
+#1331187597
+/opt/fah-smp/fah6 
+#1331187629
+htop
+#1331187826
+wine
+#1331187830
+wine --version
+#1331136633
+zsh
+#1331189900
+boinc
+#1331189914
+boinc_client 
+#1331190105
+boinccmd 
+#1331190109
+boincmgr 
+#1331190533
+echo ((16#24))
+#1331190540
+echo (([16]24))
+#1331190556
+echo (( f = [16]24))
+#1331190559
+zsh
+#1331190612
+f=24
+#1331190620
+printf '%0xx' $f
+#1331190632
+printf '0x%x' $f
+#1331190640
+printf '0x%x %b' $f $f
+#1331190646
+man printf
+#1331190729
+echo 'obase=16;24' | bc
+#1331190733
+echo 'obase=2;24' | bc
+#1331146496
+mocp
+#1331220879
+java -jar edsim51.jar 
+#1331220890
+javac --version
+#1331220894
+javac -v
+#1331220897
+javac -help
+#1331220902
+javac -version
+#1331220225
+mc
+#1331221226
+python
+#1331221334
+reset; python2 /tmp/test.py 
+#1331221229
+python2
+#1331221597
+python2 /tmp/test.py 
+#1331222008
+python2
+#1331222356
+export PAGER=less
+#1331222361
+python2 /tmp/test.py 
+#1331222796
+python2
+#1331223220
+python2pythonljalsdjas
+#1331223227
+python
+#1331224721
+reset; python2 /tmp/test.py 
+#1331224759
+reset; python2 lit_lab.py 
+#1331221852
+cmus
+#1331223237
+python2
+#1331193156
+zsh
+#1331232914
+mplayer Downloads/Spartacus.Vengeance.s01e05.rus.LostFilm.TV.avi 
+#1331234548
+sudo reboot
+#1331267027
+pid=$(pgrep luakit) ; movs=$(ls -lh /proc/$pid/fd | grep Flash | cut -f 10 -d' ') ;  for i in $movs ; do mplayer /proc/$pid/fd/$i ; done
+#1331268575
+alsamixer 
+#1331268661
+pid=$(pgrep luakit) ; movs=$(ls -lh /proc/$pid/fd | grep Flash | cut -f 10 -d' ') ;  for i in $movs ; do mplayer /proc/$pid/fd/$i ; done
+#1331321237
+while yes; do pid=$(pgrep luakit) ; movs=$(ls -lh /proc/$pid/fd | grep Flash | cut -f 10 -d' ') ;  for i in $movs ; do mplayer /proc/$pid/fd/$i ; done ; done
+#1331321244
+while true; do pid=$(pgrep luakit) ; movs=$(ls -lh /proc/$pid/fd | grep Flash | cut -f 10 -d' ') ;  for i in $movs ; do mplayer /proc/$pid/fd/$i ; done ; done
+#1331326301
+dash
+#1331361186
+luakit_flash_watch 
+#1331402020
+HLPMSG='Tool to get traffic statistic from Internet provider Vesso-Bel (Belarus).\n\ \nUsage: vessobel.sh [LOGIN]\n\nOutput: [Used in MB] / [Free in MB] | [Total in GB]\n\nOptions:\n --help print this help.\n\nMail bug reports and suggestions to <dap.darkness at gmail dot com>.'
+#1331402195
+git diff
+#1331402205
+pwd
+#1331402663
+dash vessobel.sh --help
+#1331402670
+bash vessobel.sh --help
+#1331408095
+c="$(curl -s http://stat.vessobel.by/cgi-bin/BILinfon.cgi?Login=$LOG)"
+#1331408098
+echo $c
+#1331408228
+IN="$(curl -s http://stat.vessobel.by/cgi-bin/BILinfon.cgi?Login=$1 | iconv -f cp1251 -t utf-8)"
+#1331408231
+echo $IN
+#1331408717
+luakit_flash_watch 
+#1331489356
+cd /tmp
+#1331489360
+luakit_flash_save 
+#1331623045
+man zathura
+#1331623453
+pyhton
+#1331623463
+python2
+#1331622889
+mc
+#1331623885
+mupdf No.Starch.Press.Linux.Firewalls.Sep.2007.pdf
+#1331623909
+evince No.Starch.Press.Linux.Firewalls.Sep.2007.pdf
+#1331624156
+1
+#1331624259
+sudo rc.d start bumblebeed 
+#1331624265
+optirun
+#1331624270
+optirun nexuiz-glx
+#1331624319
+./tudu
+#1331624963
+mv Hardware\ drivers Hardware\ drivers.png
+#1331625028
+file Program\ for\ Array.png
+#1331625033
+o
+#1331652472
+sudo -s
+#1331652259
+mplayer 2012-03-13-192116.ogv
+#1331652344
+mplayer *ogv -forceidx -cache $((1024*1024*100))
+#1331652356
+mplayer *ogv -forceidx -cache $((1024*1024*10))
+#1331652362
+mplayer *ogv -forceidx -cache $((1024*100))
+#1331654683
+smbclient --help
+#1331649597
+mc
+#1331655840
+a='INDEX.HTM'
+#1331655850
+echo "${a,,}"
+#1331656996
+python
+#1331659110
+mplayer Webcam/2012-03-13-211753.ogv 
+#1331659128
+mplayer v4l2://
+#1331659182
+mplayer tv://
+#1331659191
+sudo mplayer tv://
+#1331659050
+cheese 
+#1331659208
+history | grep mplayer
+#1331659248
+ls /dev
+#1331659265
+mplayer tv:// -device /dev/video2
+#1331659299
+mplayer tv:// -tv  device:/dev/video2
+#1331659307
+mplayer tv:// -tvdevice:/dev/video2
+#1331659311
+mplayer tv:// -tv device:/dev/video2
+#1331659315
+mplayer tv:// -tv device=/dev/video2
+#1331659352
+cheese --help
+#1331659463
+mplayer Webcam/2012-03-13-21*
+#1331659534
+mplayer Webcam/2012-03-13-21* -forceidx
+#1331659663
+rm Webcam/2012-03-13-21* 
+#1331659361
+cheese -f
+#1331659135
+LANG='' man mplayer
+#1331654832
+mocp
+#1331668401
+cmus -s
+#1331668408
+cmus-remote -s
+#1331668420
+cmus-remote -Q
+#1331668357
+cmus
+#1331668550
+bash bin/player_ctrl.sh 
+#1331668371
+man cmus-remote 
+#1331668819
+mocp -i
+#1331668825
+mocp
+#1331668837
+mocp -i -Q %state
+#1331669129
+man bash
+#1331669179
+bash bin/player_ctrl.sh 
+#1331669296
+man cmus-remote
+#1331669363
+bash bin/player_ctrl.sh 
+#1331669687
+mocp
+#1331669715
+bash bin/player_ctrl.sh 
+#1331669728
+cmus
+#1331669740
+cmus
+#1331669747
+bash bin/player_ctrl.sh 
+#1331669750
+mocp
+#1331669781
+bash bin/player_ctrl.sh 
+#1331669785
+mocp
+#1331669801
+cmus -i -Q %state
+#1331669804
+cmus -Q %state
+#1331669807
+cmus -Q
+#1331669814
+cmus-remote -Q
+#1331669822
+cat /tmp/cmus_state 
+#1331669832
+bash bin/player_ctrl.sh 
+#1331669834
+mocp
+#1331669862
+bash bin/player_ctrl.sh 
+#1331669894
+mocp
+#1331669906
+bash bin/player_ctrl.sh 
+#1331669909
+mocp
+#1331669925
+bash bin/player_ctrl.sh 
+#1331669949
+pkill cmus
+#1331669952
+cmus-remote -Q
+#1331669957
+cmus-remote -Q | wc -w
+#1331669966
+a=$(cmus-remote -Q )
+#1331669968
+a
+#1331669969
+echo $a
+#1331669987
+bash bin/player_ctrl.sh 
+#1331670012
+mocp
+#1331670026
+bash bin/player_ctrl.sh 
+#1331670036
+mocp
+#1331670039
+bash bin/player_ctrl.sh 
+#1331670049
+mocp
+#1331670061
+:w
+#1331670066
+mocp
+#1331670069
+bash bin/player_ctrl.sh 
+#1331670154
+chmod +x player_ctrl.sh
+#1331670161
+chmod +x ~/bin/player_ctrl.sh
+#1331670348
+a='1'
+#1331670353
+case $a in
+  1)
+    echo '1' 
+    ;;
+  2)
+    echo '2'
+    ;;
+esac
+#1331670253
+man bash
+#1331670390
+man mocp
+#1331670401
+man cmus-remote
+#1331670512
+pkill xbindkeys 
+#1331670514
+xbindkeys
+#1331670546
+mocp
+#1331670591
+man cmus-remote
+#1331670626
+cmus-remote -n
+#1331670629
+cmus-remote -r
+#1331670644
+cmus-remote -u
+#1331670564
+cmus
+#1331670661
+ls .cmus/
+#1331670669
+ls .cmus/autosave 
+#1331670670
+cat .cmus/autosave 
+#1331668764
+man moc
+#1331694253
+pmount sr0
+#1331694280
+ls /media/sr0
+#1331694291
+pmount sr0; ls /media/sr0 ; pumount sr0 ; eject
+#1331694245
+mocp
+#1331694360
+mc
+#1331735399
+mplayer Downloads/Incomplete/*
+#1331736487
+ls Downloads/
+#1331736492
+mplayer Downloads/*avi
+#1331736564
+mplayer Downloads/Incomplete/*
+#1331738213
+mplayer Downloads/*avi
+#1331738281
+ls Downloads/
+#1331738291
+ls Downloads/Incomplete/
+#1331738297
+mplayer Downloads/Incomplete/*
+#1331739375
+ls Downloads/
+#1331739381
+mplayer Downloads/*wmv
+#1331739946
+cd univer/Геометрическое\ моделирование/
+#1331739953
+ls py
+#1331739956
+cd py/
+#1331739959
+python2 lab.py 
+#1331739989
+cp lab.py lab3.py
+#1331740139
+ls Downloads/
+#1331740155
+ls Downloads/
+#1331740164
+mplayer Downloads/Incomplete/*
+#1331740259
+python2 lab3.py
+#1331741108
+python2
+#1331741424
+python2 lab3.py
+#1331741664
+export PAGER=less
+#1331741666
+python2
+#1331742797
+ls Downloads/
+#1331743873
+python2
+#1331743919
+export PAGER=less
+#1331744446
+reset; python2 lab3.py
+#1331744781
+rset
+#1331744940
+reset; python2 lab3.py
+#1331745090
+python2
+#1331745105
+reset; python2 lab3.py
+#1331745759
+mplayer Downloads/*avi Downloads/*wmv Downloads/Incomplete/*
+#1331745878
+mplayer Downloads/*avi 
+#1331747808
+ls Downloads/
+#1331747815
+mplayer Downloads/*avi Downloads/*wmv Downloads/Incomplete/*
+#1331743921
+python2
+#1331735056
+cmus
+#1331750001
+uname -a
+#1331750108
+python2
+#1331747200
+python2
+#1331751017
+htop
+#1331751135
+cd Downloads/
+#1331751145
+tar xavvf linux-3.2.9.tar.xz 
+#1331751162
+mplayer Downloads/*avi Downloads/*wmv Downloads/Incomplete/*
+#1331752175
+ranger ./
+#1331752344
+cd linux-3.2.9/
+#1331752345
+cd Documentation/
+#1331752358
+grep -H --color -r vm.dirty ./
+#1331752398
+vim laptops/{asus-laptop.txt,laptop-mode.txt}
+#1331752507
+grep -H --color -r dirty ./
+#1331752521
+reset; grep -H --color -r dirty_ratio ./
+#1331752529
+cd sysctl/
+#1331752706
+echo $(( 4096 / 8  ))
+#1331752720
+echo $(( 4 * 1024 * 1024  ))
+#1331752742
+echo $(( 4 * 1024 * 1024 / 4096  ))
+#1331752534
+vim vm.txt 
+#1331752998
+reset; grep -H --color -r sysrq ./
+#1331753010
+vim ../sysrq.txt 
+#1331752589
+sudo -s
+#1331753105
+4
+#1331753132
+mplayer *wmv
+#1331753254
+du -sh
+#1331753256
+1~
+#1331753092
+mc
+#1331753267
+vim .histfile 
+#1331753285
+rm .histfile 
+#1331753295
+vim .bash_history 
+#1331753406
+cd .macromedia/Flash_Player/#SharedObjects/
+#1331753410
+cd CSBANDFG/
+#1331753664
+sudo -s
+#1331754997
+vim .bash_history 
+#1331752142
+mocp
+#1331755019
+uname -a
+#1331755022
+yaourt -Syua
+#1331755039
+sudo top
+#1331755034
+sudo iotop
+#1331755058
+yaourt -Su
+#1331755140
+man pacman
+#1331755401
+sudo iotop
+#1331753658
+pydf
+#1331753736
+cd ..
+#1331753902
+cd flashplayer/
+#1331753907
+cd sys/
+#1331753981
+mc
+#1331753996
+du -sh ./
+#1331754135
+pwd
+#1331754213
+cd ~
+#1331755571
+vim .bash_history 
+#1331755174
+yaourt -Suw
+#1331755600
+vim .bash_history 
+#1331755685
+htop
+#1331755694
+sudo swapoff -a ; sudo swapon -a
+#1331755708
+htop
+#1331755727
+sudo umount /mnt/d ; sudo umount /mnt/c ; sudo pm-hibernate ; sudo mount /mnt/d ; sudo mount /mnt/c
+#1331755772
+htop
+#1331755779
+ls /mnt
+#1331755856
+sudo umount /mnt/data ; sudo umount /mnt/c ; sudo pm-hibernate ; sudo mount /mnt/data ; sudo mount /mnt/c ; sleep 2; sudo swapoff -a ; sudo swapon -a ; (nohup firefox &)& ; (nohup thunderbird &)&
+#1331755877
+sudo umount /mnt/data ; sudo umount /mnt/c ; sudo pm-hibernate ; sudo mount /mnt/data ; sudo mount /mnt/c ; sleep 2; sudo swapoff -a ; sudo swapon -a ; (nohup firefox &) ; (nohup thunderbird &)
+#1331778193
+htop
+#1331778217
+yaourt -Suw
+#1331778686
+yaourt -Syyuw
+#1331779770
+python2 lit_lab.py 
+#1331780359
+cd Downloads/
+#1331780366
+ls Incomplete/
+#1331780445
+iotop
+#1331780450
+sudo iotop
+#1331780380
+tar cvf p.tar p
+#1331780478
+sync
+#1331780535
+fg 1 
+#1331780647
+fg 1
+#1331780734
+htop
+#1331780798
+free -m
+#1331780759
+sudo iotop
+#1331780982
+sync
+#1331781030
+fg 1
+#1331781052
+ls -lh p.tar 
+#1331781068
+rm -rf p
+#1331781198
+ls Incomplete/
+#1331780503
+sudo -s
+#1331781546
+unzip bufexplorer.zip 
+#1331781554
+cp doc/bufexplorer.txt ~/.vim/doc
+#1331781562
+cp plugin/bufexplorer.vim ~/.vim/plugin/
+#1331781683
+cd Incomplete/
+#1331781699
+tar xvvf inc.tar *
+#1331781705
+tar cvvf inc.tar *
+#1331781730
+sync
+#1331781755
+rm *dctmp
+#1331781745
+sudo -s
+#1331781800
+vim
+#1331831122
+cmus
+#1331831170
+yaourt -Suyw
+#1331831947
+vim bin/redeyes.sh 
+#1331831984
+chmod +x bin/redeyes.sh 
+#1331831995
+nohup redeyes.sh &
+#1331831841
+yaourt -Su
+#1331832769
+yaourt -S zathura-{djvu,ps}
+#1331833301
+zenity --calendar
+#1331834148
+fortune
+#1331834451
+pacman -Ql vpython
+#1331834455
+pacman -Ss vpython
+#1331834461
+pacman -Ss visual
+#1331834475
+pacman -Ss python | grep vis
+#1331834504
+pacman -Q
+#1331834508
+pacman -Q | grep py
+#1331834540
+pacman -Ss vpython
+#1331834547
+pacman -Ql python-vpython
+#1331834575
+python2
+#1331834601
+pacman -Ql python-vpython | grep contorl
+#1331834609
+pacman -Ql python-vpython | grep test
+#1331834617
+pacman -Ql python-vpython | grep stest
+#1331834624
+pacman -Ql python-vpython | grep stest  | cut -f2
+#1331834628
+pacman -Ql python-vpython | grep stest  | cut -f2 -d' '
+#1331834636
+python2 $(pacman -Ql python-vpython | grep stest  | cut -f2 -d' ')
+#1331834742
+nohup (sleep 10m ; nohup redeyes.shredeyes.sh &) &
+#1331834860
+cd Downloads/
+#1331834872
+cd Incomplete/
+#1331834879
+tar xavvf inc.tar 
+#1331834940
+du -sh ./
+#1331834943
+mplayer *
+#1331835143
+sysctl -a | grep vm.dirt
+#1331835195
+cc
+#1331835428
+mplayer *
+#1331835742
+pacman -Ql python-vpython
+#1331835884
+rm inc.tar 
+#1331835889
+mplayer *
+#1331835863
+python2 lit_lab.py 
+#1331836691
+python2
+#1331836866
+ls ..
+#1331836918
+mplayer *
+#1331837414
+python2
+#1331835287
+sudo iotop
+#1331838574
+mocp
+#1331838901
+ls Downloads/
+#1331838903
+cd Downloads/
+#1331839050
+cd ..
+#1331839812
+mc
+#1331839858
+du -sh ./
+#1331839861
+cd ..
+#1331839862
+pydf
+#1331840103
+ls .lyrics
+#1331840118
+find . -type d -iname '*lyrics*'
+#1331840615
+vim .bash_history 
+#1331839907
+mocp
+#1331840306
+zathura концентрация.pdf 
+#1331840322
+pacman -Ss zathura
+#1331840367
+yaourt -S zathura-pdf-poppler
+#1331841065
+unzip l concentration.zip 
+#1331841070
+unzip --list concentration.zip 
+#1331841075
+unzip -l concentration.zip 
+#1331841085
+unzip concentration.zip 
+#1331841087
+rm concentration.zip 
+#1331841115
+unrar t lesniak.rar 
+#1331840259
+mc
+#1331841244
+pacman -Ql laptop-mode-tools
+#1331841262
+man laptop_mode
+#1331841303
+sudo -s
+#1331841469
+command -v umount
+#1331841515
+command -v swapoff
+#1331841542
+command -v pacman
+#1331841546
+command -v pacman-color
+#1331841560
+which pacman
+#1331841596
+command -v pm-hibernate
+#1331841472
+sudo -s
+#1331841620
+sudo umount /mnt/data ; sudo umount /mnt/c ; sudo pm-hibernate ; sudo mount /mnt/data ; sudo mount /mnt/c ; sleep 2; sudo swapoff -a ; sudo swapon -a ; (nohup firefox &) ; (nohup thunderbird &)
+#1331865723
+yaourt -Syua
+#1331866239
+ls Downloads/
+#1331866243
+ls Downloads/Incomplete/
+#1331867347
+python2 /usr/lib/python2.7/site-packages/visual/demos/differential_gear.py 
+#1331867443
+python2 /usr/lib/python2.7/site-packages/visual/demos/doublependulum.py 
+#1331867474
+ls /usr/lib/python2.7/site-packages/visual/demos/
+#1331867489
+python2 /usr/lib/python2.7/site-packages/visual/demos/electric_motor.py 
+#1331867504
+vim /usr/lib/python2.7/site-packages/visual/demos/electric_motor.py 
+#1331867513
+ls /usr/lib/python2.7/site-packages/visual/demos/
+#1331867553
+python2 /usr/lib/python2.7/site-packages/visual/demos/tictac.py 
+#1331867581
+python2 /usr/lib/python2.7/site-packages/visual/demos/toroid_drag.py 
+#1331867617
+vim /usr/lib/python2.7/site-packages/visual/demos/toroid_drag.py 
+#1331868555
+htop
+#1331911105
+yaourt -Syua
+#1331911546
+python2 lit_lab.py 
+#1331911649
+python2
+#1331911667
+export PAGER='less'
+#1331911669
+python2
+#1331921214
+rm 2012-03-16-215900_1366x768_scrot.png 
+#1331921436
+pmount sdb1
+#1331921438
+ls /media
+#1331921440
+ls /media/sdb1/
+#1331921442
+c
+#1331921443
+mc
+#1331921708
+pumount sdb1
+#1331907707
+cmus
+#1331926126
+ls file:///usr/lib/python2.7/site-packages/visual/doc/index.html
+#1331926129
+ls file:///usr/lib/python2.7/site-packages/visual/doc/
+#1331926135
+ls file:///usr/lib/python2.7/site-packages/visual/
+#1331926145
+ls /usr/lib/python2.7/site-packages/visual/doc/
+#1331926147
+ls /usr/lib/python2.7/site-packages/visual/
+#1331925512
+yaourt -Syua
+#1331925503
+mc
+#1331926971
+LANG='' yaourt -Su
+#1331927149
+yaourt -Rd python-lxml
+#1331927164
+LANG='' yaourt -Su
+#1331927278
+LANG='' yaourt -S python-lxml
+#1331927309
+pkgfil /usr/lib/python3.2/site-packages/lxml
+#1331927313
+pkgfile /usr/lib/python3.2/site-packages/lxml
+#1331927327
+pkgfile /usr/lib/python2.7/site-packages/vis
+#1331927332
+pkgfile /usr/lib/python2.7/site-packages/visual/
+#1331927337
+pkgfile /usr/lib/python2.7/site-packages/visual/controls.py
+#1331927345
+man pacman
+#1331927369
+pacman -Qo /usr/lib/python3.2/site-packages/lxml
+#1331927379
+pacman -Qo /usr/lib/python2.7/site-packages/visual/controls.py
+#1331927383
+pacman -Qo /usr/lib/python2.7/site-packages/visual/
+#1331927399
+pacman -Qo /usr/lib/python3.2/site-packages/lxml-2.3.3-py3.2.egg-info 
+#1331927421
+pacman -Qi python3-lxml
+#1331927439
+yaourt -Rd python3-lxml
+#1331927456
+LANG='' yaourt -S python-lxml
+#1331927465
+ls /usr/lib/python3/
+#1331927475
+ls /usr/lib/python3.2/site-packages/lxml
+#1331927483
+yaourt -Su
+#1331927498
+uptime
+#1331927500
+htop
+#1331927509
+sudo reboot
+#1331927561
+htop
+#1331959190
+yaourt -Syua
+#1331959711
+ls Downloads/
+#1331960142
+ls /usr/lib/python2.7/site-packages/visual/demos/c*
+#1331960150
+python2 /usr/lib/python2.7/site-packages/visual/demos/couch.py
+#1331960165
+python2 r/lib/python2.7/site-packages/visual/demos/controlstest.py
+#1331960170
+python2 /usr/lib/python2.7/site-packages/visual/demos/controlstest.py
+#1331960198
+python2 /usr/lib/python2.7/site-packages/visual/demos/couch.py
+#1331960209
+python2 /usr/lib/python2.7/site-packages/visual/demos/conch.py
+#1331960253
+python2 /usr/lib/python2.7/site-packages/visual/demos/couch.py
+#1331960257
+python2 /usr/lib/python2.7/site-packages/visual/demos/conch.py
+#1331960401
+python2 lit_lab.py 
+#1331960850
+python2
+#1331960977
+python2 lit_lab.py 
+#1331961290
+python2
+#1331961445
+python2 lit_lab.py 
+#1331961546
+python2 /usr/lib/python2.7/site-packages/visual/demos/drape.py 
+#1331961690
+python2
+#1331961818
+python2npythoon2
+#1331961821
+python2
+#1331963309
+vim /usr/lib/python2.7/site-packages/vis/shapes.py 
+#1331964344
+vim bin/redeyes.sh 
+#1331964374
+cd bin
+#1331960075
+sudo iotop
+#1331960070
+htop
+#1331967327
+python2 arr.py
+#1331967431
+python2 lit_lab.py 
+#1331964377
+bash redeyes.sh 
+#1331968616
+python2 arr.py 
+#1331972113
+pmount sdb1
+#1331972123
+cd /media/sdb1
+#1331972130
+cd www.vpython.org/
+#1331972134
+ls vidle/
+#1331972141
+mc
+#1331972192
+pumount sdb1
+#1331972195
+cd ~
+#1331972196
+pumount sdb1
+#1331994881
+vim /usr/lib/python2.7/site-packages/visual/demos/
+#1331994887
+ls /usr/lib/python2.7/site-packages/visual/demos/
+#1331994905
+ls /usr/lib/python2.7/site-packages/visual/demos/ | xargs python2 
+#1331994910
+find /usr/lib/python2.7/site-packages/visual/demos/ | xargs python2 
+#1331994926
+find /usr/lib/python2.7/site-packages/visual/demos/ -type f | xargs python2 
+#1331994958
+find /usr/lib/python2.7/site-packages/visual/demos/ -type f | xargs python2 {}
+#1331972091
+zsh
+#1331994965
+find /usr/lib/python2.7/site-packages/visual/demos/ -type f -exec python2 {} \;
+#1331996188
+python2 lit_lab.py 
+#1331996768
+reset; python2 arr.py 
+#1331997632
+python2 lit_lab.py 
+#1331998563
+reset; python2 arr.py 
+#1331998570
+reset; python2 lit_lab.py 
+#1332001177
+reset; python2 arr.py 
+#1332001288
+reset; python2 lit_lab.py 
+#1332001428
+reset; python2 arr.py 
+#1332001621
+reset; python2 lit_lab.py 
+#1332005685
+reset; python2 arr.py 
+#1332006293
+reset; python2 lit_lab.py 
+#1332009068
+reset; python2 arr.py 
+#1332009108
+reset; python2 lit_lab.py 
+#1332010040
+ls /usr/lib/python2.7/site-packages/visual/demos/
+#1332010056
+wc -l /usr/lib/python2.7/site-packages/visual/demos/electric_motor.py 
+#1332010059
+vim /usr/lib/python2.7/site-packages/visual/demos/electric_motor.py 
+#1332010106
+python2 /usr/lib/python2.7/site-packages/visual/demos/electric_motor.py 
+#1331995515
+mc
+#1332046350
+cd /tmp
+#1332046355
+cat > groc.lst
+#1332046365
+cat groc.lst 
+#1332046369
+cat >> groc.lst 
+#1332046375
+cat groc.lst 
+#1332046379
+cat -n groc.lst 
+#1332046382
+nl groc.lst 
+#1332046389
+nl -b groc.lst 
+#1332046404
+nl -b p^[ba] groc.lst 
+#1332046414
+man nl
+#1332046820
+cd /tmp
+#1332046944
+mplayer /tmp/command-t-demo.mov 
+#1332046837
+wget https://s3.amazonaws.com/s3.wincent.com/command-t/screencasts/command-t-demo.mov
+#1332014438
+zsh
+#1332047277
+cp lit_lab.py /tmp
+#1332047704
+reset; python2 lit_lab.py 
+#1332047009
+yaourt -Syua
+#1332051525
+pgrep vpython
+#1332051528
+pgrep visual
+#1332051534
+pkill gvim
+#1332051537
+pkill -9 gvim
+#1332051624
+reset; python2 lit_lab.py 
+#1332056420
+sudo rc.d start sshd
+#1332058199
+ls /etc/rc.d/ssh*
+#1332058219
+pmount sdb1
+#1332058350
+pacman -Ss pep8
+#1332058353
+pacman -Ss pyflak
+#1332058360
+yaourt -Ss pep8
+#1332058369
+yaourt -Ss ptflak
+#1332058379
+yaourt -Ss pyfla
+#1332058281
+mc
+#1332058594
+pumount sdb1
+#1332058604
+zsh
+#1332081171
+yaourt -Syua
+#1332082010
+pmount sdb1
+#1332081132
+cmus
+#1332089557
+vim bin/redeyes.sh 
+#1332089579
+bash bin/redeyes.sh 
+#1332092321
+python2
+#1332092448
+python2 ready_lit.py 
+#1332092464
+python2 ready_lit.py > /tmp/brut
+#1332092474
+gnuplot
+#1332093348
+feh -F /tmp/test.png 
+#1332093384
+vim cursovik_litovka_brut.plot
+#1332093430
+gnuplot cursovik_litovka_brut.plot 
+#1332093438
+feh -F /tmp/test.png 
+#1332093482
+feh -F /tmp/test.png && feh -F /tmp/test.png 
+#1332093501
+gnuplot cursovik_litovka_brut.plot && feh -F /tmp/test.png 
+#1332097076
+luakit_flash_watch 
+#1332097487
+gnuplot cursovik_litovka_brut.plot && feh -F /tmp/test.png 
+#1332097492
+luakit_flash_watch 
+#1332097601
+command -v luakit_flash_watch 
+#1332097609
+while true; do pid=$(pgrep luakit) ; movs=$(ls -lh /proc/$pid/fd | grep Flash | cut -f 10 -d' ') ;  for i in $movs ; do mplayer /proc/$pid/fd/$i ; done ; done
+#1332097618
+while true; do pid=$(pgrep luakit) ; movs=$(ls -lh /proc/$pid/fd | grep Flash | cut -f 9 -d' ') ;  for i in $movs ; do mplayer /proc/$pid/fd/$i ; done ; done
+#1332093450
+vim cursovik_litovka_brut.plot 
+#1332098253
+python2 lit_lab.py 
+#1332099270
+htop
+#1332099310
+python2 lit_lab.py 
+#1332099427
+htop
+#1332099524
+python2 lit_lab.py 
+#1332099535
+pgrep lit_lab
+#1332099539
+pgrep python2
+#1332099545
+ps aux | grep 1944
+#1332099557
+kill -9 1944
+#1332099946
+python2 lit_lab.py 
+#1332100322
+bash -c 'python2 hlp_dlg.py'
+#1332100327
+bash -c 'python2 hlp_dlg.py'&
+#1332100353
+python2 lit_lab.py 
+#1332100382
+command -v python2
+#1332100392
+python2 lit_lab.py 
+#1332100503
+chmod +x call_help.sh 
+#1332100506
+./call_help.sh 
+#1332100511
+python2 lit_lab.py 
+#1332100570
+zsh
+#1332128861
+echo help_content = u""" Управление
+
+Расстановка и перемещение объектов
+Для установки объектов, нужно щёлкнуть левой кнопкой мыши в произвольном месте экрана. Пересечение объектов не допускается.
+Чтобы переместить объекты, нажмите на кнопку "переместить шестерни", затем используя клавиши w, a, s, d, q, j, k, l, i, u, o можно придать объектам новое положение.
+Для первого объекта:
+w - перемещение по оси У вверх
+a - перемещение по оси Х влево
+s - перемещение по оси У вниз
+d - перемещение по оси Х вправо
+q - перемещение по оси Z "от себя"
+e - перемещение по оси Z "к себе"
+
+Для второго:
+j - перемещение по оси У вверх
+k - перемещение по оси Х влево
+l - перемещение по оси У вниз
+u - перемещение по оси Х вправо
+i - перемещение по оси Z "от себя"
+o - перемещение по оси Z "к себе"
+
+Вращение объектов вокруг собственной оси:
+Для первого объекта:
+a - вращение вокруг собственной оси, проходящей через центр объекта параллельно с осью У, по часовой стрелке
+d - против часовой стрелки
+
+Для второго:
+j - вращение по часовой стрелке
+l - против часовой стрелки
+
+Очистка экрана
+Кнопка "очистить" очищает экран и удаляет все установленные объекты.
+
+Повторный запуск симуляции можно запустить с помощью кнопки "старт", если необходимо, перед запуском можно передвинуть объекты, повернуть их или передвинуть точки.
+Чтобы установить точку, после расстановки объектов, нужно щёлкнуть левой кнопкой мыши щёлкнуть на объекте."""
+#1332128876
+echo help_content = u""" Управление
+
+Расстановка и перемещение объектов
+Для установки объектов, нужно щёлкнуть левой кнопкой мыши в произвольном месте экрана. Пересечение объектов не допускается.
+Чтобы переместить объекты, нажмите на кнопку "переместить шестерни", затем используя клавиши w, a, s, d, q, j, k, l, i, u, o можно придать объектам новое положение.
+Для первого объекта:
+w - перемещение по оси У вверх
+a - перемещение по оси Х влево
+s - перемещение по оси У вниз
+d - перемещение по оси Х вправо
+q - перемещение по оси Z "от себя"
+e - перемещение по оси Z "к себе"
+
+Для второго:
+j - перемещение по оси У вверх
+k - перемещение по оси Х влево
+l - перемещение по оси У вниз
+u - перемещение по оси Х вправо
+i - перемещение по оси Z "от себя"
+o - перемещение по оси Z "к себе"
+
+Вращение объектов вокруг собственной оси:
+Для первого объекта:
+a - вращение вокруг собственной оси, проходящей через центр объекта параллельно с осью У, по часовой стрелке
+d - против часовой стрелки
+
+Для второго:
+j - вращение по часовой стрелке
+l - против часовой стрелки
+
+Очистка экрана
+Кнопка "очистить" очищает экран и удаляет все установленные объекты.
+
+Повторный запуск симуляции можно запустить с помощью кнопки "старт", если необходимо, перед запуском можно передвинуть объекты, повернуть их или передвинуть точки.
+Чтобы установить точку, после расстановки объектов, нужно щёлкнуть левой кнопкой мыши щёлкнуть на объекте.""" | fold
+#1332129226
+vim lit_lab.py 
+#1332129244
+python2 lit_lab.py 
+#1332129253
+vim lit_lab.py 
+#1332129264
+python2 lit_lab.py 
+#1332129270
+vim lit_lab.py 
+#1332129280
+python2 lit_lab.py 
+#1332129290
+cp lit_lab.py /tmp
+#1332129426
+python2 lit_lab.py 
+#1332129805
+cp lit_lab.py /tmp
+#1332129931
+cp help.html /tmp
+#1332130010
+cp lit_lab.py /tmp
+#1332130073
+cp help.html /tmp
+#1332130128
+python2 lit_lab.py 
+#1332130479
+cp lit_lab.py /tmp
+#1332130485
+cp help.html /tmp
+#1332130566
+python2 lit_lab.py 
+#1332130590
+cp lit_lab.py /tmp
+#1332132168
+python2 lit_lab.py 

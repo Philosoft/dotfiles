@@ -1,0 +1,23 @@
+#!/usr/bin/python3
+
+import os
+import sys
+
+def draw_tree(d, indent):
+    for i in os.listdir(d):
+        print("|", "-"*indent, sep = '', end = '')
+        if os.path.isdir(d + '/' + i):
+            print('\033[33m' + i + '\033[00m')
+            draw_tree(d + '/' + i, indent + 2)
+        else:
+            print(i)
+
+if len(sys.argv) < 2:
+    print("USAGE:", sys.argv[0], "/some/path/to/display")
+    sys.exit()
+
+path = os.path.abspath(sys.argv[1])
+if os.path.exists(path) and os.path.isdir(path):
+    print(path)
+    ind = 2
+    draw_tree(path, 2)

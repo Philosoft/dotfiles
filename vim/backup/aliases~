@@ -1,0 +1,18 @@
+if [[ $(command -v grc) != '' ]]; then
+	alias ping='grc ping'
+	alias traceroute='grc traceroute'
+	alias netstat='grc netstat'
+	alias cdiff='grc diff -u'
+fi
+
+alias ls='ls --color=auto'
+alias mc='mc -S zenburn'
+alias openports='netstat --all --numeric --programs --inet'
+alias da='date "+%A, %B, %d, %Y [%T]"'
+
+alias mocp='mocp -T Lianli'
+if [[ $(command -v pacman-color) != '' ]]; then alias pacman='pacman-color'; fi
+
+alias superhibernate='da; free -m ; sudo umount /mnt/c ; sudo umount /mnt/data ; sudo pm-hibernate ; sleep 4; sudo swapoff -a ; sudo swapon -a ; (sudo mount /mnt/data; sudo mount /mnt/c) ; (nohup firefox&) &>/dev/null; (nohup thunderbird &) &>/dev/null ; da ; free -m'
+
+# vim: filetype=zsh

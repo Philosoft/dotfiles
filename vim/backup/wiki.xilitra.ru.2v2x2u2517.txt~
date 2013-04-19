@@ -1,0 +1,89 @@
+== Спецификация пакета Xilitra ==
+
+Пакет представляет собой tarball без сжатия, в котором лежат два архива:
+
+* meta.tar.gz
+* data.tar.xz
+
+За счёт xz-сжатия data.tar.xz пакет нового формата будет иметь почти тот же размер, что и пакет текущего формата, унаследованного от Slackware.
+Расширение у пакета предлагается .xpkg, MIME-тип: application/x-xilitra-package.
+В архиве data.tar.xz будет лежать содержимое пакета, распаковываемое на диск (в текущем формате это всё, за исключением /install).
+
+В архиве meta.tar.gz — метаданные пакета в JSON meta.json, (при наличии) цифровая GPG-подпись data.tar.xz.sig, список прав на файлы permissions.json, а так же единый скрипт preinstall, postinstall, preremove, postremove.
+
+name.xpkg
+`- meta.tar.gz
+ `- meta.json
+ |- data.tar.xz.sig
+ |- permissions.json
+ |- $name.install
+`- data.tar.xz
+ `- /usr
+  `- /bin
+  ...
+
+Пример файла meta.json:
+ {
+     "name": "thunar-git",
+     "version": "1.3.1",
+     "build": 1,
+     "arch": "any",
+     "shortdesc": "XFCE File manager",
+     "longdesc": {
+         "C": "XFCE File manager written in GTK, git version",
+         "ru": "Файловый менеджер для XFCE, написанный с использованием GTK, версия из git",
+     },
+     "license": "GPLv3",
+     "depends": ["libxfce4util", "libxfce4ui", "exo"],
+     "provides": "thunar",
+     "conflicts": "something",
+     "maintainer": {
+         "name": "pztrn aka Stanislav N.",
+         "email": "pztrn@pztrn.ru",
+     },
+     "data_checksum": {
+         "gpg": true,
+         "md5": "md5_checksum_goes_here",
+         "sha1": "sha1_checksum_goes_here",
+     },
+     "API_VERSION": 1,
+ }
+Если data_checksum.gpg == True, то используется подпись, лежащая в архиве с метой. Если подписи нет, проверяются md5/sha1-суммы data.tar.xz
+
+Пример скрипта $name.install
+ #!/bin/sh
+ # $version - version being installed/removed
+ # $oldversion - version being upgraded
+ preinstall () {
+     preinstall actions
+ }
+ postinstall () {
+     postinstall actions
+ }
+ preremove () {
+     preremove actions
+ }
+ postremove () {
+     postremove actions
+ }
+ preupgrade () {
+     preupgrade actions
+ }
+ postupgrade () {
+     postupgrade actions
+ }
+
+Пример файла permissions.json
+ [ { 'file': '/usr/bin/true', owner: 'root', group: 'root', permissions: 0o755 } ]
+
+=== Установка пакета ===
+
+При ''установке'' пакета сперва устанавливаются все его зависимости, удаляются конфликтующие пакеты, затем отрабатывает скрипт preinstall, после чего в / (или другой $ROOT) распаковывается data.tar.xz (надеюсь, не нужно напоминать о сохранении атрибутов на файлы, нужных для правильной работы?), выполняется postinstall.
+
+При ''обновлении'' пакета сперва обновляются все его зависимости, затем распаковывается новая версия пакета, после чего запускается postinstall.
+
+При ''удалении'' сперва запускается preremove, затем удаляются файлы пакета, после чего запускается postremove.
+
+Рекоммендсы не должны устанавливаться по умолчанию. Порядок установки оптдепенсов надо обговорить отдельно.
+
+Пакетный менеджер, отвечающий стандартам, обязан будет уметь понимать формат пакетов, описанный выше, и (опционально) пакеты AgiliaLinux (актуально для первых версий API). Установка пакетов Slackware должна быть объявлена неподдерживаемой и исключена из функционала. Файловые менеджеры должны уметь по двойному щелчку устанавливать пакет (реализовывать данный функционал нужно через PackageKit). Для сборки пакетов будет использоваться MORPHLING, поддержка Slackbuild-ов будет прекращена.(а ABUILD?)

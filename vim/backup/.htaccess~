@@ -1,0 +1,4 @@
+#RewriteEngine On
+#RewriteBase /
+#RewriteRule ^index\.php$ readme.html
+Redirect 301 /index.php /readme.html

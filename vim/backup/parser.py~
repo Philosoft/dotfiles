@@ -1,0 +1,20 @@
+from BeautifulSoup import BeautifulSoup
+import urllib, sys
+
+def parse(value, valid_tags, valid_attrs):
+	valid_tags = valid_tags.split()
+	valid_attrs = valid_attrs.split()
+	soup = BeautifulSoup(value)
+	for tag in soup.findAll(True):
+		if tag.name not in valid_tags:
+			tag.hidden = True
+		if tag.name == 'script':
+			tag.content = ''
+		else:
+			tag.attrs = [(attr, val) for attr, val in tag.attrs if attr in valid_attrs]
+	 return soup.renderContents()
+
+
+if __name__ == '__main__':
+	data = urllib.urlopen(sys.argv[1]).read()
+	print parse(data, 'tr td th table body head html a', 'href rowspan colspan').replace('head>', """head>'""")

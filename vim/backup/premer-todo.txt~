@@ -1,0 +1,7 @@
+Convert all @baseGray txt to use custom muted class for paragraphs.
+
+Check out inline class for lists
+
+Wrap images and content on some pages with div.media>img+div.media-body
+
+Accordion group to middle-text-table in main-page (collapse js)

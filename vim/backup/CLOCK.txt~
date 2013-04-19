@@ -1,0 +1,345 @@
+R00	EQU 0;   \                        ﾏﾐﾎﾃﾐﾀﾌﾌﾀ, ﾂﾛﾂﾎﾄﾟﾙﾀﾟ ﾍﾀ ﾆﾊ-ﾈﾍﾄﾈﾊﾀﾒﾎﾐ,
+R01	EQU 1;   |                        ﾓﾑﾒﾀﾍﾎﾂﾋﾅﾍﾍﾛﾉ ﾍﾀ ﾏﾋﾀﾒﾓ EB-552
+R02	EQU 2;   |                        ﾒﾅﾊﾓﾙﾅﾅ ﾂﾐﾅﾌﾟ (ﾗﾀﾑﾛ,
+R03	EQU 3;    \                       ﾌﾈﾍﾓﾒﾛ, ﾑﾅﾊﾓﾍﾄﾛ),ﾄﾀﾒﾓ (ﾗﾈﾑﾋﾎ, ﾌﾅﾑﾟﾖ, ﾃﾎﾄ, ﾄﾅﾍﾜ ﾍﾅﾄﾅﾋﾈ)
+R04	EQU 4;    /    ﾁﾀﾍﾊ ﾐﾅﾃﾈﾑﾒﾐﾎﾂ 0   
+R05	EQU 5;   |                         ﾌﾈﾊﾐﾎﾑﾕﾅﾌﾎﾉ ﾗﾀﾑﾎﾂ PCF8583
+R06	EQU 6;   |                        ﾓﾏﾐﾀﾂﾋﾟﾅﾒ ﾊﾎﾍﾒﾐﾎﾋﾋﾅﾐ PCF80C552,ﾐﾀﾑﾏﾎﾋﾎﾆﾅﾍﾍﾛﾉ ﾍﾀ ﾏﾋﾀﾒﾅ
+R07	EQU 7;   /  			    EB-552 ﾔﾈﾐﾌﾛ ﾊﾒﾖ-ﾌﾊ, ﾏﾎ ﾘﾈﾍﾅ I2C.
+;
+P1	EQU 090H
+P10	EQU 090H
+P11	EQU 091H
+P12	EQU 092H
+P13	EQU 093H
+P14	EQU 094H
+P15	EQU 095H
+P16	EQU 096H
+P17	EQU 097H
+DPL	EQU 083H
+DPH	EQU 082H
+ACC	EQU 0E0H
+SP	EQU 081H
+; 7FC0H ﾇﾀﾏﾈﾑﾜ ﾂ ﾐﾅﾃﾈﾑﾒﾐ ﾊﾎﾌﾀﾍﾄ (ﾀﾄﾐﾅﾑ ﾐﾅﾃﾈﾑﾒﾐﾀ ﾇﾀﾏﾈﾑﾈ ﾊﾎﾌﾀﾍﾄ ﾊﾎﾍﾒﾐﾎﾋﾋﾅﾐﾀ PCF80C552)
+; 7FC1H ﾗﾒﾅﾍﾈﾅ ﾈﾇ ﾐﾅﾃﾈﾑﾒﾐﾀ ﾊﾎﾌﾀﾍﾄ
+; 7FC2H ﾇﾀﾏﾈﾑﾜ ﾂ ﾐﾅﾃﾈﾑﾒﾐ ﾄﾀﾍﾍﾛﾕ
+; 7FC3H ﾗﾒﾅﾍﾈﾅ ﾈﾇ ﾐﾅﾃﾈﾑﾒﾐﾀ ﾄﾀﾍﾍﾛﾕ
+  ORG 8000H
+;
+    CALL DELT
+    CALL UST
+    CALL NAD
+    CALL DELT
+    CALL CLEAR
+    MOV P1,#11111111B
+;
+;ﾍﾀﾗﾀﾋﾎ ﾖﾈﾊﾋﾀ (ﾑ ﾌﾅﾒﾊﾈ II)
+; ﾃﾄﾅ ﾂﾑﾅ ﾏﾐﾎﾈﾑﾕﾎﾄﾈﾒ
+;
+II:
+;
+   CALL HO             ; ﾗﾒﾅﾍﾈﾅ ﾈﾇ ﾗﾀﾑﾎﾂ  
+;    
+     MOV R05,#7        ;ﾂﾛﾂﾎﾄﾈﾒ ﾍﾅﾑﾊﾎﾋﾜﾊﾎ ﾏﾐﾎﾁﾅﾋﾎﾂ
+MB:  MOV DPTR,#7FC2H
+     MOV A,#20H;
+     MOVX @DPTR,A
+     CALL DEL1MS
+     DJNZ R05,MB
+;
+    CALL TTT            ;ﾂﾛﾂﾎﾄ ﾗﾀﾑﾎﾂ ﾍﾀ ﾆﾊﾈ
+;
+    MOV R04,#3AH        ;ﾂﾛﾂﾎﾄ ﾑﾈﾌﾂﾎﾋﾀ ﾄﾂﾎﾅﾒﾎﾗﾈﾟ ﾍﾀ ﾆﾊﾈ
+    MOV DPTR,#7FC2H
+    MOV A,R04      
+    MOVX @DPTR,A
+;
+    CALL MIN            ;ﾗﾒﾅﾍﾈﾅ ﾈﾇ ﾌﾈﾍﾓﾒ 
+;
+    CALL TTT            ;ﾂﾛﾂﾎﾄ ﾌﾈﾍﾓﾒ ﾍﾀ ﾆﾊﾈ
+;
+  MOV R04,#3AH          ;ﾂﾛﾂﾎﾄ ﾑﾈﾌﾂﾎﾋﾀ ﾄﾂﾎﾅﾒﾎﾗﾈﾟ ﾍﾀ ﾆﾊﾈ
+  MOV DPTR,#7FC2H
+  MOV A,R04      
+  MOVX @DPTR,A
+;
+;   
+    CALL SEK            ;ﾗﾒﾅﾍﾈﾅ ﾈﾇ ﾑﾅﾊﾓﾍﾄ
+; 
+    CALL TTT            ;ﾂﾛﾂﾎﾄ ﾑﾅﾊﾓﾍﾄ ﾍﾀ ﾆﾊﾈ      
+;
+;
+    MOV DPTR,#7FC0H     ;
+    MOV A,#11111111B
+    MOVX @DPTR,A	;
+;
+  JMP II                ;ﾇﾀﾖﾈﾊﾋﾈﾂﾀﾍﾈﾅ ﾏﾐﾎﾃﾐﾀﾌﾌﾛ
+;------------------------------------------------ﾏﾎﾄﾏﾐﾎﾃﾐﾀﾌﾌﾛ---------------------------------------------------------
+; ﾏﾎﾄﾏﾐﾎﾃﾐﾀﾌﾌﾀ ﾗﾒﾅﾍﾈﾟ ﾐﾅﾃﾈﾑﾒﾐﾀ ﾑﾅﾊﾓﾍﾄ ﾈﾇ ﾌﾈﾊﾐﾎﾑﾕﾅﾌﾛ ﾗﾀﾑﾎﾂ (PCF8583)
+; ﾈ ﾏﾎﾌﾅﾙﾅﾍﾈﾟ ﾝﾒﾈﾕ ﾄﾀﾍﾍﾛﾕ ﾂ ﾐﾅﾃﾈﾑﾒﾐ R04
+SEK: 
+    CALL START
+    MOV R06,#10100010B  ;A2H - "SLAVE"-ﾀﾄﾐﾅﾑ ﾌﾈﾊﾐﾎﾑﾕﾅﾌﾛ ﾗﾀﾑﾎﾂ (PCF8583)
+    CALL OUTBYTE
+    MOV R06,#00000010B  ;ﾀﾄﾐﾅﾑ ﾐﾅﾃﾈﾑﾒﾐﾀ ﾑﾅﾊﾓﾍﾄ (02H) 
+    CALL OUTBYTE
+    CALL START
+    MOV R06,#10100011B  ;ﾀﾄﾐﾅﾑ PCF8583 (A2H) + 1 (R\W=1) ﾗﾒﾅﾍﾈﾅ ﾏﾎ ﾏﾐﾎﾈﾇﾂﾎﾋﾜﾍﾎﾌﾓ ﾀﾄﾐﾅﾑﾓ
+    CALL OUTBYTE
+    CALL INBYTE                ;ﾗﾒﾅﾍﾈﾅ ﾁﾀﾉﾒﾀ ﾄﾀﾍﾍﾛﾕ
+    CALL STOP                    ; ﾈ ﾇﾀﾃﾐﾓﾇﾊﾀ ﾝﾒﾎﾃﾎ ﾁﾀﾉﾒﾀ ﾂ ﾀﾊﾊﾓﾌﾓﾋﾟﾒﾎﾐ
+    RET  
+;
+; ﾏﾎﾄﾏﾐﾎﾃﾐﾀﾌﾌﾀ ﾗﾒﾅﾍﾈﾟ ﾐﾅﾃﾈﾑﾒﾐﾀ ﾌﾈﾍﾓﾒ ﾈﾇ ﾌﾈﾊﾐﾎﾑﾕﾅﾌﾛ ﾗﾀﾑﾎﾂ (PCF8583)
+; ﾈ ﾏﾎﾌﾅﾙﾅﾍﾈﾟ ﾝﾒﾈﾕ ﾄﾀﾍﾍﾛﾕ ﾂ ﾐﾅﾃﾈﾑﾒﾐ R04
+MIN:
+   CALL START
+   MOV R06,#10100010B   ;A2H - "SLAVE"-ﾀﾄﾐﾅﾑ ﾌﾈﾊﾐﾎﾑﾕﾅﾌﾛ ﾗﾀﾑﾎﾂ (PCF8583)
+   CALL OUTBYTE
+   MOV R06,#00000011B   ;ﾀﾄﾐﾅﾑ ﾐﾅﾃﾈﾑﾒﾐﾀ ﾌﾈﾍﾓﾒ (03H) 
+   CALL OUTBYTE
+   CALL START
+   MOV R06,#10100011B   ;ﾀﾄﾐﾅﾑ PCF8583 (A2H) + 1 (R\W=1) ﾗﾒﾅﾍﾈﾅ ﾏﾎ ﾏﾐﾎﾈﾇﾂﾎﾋﾜﾍﾎﾌﾓ ﾀﾄﾐﾅﾑﾓ
+   CALL OUTBYTE
+   CALL INBYTE          ;ﾗﾒﾅﾍﾈﾅ ﾁﾀﾉﾒﾀ ﾄﾀﾍﾍﾛﾕ
+   MOV A,R04            ;ﾈ ﾇﾀﾃﾐﾓﾇﾊﾀ ﾝﾒﾎﾃﾎ ﾁﾀﾉﾒﾀ ﾂ ﾀﾊﾊﾓﾌﾓﾋﾟﾒﾎﾐ
+   CALL STOP  
+   RET  
+;
+; ﾏﾎﾄﾏﾐﾎﾃﾐﾀﾌﾌﾀ ﾗﾒﾅﾍﾈﾟ ﾐﾅﾃﾈﾑﾒﾐﾀ ﾗﾀﾑﾎﾂ ﾈﾇ ﾌﾈﾊﾐﾎﾑﾕﾅﾌﾛ ﾗﾀﾑﾎﾂ (PCF8583)
+; ﾈ ﾏﾎﾌﾅﾙﾅﾍﾈﾟ ﾝﾒﾈﾕ ﾄﾀﾍﾍﾛﾕ ﾂ ﾐﾅﾃﾈﾑﾒﾐ R04
+HO:
+    CALL START
+    MOV R06,#10100010B  ;A2H - "SLAVE"-ﾀﾄﾐﾅﾑ ﾌﾈﾊﾐﾎﾑﾕﾅﾌﾛ ﾗﾀﾑﾎﾂ (PCF8583)
+    CALL OUTBYTE
+    MOV R06,#00000100B  ;ﾀﾄﾐﾅﾑ ﾐﾅﾃﾈﾑﾒﾐﾀ ﾗﾀﾑﾎﾂ (04H) 
+    CALL OUTBYTE
+    CALL START
+    MOV R06,#10100011B  ;ﾀﾄﾐﾅﾑ PCF8583 (A2H) + 1 (R\W=1) ﾗﾒﾅﾍﾈﾅ ﾏﾎ ﾏﾐﾎﾈﾇﾂﾎﾋﾜﾍﾎﾌﾓ ﾀﾄﾐﾅﾑﾓ
+    CALL OUTBYTE
+    CALL INBYTE         ;ﾗﾒﾅﾍﾈﾅ ﾁﾀﾉﾒﾀ ﾄﾀﾍﾍﾛﾕ
+    MOV A,R04           ;ﾈ ﾇﾀﾃﾐﾓﾇﾊﾀ ﾝﾒﾎﾃﾎ ﾁﾀﾉﾒﾀ ﾂ ﾀﾊﾊﾓﾌﾓﾋﾟﾒﾎﾐ
+    CALL STOP
+    RET
+;
+; ﾏﾎﾄﾏﾐﾎﾃﾐﾀﾌﾌﾀ ﾂﾛﾂﾎﾄﾀ ﾍﾀ ﾆﾊﾈ ﾄﾂﾓﾕﾐﾀﾇﾐﾟﾄﾍﾎﾃﾎ ﾗﾈﾑﾋﾀ, ﾕﾐﾀﾍﾟﾙﾅﾃﾎﾑﾟ ﾂ ﾐﾅﾃﾈﾑﾒﾐﾅ R04
+;ﾂ ﾄﾂﾎﾈﾗﾍﾎ-ﾄﾅﾑﾟﾒﾈﾗﾍﾎﾌ ﾏﾐﾅﾄﾑﾒﾀﾂﾋﾅﾍﾈﾈ (ﾂ ﾗﾀﾑﾒﾍﾎﾑﾒﾈ ﾗﾀﾑﾎﾂ ﾈﾋﾈ ﾌﾈﾍﾓﾒ)
+TTT:
+;
+   MOV A,R04            ;ﾈﾇ R04 ﾗﾈﾑﾋﾎ ﾂ ﾄﾂﾎﾈﾗﾍﾎ-ﾄﾅﾑﾟﾒﾈﾗﾍﾎﾌ ﾔﾎﾐﾌﾀﾒﾅ - ﾂ ﾀﾊﾊﾓﾌﾓﾋﾟﾒﾎﾐ
+   MOV R00,R04          ;ﾅﾃﾎ ﾆﾅ ﾂ R00 
+   ANL A,#11110000B     ;ﾇﾀﾍﾓﾋﾅﾍﾈﾅ ﾂﾑﾅﾕ ﾁﾈﾒﾎﾂ, ﾊﾐﾎﾌﾅ ﾁﾈﾒﾎﾂ ﾑﾒﾀﾐﾘﾅﾃﾎ ﾐﾀﾇﾐﾟﾄﾀ (ﾄﾅﾑﾟﾒﾊﾎﾂ)
+   RL A		        ; ﾑﾄﾂﾈﾃ ﾑﾎﾄﾅﾐﾆﾈﾌﾎﾃﾎ ﾀﾊﾊﾓﾌﾓﾋﾟﾒﾎﾐﾀ ﾍﾀ 4 ﾐﾀﾇﾐﾟﾄﾀ ﾂﾋﾅﾂﾎ,
+   RL A		        ;ﾗﾒﾎﾁﾛ ﾂ ﾍﾅﾌ ﾁﾛﾋﾎ ﾗﾈﾑﾋﾎ ﾄﾅﾑﾟﾒﾊﾎﾂ
+   RL A                 ;
+   RL A                 ;
+   ADD A,#30H           ;ﾗﾈﾑﾋﾎ ﾄﾅﾑﾟﾒﾊﾎﾂ + 30H - ﾄﾋﾟ ﾂﾛﾂﾎﾄﾀ ﾍﾀ ﾈﾍﾄﾈﾊﾀﾒﾎﾐ
+   MOV R04,A		;ﾂ R04 - ﾊﾎﾄ ﾗﾈﾑﾋﾀ ﾄﾅﾑﾟﾒﾊﾎﾂ
+   MOV DPTR,#7FC2H
+   MOV A,R04            ;ﾂﾛﾂﾎﾄ ﾍﾀ ﾆﾊﾈ ﾗﾈﾑﾋﾀ ﾄﾅﾑﾟﾒﾊﾎﾂ
+   MOVX @DPTR,A             
+;                              
+   CALL DEL1MS
+;
+  MOV A,R00             ;ﾈﾇﾂﾋﾅﾗﾅﾍﾈﾅ ﾈﾇ R00 ﾂ ﾀﾊﾊ-ﾐ ﾗﾈﾑﾋﾀ ﾂ ﾄﾂﾎﾈﾗﾍﾎ-ﾄﾅﾑﾟﾒﾈﾗﾍﾎﾌ ﾔﾎﾐﾌﾀﾒﾅ
+  ANL A,#00001111B      ;ﾇﾀﾍﾓﾋﾅﾍﾈﾅ ﾂﾑﾅﾕ ﾁﾈﾒﾎﾂ, ﾊﾐﾎﾌﾅ ﾁﾈﾒﾎﾂ ﾌﾋﾀﾄﾘﾅﾃﾎ ﾐﾀﾇﾐﾟﾄﾀ (ﾅﾄﾈﾍﾈﾖ)
+  ADD A,#30H            ;ﾗﾈﾑﾋﾎ ﾅﾄﾈﾍﾈﾖ + 30H - ﾄﾋﾟ ﾂﾛﾂﾎﾄﾀ ﾍﾀ ﾈﾍﾄﾈﾊﾀﾒﾎﾐ
+  MOV R04,A             ;ﾂ R04 - ﾊﾎﾄ ﾗﾈﾑﾋﾀ ﾅﾄﾈﾍﾈﾖ
+  MOV DPTR,#7FC2H
+  MOV A,R04; ﾏﾐﾎﾁﾅﾋ
+  MOVX @DPTR,A          ;ﾂﾛﾂﾎﾄ ﾍﾀ ﾆﾊﾈ ﾗﾈﾑﾋﾀ ﾅﾄﾈﾍﾈﾖ
+;
+  CALL DEL1MS
+  RET   
+;
+;ﾏﾎﾄﾏﾐﾎﾃﾐﾀﾌﾌﾀ ﾎﾒﾏﾐﾀﾂﾊﾈ ﾁﾈﾒﾀ
+;
+OUTBIT: 
+	CALL UU
+	MOV P17,C
+	SETB P16
+        CALL UU
+	CLR P16
+	CALL UU
+           RET
+;ﾏﾎﾄﾏﾐﾎﾃﾐﾀﾌﾌﾀ ﾏﾐﾈﾅﾌﾀ ﾁﾈﾒﾀ
+INBIT:
+	CALL UU
+	MOV C,P17
+	SETB P16
+	CALL UU
+	CLR P16
+	CALL UU
+           RET
+;ﾏﾎﾄﾏﾐﾎﾃﾐﾀﾌﾌﾀ ﾎﾒﾏﾐﾀﾂﾊﾈ ﾁﾀﾉﾒﾀ 
+;
+OUTBYTE:
+;        CALL UU    	
+	MOV R07,#8
+	MOV A,R06
+OU:	RLC A
+ 	CALL OUTBIT
+	DJNZ R07,OU
+	CALL INBIT
+          RET
+;ﾏﾎﾄﾏﾐﾎﾃﾐﾀﾌﾌﾀ ﾏﾐﾈﾅﾌﾀ ﾁﾀﾉﾒﾀ ﾑ ACK
+INBYTEACK:
+;	CALL UU
+   	MOV R07,#8
+INB:	CALL INBIT
+	RLC A
+	DJNZ R07,INB
+                  MOV R04,A
+              	CLR C
+	CALL OUTBIT
+	RET
+;
+;ﾏﾎﾄﾏﾐﾎﾃﾐﾀﾌﾌﾀ ﾏﾐﾈﾅﾌﾀ ﾁﾀﾉﾒﾀ ﾁﾅﾇ ACK
+INBYTE:
+        CALL UU
+   	MOV R07,#8
+INB1:	CALL INBIT
+	RLC A
+	DJNZ R07,INB1
+      MOV R04,A
+	RET
+;  
+START:
+  SETB P16                   ;
+  SETB P17                   ;
+  CALL UU
+  CLR P17
+  CALL UU
+  CLR P16
+  CALL UU
+  RET
+;
+STOP:
+   CLR P16                    ;
+   CLR P17                    ;
+   CALL UU
+   SETB P16
+   CALL UU
+   SETB P17
+   CALL UU
+   RET
+;
+UST:
+;
+  MOV DPTR,#7FC0H
+  MOV A,#11111111B
+  MOVX @DPTR,A
+  CALL DEL4MS
+;
+  MOV A,#00111000B	;DL=1, N=0, F=0
+  MOVX @DPTR,A
+  CALL DEL4MS
+;ﾊﾎﾌﾀﾍﾄﾀ ﾓﾏﾐﾀﾂﾋﾅﾍﾈﾅﾌ ﾂﾊﾋ./ﾂﾛﾊﾋ. ﾈﾍﾄﾈﾊﾀﾒﾎﾐﾀ
+;
+  MOV A,#00001100B	; D=1, C=0, B=0
+  MOVX @DPTR,A
+  CALL DEL1MS
+;
+;ﾀﾂﾒﾎﾈﾍﾊﾐﾅﾌﾅﾍﾒ
+;
+  MOV A,#00000110B	; I/D=1, S=0
+  MOVX @DPTR,A  
+  CALL DEL4MS
+;
+  MOV A,#00011000B	; S/C=0,R/L=1
+  MOVX @DPTR,A  
+  CALL DEL1MS
+  RET
+;
+;ﾍﾀﾄﾏﾈﾑﾜ "ﾌﾀﾒﾈ2003"
+NAD: 
+     CALL CLEAR
+     MOV R05,#17
+     MOV A,#00000000B
+     MOV R00,#00000000B
+FR:  
+     MOV DPTR, #TABM
+     MOVC A,@A+DPTR
+     MOV DPTR,#7FC2H
+     MOVX @DPTR,A
+     MOV A,R00
+     INC A
+     MOV R00,A
+     CALL DEL4MS
+     DJNZ R05,FR
+;
+  RET
+;
+; ﾏﾎﾄﾏﾐﾎﾃﾐﾀﾌﾌﾀ ﾎﾗﾈﾑﾒﾊﾈ ﾈﾍﾄﾈﾊﾀﾒﾎﾐﾀ ﾍﾀ ﾏﾋﾀﾒﾅ EB552
+CLEAR:
+  MOV DPTR,#7FC0H
+  MOV A,#00000001B	;ﾎﾗﾈﾑﾒﾊﾀ
+  MOVX @DPTR,A
+  CALL DEL4MS
+  RET
+;
+DELT:
+  CALL DEL64MS
+  CALL DEL64MS
+  CALL DEL64MS
+  CALL DEL64MS
+  CALL DEL64MS
+  CALL DEL64MS
+  CALL DEL64MS
+  CALL DEL64MS
+  CALL DEL64MS
+  CALL DEL64MS
+  CALL DEL64MS
+  CALL DEL64MS
+  CALL DEL64MS
+  CALL DEL64MS
+  RET
+;
+DEL64MS:
+  CALL DEL16MS
+  CALL DEL16MS
+  CALL DEL16MS
+  CALL DEL16MS
+  RET
+;
+;
+DEL16MS:
+  CALL DEL4MS
+  CALL DEL4MS
+  CALL DEL4MS
+  CALL DEL4MS
+  RET
+;
+;
+DEL4MS:
+  CALL DEL1MS
+  CALL DEL1MS
+  CALL DEL1MS
+  CALL DEL1MS
+  RET
+;
+;
+DEL1MS:
+MOV R01,#25
+;
+LREX:	MOV  R02,#18
+LRIN:	DJNZ R02,LRIN
+;
+  DJNZ R01,LREX
+  RET
+;
+UU:
+
+   MOV R01,#8
+
+EX:	MOV  R02,#1
+IN:	DJNZ R02,IN
+;
+  DJNZ R01,EX
+  RET
+;
+TABM:
+DB ' ', '"', 'M', 'A', 'T', 0A5H, '"', '-', 'P', 0A1H, 'T',0A9H         ;ﾌﾀﾒﾈ
+DB ' ', '2', '0', '0', '3'
+;
+  END

@@ -1,0 +1,4 @@
+#!/bin/bash
+
+DELAY='15m'
+sleep $DELAY && notify-send -t $((1000 * 10)) -u critical -i /usr/share/icons/Tango/128x128/emotes/face-glasses.png 'Пора отвлечься' 'Иди занимайся!'

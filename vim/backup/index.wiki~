@@ -1,0 +1,91 @@
+= My knowledge base =
+
+%toc
+
+sqlite sqlite_master
+	select name from sqlite_master
+
+gtk3 → ~/.config/gtk-3.0/settings.ini
+
+== хотелка ==
+	* лампа
+
+[[скорочтение]]
+
+[[Manga]]
+
+
+nginx
+
+autoindex on - enable directory listings
+
+music:
+	Catharsis
+	Foreverlive
+	Tarabanov
+	Hayward
+	Adam protoplast & co
+	
+
+  * ScratchPad — various temporary stuff
+  * [[Todo]]
+  * [[Книги]]
+
+== Unix Desktop == 
+=== WM ===
+	* [[Awesome]]
+	* [[Openbox]]
+
+=== distrs ===
+	* [[Gentoo]]
+	* [[Debian]]
+
+=== Shells ===
+==== Bash ====
+===== Bash programming =====
+see in man bash and /usr/share/doc/bash/examples/ (in pkg bash-doc)
+{{{
+	class="brush: bash" command -v comm # проверить существует ли команда
+}}}
+цвета кошернее получать через tput setaf
+использовать echo с любыми параметрами не по позиксу (юз притф инстед люк)
+про кошерность искать по слову bashism
+${var#|##|%|%%|/|:-|:+|:?|:offset:len|,,|,|^|^^}
+
+===== Bash shourtcuts =====
+  * [[bashisms]]
+  * [[Buil-in]]
+
+=== Other ===
+  * [[Список, что нужно доставить]]
+  * [[mc]]
+  * [[xxkb]]
+  * [[tint2]]
+  * [[conky]]
+  * [[setxkbmap]]
+  * [[vim]]
+    * [[vimwiki]]
+    * plugins
+      * [[minibufferexplorer]]
+      * [[vimwiki]]
+    * [[preferences]]
+  * [[mencoder]]
+  * [[XCompose]]
+  * [[gnuplot]]
+  * [[mpd]]
+  * [[genisoimage]]
+  * [[Gajim]]
+  * [[archlinux]]
+
+=== Games ===
+  * [[nethack]]
+
+== Программирование ==
+
+=== C/C++ ===
+  * [[String]]
+  * [[File]]
+  
+=== Python ===
+
+[[Windows]]

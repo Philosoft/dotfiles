@@ -1,0 +1,19 @@
+buf = ''
+flag = True
+with open('file.txt', 'r') as f:
+    content = f.readlines()
+    for tmp_buf in content:
+        if tmp_buf[:2] == 'V1':
+            buf += '<h1>%s</h1>\n' %(tmp_buf)
+        elif tmp_buf[:2] == 'V2':
+            buf += '<h2>%s</h2>\n' %(tmp_buf)
+        elif tmp_buf[:2] == 'S:':
+            if flag:
+                buf += '<p>%s<br\>\n' %(tmp_buf)
+                flag = False
+            else:
+                buf += '</p><p>%s<br\>\n' %(tmp_buf)
+        else:
+            buf += tmp_buf + '\n'
+
+print buf

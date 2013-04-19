@@ -1,0 +1,156 @@
+#!/usr/bin/python3
+
+import math
+
+####### Global definitions #######
+a = 3
+b = 3
+c = 1
+d = 2
+alpha = 15
+
+h = 1
+(x0, y0) = (0, 0)
+##################################
+
+def f0(x, y):
+    return (((x - a)*math.cos(alpha) + (y - b) * math.sin(alpha))**2 / c**2 + ((y - b) * math.cos(alpha) - (x - a) * math.sin(alpha))**2 / d**2 )
+
+def f_rozenbrok(x, y):
+    return 100 * (y - x**2)**2 + (1 - x)**2
+
+dx = dy = 1
+while dx != 0 or dy != 0:
+### проход по иксу
+    f_x1 = f0(x0, y0)
+    x = x0 + h
+    f_x2 = f0(x, y0)
+    i = 0
+    print("#######", i, "#######")
+    print("x =", x0)
+    print("f_x2 =", f_x2)
+    print("f_x1 =", f_x1)
+    while f_x2 < f_x1:
+        i += 1
+        f_x1 = f_x2
+        x += h
+        f_x2 = f0(x, y0)
+        print("#######", i, "#######")
+        print("x =", x)
+        print("f_x2 =", f_x2)
+        print("f_x1 =", f_x1)
+    x -= h
+    print("#################")
+    print("x =", x)
+    print("x_min =", f_x1)
+    dx = x - x0
+    print("dx =", dx)
+
+### проход по игреку
+    f_y1 = f0(x, y0)
+    y = y0 + h
+    f_y2 = f0(x, y)
+    i = 0
+    print("#######", i, "#######")
+    print("y =", y0)
+    print("f_y2 =", f_y2)
+    print("f_y1 =", f_y1)
+    while f_y2 < f_y1:
+        i += 1
+        f_y1 = f_y2
+        y += h
+        f_y2 = f0(x, y)
+        print("#######", i, "#######")
+        print("y =", y)
+        print("f_y2 =", f_y2)
+        print("f_y1 =", f_y1)
+
+    y -= h
+    print("#################")
+    print("y =", y)
+    print("y_min =", f_y1)
+    dy = y - y0
+    print("dy =", dy)
+
+### Прыжки
+    x0 = x
+    y0 = y
+    print("Совершён прыжок в", '(' + str(x0) + ';' + str(y0) + ')')
+
+    f_cur = f0(x0, y0)
+    f_fut = f0(x0 + dx, y0 + dx)
+    while f_fut < f_cur:
+        x0 += dx
+        y0 += dy
+        f_cur = f_fut
+        f_fut = f0(x0, y0)
+        print("Совершён прыжок в", '(' + str(x0) + ';' + str(y0) + ')')
+
+dx = dy = 1
+x0 = 0
+y0 = 0
+while dx != 0 or dy != 0:
+### проход по иксу
+    f_x1 = f_rozenbrok(x0, y0)
+    x = x0 + h
+    f_x2 = f_rozenbrok(x, y0)
+    i = 0
+    print("#######", i, "#######")
+    print("x =", x0)
+    print("f_x2 =", f_x2)
+    print("f_x1 =", f_x1)
+    while f_x2 < f_x1:
+        i += 1
+        f_x1 = f_x2
+        x += h
+        f_x2 = f_rozenbrok(x, y0)
+        print("#######", i, "#######")
+        print("x =", x)
+        print("f_x2 =", f_x2)
+        print("f_x1 =", f_x1)
+    x -= h
+    print("#################")
+    print("x =", x)
+    print("x_min =", f_x1)
+    dx = x - x0
+    print("dx =", dx)
+
+### проход по игреку
+    f_y1 = f_rozenbrok(x, y0)
+    y = y0 + h
+    f_y2 = f_rozenbrok(x, y)
+    i = 0
+    print("#######", i, "#######")
+    print("y =", y0)
+    print("f_y2 =", f_y2)
+    print("f_y1 =", f_y1)
+    while f_y2 < f_y1:
+        i += 1
+        f_y1 = f_y2
+        y += h
+        f_y2 = f_rozenbrok(x, y)
+        print("#######", i, "#######")
+        print("y =", y)
+        print("f_y2 =", f_y2)
+        print("f_y1 =", f_y1)
+
+    y -= h
+    print("#################")
+    print("y =", y)
+    print("y_min =", f_y1)
+    dy = y - y0
+    print("dy =", dy)
+
+### Прыжки
+    x0 = x
+    y0 = y
+    print("Совершён прыжок в", '(' + str(x0) + ';' + str(y0) + ')')
+
+    f_cur = f_rozenbrok(x0, y0)
+    f_fut = f_rozenbrok(x0 + dx, y0 + dx)
+    while f_fut < f_cur:
+        x0 += dx
+        y0 += dy
+        f_cur = f_fut
+        f_fut = f_rozenbrok(x0, y0)
+        print("Совершён прыжок в", '(' + str(x0) + ';' + str(y0) + ')')

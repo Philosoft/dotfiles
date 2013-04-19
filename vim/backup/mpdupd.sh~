@@ -1,0 +1,24 @@
+#!/bin/bash 
+
+#@Dependecies: mpc, inotify-tools
+
+# config
+MPDCONF='/home/philosoft/.mpd.conf'
+
+#MUSICDIR=`cat $MPDCONF | grep "[^#]*music_directory" |head -n1| awk '{print $2}'`
+#MUSICDIR=${MUSICDIR:1:$((${#MUSICDIR}-2))}
+MUSICDIR='/mnt/media/music/'
+
+function mpcUpdate()
+{
+  file=$*
+  # cut musicdir
+  file=${file:$((${#MUSICDIR}+1))}
+  mpc update "$file" >/dev/null 
+}
+
+
+inotifywait -mr -e close_write -e move -e create -e delete --format "%w%f" $MUSICDIR | while read line
+do
+  mpcUpdate "$line"
+done

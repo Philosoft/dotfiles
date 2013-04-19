@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ru">
+	<head>
+		<meta charset="UTF-8">
+		<title>Лабораторная работа №2</title>
+		<style>
+			q
+			{
+				font-style: italic;
+				quotes: "«" "»"
+			}
+
+			p:first-letter
+			{
+				font-weight: bold;
+				color: red;
+				font-size: 150%;
+			}
+
+			p:hover
+			{
+				font-size: large
+			}
+
+			.bq
+			{
+				background: grey;
+				border: 2px solid navy;
+				padding: 20px
+			}
+
+			#code
+			{
+				font-family: Monospace;
+			}
+			p { text-indent: 2em; line-height: 2 }
+
+			div span { letter-spacing: 3px }
+			div q a {text-decoration: line-through; text-shadow: black 1px 1px 2px }
+			div ul li {font-family: Sans; list-style-type: disc}
+			div ol li {list-style-type: decimal-leading-zero; font-family: serif }
+
+			#pure-p {line-height: normal; text-indent: 0}
+			#pure-p:first-letter {color: black; font-weight: normal; font-family: Free Sans}
+		</style>
+	</head>
+	<body>
+		Начнём с цитаты: <q>Crime does not pay ... as well as politics.</q>
+
+		<p>Ниже цитата в теге &lt;div&gt;</p>
+		<a href="#">link here</a>
+		<div class="bq">
+			Grover Cleveland, though constantly at loggerheads with the
+			Senate, got on better with the House of Representatives.  A popular
+			story circulating during his presidency concerned the night he was
+			roused by his wife crying, "Wake up!  I think there are burglars in the
+			house."
+			"No, no, my dear," said the president sleepily, "in the Senate maybe,
+			but not in the House."
+		</div>
+		<div id="code">
+			small piece of code here
+			with <span>monospace</span> font
+		</div>
+		<p>Способ написать <span style="vertical-align: 2px">T</span><span style="vertical-align: -2px;">E</span><span style="vertical-align: 2px">X</span> с помощью css</p>
+		<div style="text-align: center">поместим-ка текст по центру в div'е</div>
+		<div style="border: black solid 1px; float: right">нехорошо пользоваться ссылками <q>внутри <a href="#">цитаты</a></q></div>
+		<div>Место для списков
+			<ul>
+				<li>str 1</li>
+				<li>str 2</li>
+				<li>str 3</li>
+			</ul>
+
+			<ol>
+				<li>elem No 1</li>
+				<li>elem No 2</li>
+			</ol>
+		</div>
+		<span style="word-spacing: 25px">большое расстояние между словами</span>
+		<p>многострочный текст для демонстрации text-indent:<br>Lord, defend me from my friends; I can account for my enemies.<br> -- Charles D'Hericault<br> и двойной междустрочный интервал</p>
+		<p id="pure-p">для сравнения обычный интервал здесь:<br>
+		I woke up a feelin' mean<br>
+		went down to play the slot machine<br>
+		the wheels turned round,<br>
+		and the letters read<br>
+		"Better head back to Tennessee Jed"<br>
+		-- Grateful Dead<br>
+	</body>
+</html>

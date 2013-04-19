@@ -1,0 +1,18 @@
+set terminal png
+set output "lab2.1.png"
+set xlabel "x"
+set ylabel "y"
+set key top
+set border 4095
+set xrange [0:3]
+set yrange [0:4]
+set zrange [0:3]
+set pm3d
+set palette
+a=2
+b=3
+c=1
+d=2
+alpha=15
+set angles
+splot (((x - a)*cos(alpha) + (y - b) * sin(alpha))**2 / c**2 + ((y - b) * cos(alpha) - (x - a) * sin(alpha))**2 / d**2 )

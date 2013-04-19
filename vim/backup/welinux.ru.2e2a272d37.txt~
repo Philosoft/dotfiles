@@ -1,0 +1,13 @@
+Есть ещё вариант:
+
+<b>sudo echo &#39;deb http://ppa.launchpad.net/kubuntu-experimental/ubuntu intrepid main&#39; &gt;&gt; /etc/apt/sources.list
+
+sudo aptitude update
+
+sudo aptitude full-upgrade</b>
+
+При этом получаем 4.1.96 (он же 4.2 rc1).
+
+Правда, чревато обновиться прочими &#34;экспериментальными&#34; пакетами.
+
+К этому не каждый готов. :)

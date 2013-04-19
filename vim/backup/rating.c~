@@ -1,0 +1,35 @@
+#include <stdio.h>
+
+int main()
+{
+	int rating = -1;
+
+	while(rating != 0)
+	{
+		printf("Введите оценку (0 для выхода): ");
+		scanf("%i", &rating);
+		switch(rating)
+		{
+			case 0:
+				break;
+			case 1:
+				printf("плохо\n");
+				break;
+			case 2:
+				printf("неудовлетворительно\n");
+				break;
+			case 3:
+				printf("удовлетворительно\n");
+				break;
+			case 4:
+				printf("хорошо\n");
+				break;
+			case 5:
+				printf("отлично\n");
+			default:
+				printf("Некорректная оценка. Попробуйте ещё раз или введите 0 для выхода.\n");
+		}
+	}
+
+	return 0;
+}

@@ -1,0 +1,40 @@
+#!/bin/bash
+
+MAX_RETRIES=5
+link='http://welinux.ru/answer/?page=1'
+let solved=0
+let all=0
+
+for cur_page in {1..187}; do
+	curl $link 2>/dev/null 1>/tmp/cur_post
+	if [[ $? != 0 ]]; then
+		let i=0
+		ret_val=1
+		while [[ $i -lt $MAX_RETRIES || $ret_val != 0 ]]; do
+			curl $link 2>/dev/null 1>/tmp/cur_post
+			ret_val=$?
+			let i++
+		done
+	fi
+
+	cur=$(cat /tmp/cur_post | egrep '.*</h2>' | sed 's/<[^>]*>//g' | wc -l)
+	let all+=cur
+	cur_sol=$( cat /tmp/cur_post | egrep '.*</h2>' | sed 's/<[^>]*>//g' | egrep -i 'рeшено|решен|решён' | wc -l)
+	let solved+=cur_sol
+
+	link="${link/?page=$cur_page/?page=$(($cur_page+1))}"                           
+
+	printf  " ==== Страница №%3i === \n" $cur_page
+	echo    " ** Текущая статистика ** "
+	echo    "   Количество постов на странице: $cur"
+	echo    "   Из них решённых              : $cur_sol"
+	echo    "   Всего обработано постов      : $all"
+	echo    "   Из них решено                : $solved"
+	echo -en "\033[6A"
+done
+	printf  " ==== Страница №%3i === \n" $cur_page
+	echo    " ** Текущая статистика ** "
+	echo    "   Количество постов на странице: $cur"
+	echo    "   Из них решённых              : $cur_sol"
+	echo    "   Всего обработано постов      : $all"
+	echo    "   Из них решено                : $solved"

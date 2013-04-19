@@ -1,0 +1,25 @@
+square(X, Y) :- Y is X*X.
+
+lol([], 0).
+lol([H|T], TotalSum) :-
+	lol(T, SUM1),
+	square(H, Y),
+	TotalSum is Y + SUM1.
+
+even_items([], []).
+even_items([OLH], [OLH]).
+even_items([OLH1, OLH2|OLT], [NLH|NLT]) :- NLH is OLH1, even_items(OLT, NLT).
+	
+
+:- initialization(main).
+
+str2int([], []).
+str2int([S|St], [N|Nt]) :- number_atom(N, S), str2int(St, Nt).
+
+main :-
+	argument_list(Args),
+	str2int(Args, Numbers),
+	write('list: '), write(Numbers), nl,
+	even_items(Numbers, NewL), write('even_items: '), write(NewL), nl.
+	lol(NewL, SUM),
+	write('result: '), write(SUM), nl.

@@ -1,0 +1,6 @@
+set grid
+set xlabel 'τ, c'
+set ylabel 'C₁, моль/м³'
+set terminal png
+set output "/tmp/c1_ideal.png"
+plot "/tmp/c1_ideal" u 2:1 w l t "C₁"

@@ -1,0 +1,41 @@
+#!/bin/bash
+
+devs="$(ls /dev/sd* | egrep 'sd[b-z][0-9]?')"
+
+[[ -z $devs ]] && exit 0
+
+flag=''
+for i in $devs; do
+	if [[ $(grep -w "$i" /proc/mounts) ]]; then
+		flag="$flag $i"
+	fi
+done
+
+[[ -z $flag ]] && exit 0 
+
+list=''
+first=1
+for i in $flag; do
+	echo $i
+	if [[ $first == 1 ]]; then
+		list="True $i"
+		let first=0
+	else
+		list="$list False $i"
+	fi
+done
+echo $list
+exit
+
+
+choice="$(zenity --title='custom umount' --list --text='Что отмонтировать?' --radiolist --column='dev' --column='name' $list)"
+
+pumount $choice &> /tmp/myumount_pumount.log
+if [[ $? == 0 ]]; then
+	zenity --info --text='done'
+else
+	pumount_msg_head="$(head -n1 /tmp/myumount_pumount.log)"
+	pumount_msg_tail="$(tail -n1 /tmp/myumount_pumount.log)"
+	pumount_msg="${pumount_msg_head}\n${pumount_msg_tail}"
+	zenity --width=500 --warning --text="$pumount_msg"
+fi

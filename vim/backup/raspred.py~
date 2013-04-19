@@ -1,0 +1,74 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
+
+import pygtk
+pygtk.require('2.0')
+import gtk
+from math import pi, sqrt
+
+class App(gtk.Builder):
+    def __init__(self):
+        super(App, self).__init__()
+        self.add_from_file('gui.ui')
+        self.connect_signals(self)
+        self.window1.connect('destroy', gtk.main_quit)
+
+        self.fig = Figure(figsize = (5,4), dpi = 100)
+        self.canvas = FigureCanvas(self.fig)
+        self.vbox1.pack_start(self.canvas)
+        self.toolbar = NavigationToolbar(self.canvas, self.window1)
+        self.vbox1.pack_start(self.toolbar, False, False)
+
+        self.tbuf = self.textview1.get_buffer()
+
+        self.window1.show_all()
+        gtk.main()
+
+    def __getattr__(self, attr):
+        obj = self.get_object(attr)
+        if not obj:
+            raise AttributeError('There are no such attr as `' + attr + '\'')
+        setattr(self, attr, obj)
+        return obj
+#TODO:
+    # 1. default values
+    # 2. check work out
+# площадь
+A = pi / 4.0 * (D**2 - (D - 2 * s)**2)
+# момент инерции при изгибе
+Jx = Jy = pi / 64 * (D**4 - (D - 2 * s)**4)
+# момент сопротивления при изгибе
+Wx = Wy = 2 * Jx / D
+# момент инерции при кручении
+Jp = Jx / 2
+# радиус инерции
+ix = iy = sqrt(Jx / A)
+
+# рабочая длина стойки
+l = L + H / 2
+# момент инерции масс щита
+Jm = M * (b**2 / 13 + e**2)
+# крутильные колебания
+#   G - модуль сдвига стали
+f_kr = 1 / 2 / pi * sqrt((G * Jp / (Jm * l)))
+
+# погонная масса
+ro = 7850 # кг/м³
+m = ro * A
+# alpha из таблички alpha_n[n]
+n = M / m / l
+# первая форма изгибных колебаний
+f1 = 1 / (2 * pi) * alpha**2 / l**2 * sqrt(E * Jx / m)
+
+# тут где-то считается w_m 
+f_L = 3.8 # Hz
+
+if f1 < f_L:
+    gamma_f = 1.4 # коэф надёжности по нагрузке
+    v = 0.0 # коэфф пространственной корреляции
+    c_ = 0.0 # коэф пульцаций давления на уровне z 
+    ksi = 0.0 # ksi(gamma = delta / pi, e1), delta = 0.15 - логарифмический декремент колебаний 
+              # e1 = sqrt(1.4*w_0) / 940 / f1
+    ksi = integral(0, +inf, de, (2/3)*e**(11/3) / (1+e**2)**4/3 * (e**4 - 2 * (1- gamma**2 / 2) * e**2 * e_i**2 + e_i**4))
+    z = 0.0 # уровень для c_
+    w_p = gamma_f * w_m * ksi * c_ * v

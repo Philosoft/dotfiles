@@ -1,0 +1,24 @@
+power(X, Y) :- Y is X*X.
+
+max([X], X).
+max([X|Xs], X) :- max(Xs, Y), X >= Y.
+max([X|Xs], N) :- max(Xs, N), N > X.
+
+lol([], [], MAX).
+lol([H|T], [Hn|Tn], MAX) :-
+	H = MAX, Hn is 1, lol(T, Tn, MAX);
+	Hn is 0,
+	lol(T, Tn, MAX).
+
+:- initialization(main).
+
+str2int([], []).
+str2int([S|St], [N|Nt]) :- number_atom(N, S), str2int(St, Nt).
+
+main :-
+	argument_list(Args),
+	str2int(Args, Numbers),
+	write('list: '), write(Numbers), nl,
+	write('max: '), max(Numbers, MAX), write(MAX), nl,
+	lol(Numbers, NewNum, MAX),
+	write('result: '), write(NewNum), nl.

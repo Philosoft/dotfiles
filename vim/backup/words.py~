@@ -1,0 +1,13 @@
+#!/usr/bin/python3
+
+from gi.repository import Gtk
+
+class MyWindow(Gtk.Window):
+	def __init__(self):
+		Gtk.Window.__init__(self, title = "Манипулирем словами"
+
+w = ''
+w = MyWindow()
+w.connect("delete-event", Gtk.main_quit)
+w.show_all()
+Gtk.main()

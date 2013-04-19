@@ -1,0 +1,74 @@
+%% дописать выдержки из СНиПов и таблички
+\documentclass[a4paper,12pt]{report}
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[english,russian]{babel}
+\usepackage{fixltx2e} % для индексов в обычном тексте
+
+\usepackage{geometry}
+\geometry{left=2cm}
+\geometry{right=1.5cm}
+\geometry{top=1cm}
+\geometry{bottom=2cm}
+
+\title{Обсчёт билбордов}
+
+\begin{document}
+\textbf{Геометрические характеристики сечения стойки}
+
+
+Площадь сечения
+\begin{equation}
+	A = \frac{\pi}{4}  (D^2 - (D^2 - 2s)^2)
+\end{equation}
+
+Момент инерции при изгибе
+\begin{equation}
+J_x = J_y = \frac{\pi}{64}  (D^4 - (D - 2s)^4)
+\end{equation}
+
+Момент сопротивления при изгибе
+\begin{equation}
+	W_X = W_y = \frac{2J_x}{D}
+\end{equation}
+
+Момент инерции при кручении
+\begin{equation}
+	J_p = \frac{J_x}{2} = \frac{\pi}{32}  (d^4 - (d - 2s)^4)
+\end{equation}
+
+Радиус инерции
+\begin{equation}
+	i_x = i_y = \sqrt{\frac{J_x}{A}}
+\end{equation}
+
+
+Основные частоты колебаний конструкции определяются по формулам
+
+
+Крутильные колебания
+\begin{equation}
+	f_{кр} =  \frac{1}{2\pi} \sqrt{\frac{GJ_p}{J_Ml}}
+\end{equation}
+где G - модуль сдвига стали;
+\begin{equation}
+	l = L + \frac{H}{2}
+\end{equation}
+-  рабочая длина стойки; J\textsubscript{\it{M}} момент инерции масс щита, при b <  b\textsubscript{1} оцениваемый по формуле:
+\begin{equation}
+	J_M \approx M \frac{b^2}{12 + e^2}
+\end{equation}
+
+
+
+Безразмерный параметр альфа определяется в зависимости от отношения
+\begin{equation}
+	n = \frac{M}{ml}
+\end{equation}
+Первая частота собственных колебаний
+\begin{equation}
+	f_1 = \frac{1}{2\pi}  \frac{\alpha^2}{l^2} \sqrt{\frac{EJ_x}{m}}
+\end{equation}
+
+
+\end{document}

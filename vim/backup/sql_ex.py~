@@ -1,0 +1,10 @@
+#!/usr/bin/python2
+# -*- coding: utf-8 -*-
+
+import sqlite3
+
+user = 'ivi'
+conn = sqlite3.connect("./" + user + '.sqlite')
+c = conn.cursor()
+c.execute('create table t_ud (keyname text, t real)')
+c.execute('create table t_pr (leyname text, t real)')

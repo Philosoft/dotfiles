@@ -1,0 +1,31 @@
+[Default Applications]
+text/html=userapp-Firefox-DFSQ2V.desktop
+application/x-extension-htm=userapp-Firefox-DFSQ2V.desktop
+application/x-extension-html=userapp-Firefox-DFSQ2V.desktop
+application/x-extension-shtml=userapp-Firefox-DFSQ2V.desktop
+application/xhtml+xml=userapp-Firefox-DFSQ2V.desktop
+application/x-extension-xhtml=userapp-Firefox-DFSQ2V.desktop
+application/x-extension-xht=userapp-Firefox-DFSQ2V.desktop
+x-scheme-handler/mailto=userapp-Icedove-PC4BMW.desktop
+x-scheme-handler/http=userapp-Firefox-DFSQ2V.desktop
+x-scheme-handler/https=userapp-Firefox-DFSQ2V.desktop
+x-scheme-handler/ftp=userapp-Firefox-DFSQ2V.desktop
+x-scheme-handler/chrome=userapp-Firefox-DFSQ2V.desktop
+text/x-troff-mm=freemind.desktop
+x-scheme-handler/magnet=userapp-transmission-gtk-VOW3MW.desktop
+
+[Added Associations]
+text/html=userapp-Firefox-ISWTYV.desktop;userapp-Firefox-UDX8ZV.desktop;userapp-Firefox-NORN1V.desktop;userapp-Firefox-X71K1V.desktop;userapp-Firefox-DFSQ2V.desktop;userapp-Firefox-ZK5C4V.desktop;
+application/x-extension-htm=userapp-Firefox-ISWTYV.desktop;userapp-Firefox-UDX8ZV.desktop;userapp-Firefox-NORN1V.desktop;userapp-Firefox-X71K1V.desktop;userapp-Firefox-DFSQ2V.desktop;userapp-Firefox-ZK5C4V.desktop;
+application/x-extension-html=userapp-Firefox-ISWTYV.desktop;userapp-Firefox-UDX8ZV.desktop;userapp-Firefox-NORN1V.desktop;userapp-Firefox-X71K1V.desktop;userapp-Firefox-DFSQ2V.desktop;userapp-Firefox-ZK5C4V.desktop;
+application/x-extension-shtml=userapp-Firefox-ISWTYV.desktop;userapp-Firefox-UDX8ZV.desktop;userapp-Firefox-NORN1V.desktop;userapp-Firefox-X71K1V.desktop;userapp-Firefox-DFSQ2V.desktop;userapp-Firefox-ZK5C4V.desktop;
+application/xhtml+xml=userapp-Firefox-ISWTYV.desktop;userapp-Firefox-UDX8ZV.desktop;userapp-Firefox-NORN1V.desktop;userapp-Firefox-X71K1V.desktop;userapp-Firefox-DFSQ2V.desktop;userapp-Firefox-ZK5C4V.desktop;
+application/x-extension-xhtml=userapp-Firefox-ISWTYV.desktop;userapp-Firefox-UDX8ZV.desktop;userapp-Firefox-NORN1V.desktop;userapp-Firefox-X71K1V.desktop;userapp-Firefox-DFSQ2V.desktop;userapp-Firefox-ZK5C4V.desktop;
+application/x-extension-xht=userapp-Firefox-ISWTYV.desktop;userapp-Firefox-UDX8ZV.desktop;userapp-Firefox-NORN1V.desktop;userapp-Firefox-X71K1V.desktop;userapp-Firefox-DFSQ2V.desktop;userapp-Firefox-ZK5C4V.desktop;
+x-scheme-handler/mailto=userapp-Thunderbird-PL2A0V.desktop;userapp-Thunderbird-NEDA1V.desktop;userapp-Thunderbird-VT4M1V.desktop;userapp-Thunderbird-EDPK2V.desktop;userapp-Thunderbird-R8WU2V.desktop;thunderbird.desktop;userapp-Thunderbird-JL1O4V.desktop;userapp-Icedove-PC4BMW.desktop;
+x-scheme-handler/http=userapp-Firefox-UDX8ZV.desktop;userapp-Firefox-NORN1V.desktop;userapp-Firefox-X71K1V.desktop;userapp-Firefox-DFSQ2V.desktop;userapp-Firefox-ZK5C4V.desktop;
+x-scheme-handler/https=userapp-Firefox-UDX8ZV.desktop;userapp-Firefox-NORN1V.desktop;userapp-Firefox-X71K1V.desktop;userapp-Firefox-DFSQ2V.desktop;userapp-Firefox-ZK5C4V.desktop;
+x-scheme-handler/ftp=userapp-Firefox-UDX8ZV.desktop;userapp-Firefox-NORN1V.desktop;userapp-Firefox-X71K1V.desktop;userapp-Firefox-DFSQ2V.desktop;userapp-Firefox-ZK5C4V.desktop;
+x-scheme-handler/chrome=userapp-Firefox-UDX8ZV.desktop;userapp-Firefox-NORN1V.desktop;userapp-Firefox-X71K1V.desktop;userapp-Firefox-DFSQ2V.desktop;userapp-Firefox-ZK5C4V.desktop;
+text/x-troff-mm=xmind.desktop;freemind.desktop;
+x-scheme-handler/magnet=userapp-transmission-gtk-VOW3MW.desktop;

@@ -1,0 +1,185 @@
+var plot;
+var interval = null;
+var e;
+var a, b, c;
+var out;
+
+var PRINT_RUN = true;
+
+$(document).ready(function()
+{
+	plot = $.jqplot('chart', [[0]]);
+
+	out = document.getElementById('output');
+	if(out.value != "")
+		out.value = "";
+});
+
+function trim(stringToTrim)
+{
+	return stringToTrim.replace(/^\s+|\s+$/g,"");
+}
+
+function find_lowest_point_val(arr)
+{
+	var min = arr[0][1];
+	for(var i = 1; i < arr.length; i++)
+	{
+		if(arr[i][1] < min)
+			min = arr[i][1];
+	}
+	return min;
+}
+
+function find_heighest_point_val(arr)
+{
+	var max = arr[0][1];
+	for(var i = 1; i < arr.length; i++)
+	{
+		if(arr[i][1] > max)
+			max = arr[i][1];
+	}
+	return max;
+}
+
+function transform()
+{
+	var str = "";
+	str = document.getElementById("formula").value;
+	str = trim(str);
+	if(str == "")
+	{
+		alert("Вы не ввели ничего");
+		return false;
+	}
+
+	// replace cos/sin/tan/asin/acos/atan
+	str = str.replace(/cos/gi, "Math.cos");
+	str = str.replace(/sin/gi, "Math.sin");
+	str = str.replace(/tan/gi, "Math.tan");
+	str = str.replace(/acos/gi, "Math.acos");
+	str = str.replace(/asin/gi, "Math.asin");
+	str = str.replace(/atan/gi, "Math.atan");
+
+	// sqrt
+	str = str.replace(/sqrt/gi, "Math.sqrt");
+
+	// ln
+	str = str.replace(/ln/gi, "Math.log");
+
+	// exp
+	str = str.replace(/e\^(\d+|x)/gi, "Math.exp($1)");
+
+	// pow
+	str = str.replace(/(\d+\.?\d*|x)+\^(\d+)/gi, "Math.pow($1, $2)");
+
+	return str;
+}
+
+function run()
+{
+	if(interval != null)
+	{
+		clearInterval(interval);
+		interval = null;
+
+		out.value = "";
+
+		plot.init('chart', [[0]]);
+	}
+
+
+	var beg_x = document.getElementById('beg').value;
+	var end_x = document.getElementById('end').value;
+	beg_x = trim(beg_x);
+	end_x = trim(end_x);
+	if(beg_x == "" || end_x == "")
+	{
+		alert("Не введён отрезок");
+		return;
+	}
+
+	beg_x = Number(beg_x);
+	end_x = Number(end_x);
+
+	var step = 0.1 * Math.abs(beg_x - end_x);
+	e = step * 0.1;
+
+	var func = transform();
+	if(!func){ return; }
+
+	var func_arr = new Array();
+	for(var i = beg_x; i < end_x; i += step)
+	{
+		var computing_f = func.replace(/([+-\/* \(])?(?:x(?!p))/gi, "$1" + i);
+		func_arr.push([i, eval(computing_f)]);
+	}
+
+	f = function (x)
+		{
+			var tmp = func.replace(/([+-\/* \(])?(?:x(?!p))/gi, "$1" + x);
+			return eval(tmp);
+		};
+
+	//plot.init('chart', [func_arr]);
+	//plot.redraw();
+
+	var lp = func_arr[0];
+	var rp = func_arr[func_arr.length-1];
+	var lowest_point = find_lowest_point_val(func_arr);
+	var highest_point = find_heighest_point_val(func_arr);
+	var left_bound = [ [lp[0], lowest_point], [lp[0], highest_point] ];
+	var right_bound = [ [rp[0], lowest_point], [rp[0], highest_point] ];
+
+	a = lp[0];
+	b = rp[0];
+
+	plot.init('chart', [func_arr, left_bound, right_bound, left_bound, [1, 2, 3]]);/*,
+		{
+		seriesDefaults: { renderOptions: {animation: { show: true}}}}); */
+
+	interval = setInterval(function ()
+	{
+		c = a + Math.abs(b - a) / 2;
+		out.value += "Расстояние между границами больше точности ⇒ метод продолжается\n";
+		if(Math.abs(b - a) <= e)
+		{
+			clearInterval(interval);
+			out.value += "\n\nМинимум на заданном отрезке: y(" + c.toFixed(3) + ") ≈ " + f(c).toFixed(3);
+			clearInterval(interval);
+			interval = null;
+		}
+
+		var x1 = c - (c - a) / 2;
+		var x2 = c + (b - c) / 2;
+		var fa, fb;
+		fa = f(x1);
+		fb = f(x2);
+
+		out.value += "Сравниваются значения функции в сериднах отрезков\n";
+		out.value += "Слева: " + fa.toFixed(3) + "; Справа: " + fb.toFixed(3) + "\n";
+		if(fa < fb)
+		{
+			out.value += "Слева меньше ⇒ переносится правая граница\n";
+			b = x2;
+
+			right_bound = [ [b, lowest_point], [b, highest_point] ];
+		}
+		else
+		{
+			out.value += "Слева больше ⇒ переносится левая граница\n";
+			a = x1;
+
+			left_bound = [ [a, lowest_point], [a, highest_point] ];
+		}
+		//plot.series[0].data = func_arr;
+	    //plot.series[1].data = left_bound;
+	    //plot.series[2].data = right_bound;
+		//plot.resetAxesScale();
+		//plot.redraw();
+		//plot.replot();
+
+		plot.init('chart', [func_arr, left_bound, right_bound, [1]]);
+		plot.redraw();
+	}, 500);
+}

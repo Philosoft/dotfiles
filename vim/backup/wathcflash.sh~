@@ -1,0 +1,18 @@
+#!/bin/bash
+
+strs=$(ps -eo pid,args | grep 'libflash' | grep -v grep | awk '{print $1}')
+PIDS="$strs"
+
+movs=''
+for i in $PIDS; do
+	movs="$movs $(ls -l /proc/$i/fd | grep Flash | grep -v Flash_ | awk '{print $9}')"
+done
+
+echo $movs
+
+for mov in $movs;
+do
+	for PID in $PIDS; do
+		mplayer -idx /proc/$PID/fd/$mov ;
+	done
+done

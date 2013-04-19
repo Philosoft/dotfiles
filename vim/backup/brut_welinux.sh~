@@ -1,0 +1,15 @@
+#!/bin/bash
+
+PWD_FILE='passwds.dat';
+
+if [[ -f 'cur_pwd' ]]; then
+    cur_pwd="$(cat cur_pwd)";
+    echo "Resuming. cur_pwd = $cur_pwd";
+    echo -n 'Extracing reamaing passwords... ';
+    line_num=$(grep -n "$cur_pwd" "$PWD_FILE");
+    full_len=$(wc -l "$PWD_FILE");
+    let target_line = $full_len - $line_num;
+    tail -n $target_line $PWD_FILE > /tmp/welinux_brut_file;
+    echo '[DONE]';
+else
+    cur_pwd="$(head -n 1 $PWD_FILE)"

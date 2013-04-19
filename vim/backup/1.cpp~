@@ -1,0 +1,20 @@
+#include <iostream>
+#include <string.h>
+
+int main(void)
+{
+  for(int i = 0; i < 1; i++)
+  {
+    char *ptr = new char[1024 * 1024 * 100];
+    memset(ptr, 0xff, 1024 * 1024 * 100);
+    char c;
+    std::cout<<"Мы заняли 100Mb"<<std::endl;
+    std::cin >> c;
+    delete ptr;
+  }
+  
+  char c;
+  std::cin >> c;
+
+  return 0;
+}

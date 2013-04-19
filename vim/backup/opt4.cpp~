@@ -1,0 +1,124 @@
+#include <iostream>
+#include <fstream>
+#include <math.h>
+#include <stdlib.h>
+
+using namespace std;
+
+/*
+ * Получение значений
+ * Переделать вывод на файловый
+ * освобождение памяти
+ */
+
+int n = 5;
+double h = 0.001;
+double *x;
+
+double f(double lambda, double x, double u)
+{
+    return (u*u + lambda*x);
+}
+
+double integral(double lambda)
+{
+    double *old_x;
+    old_x = new double[n+1];
+    
+    double dt, r;
+    dt = 1.0/n;
+    
+    do
+    {
+        double I1, I2, I3;
+    
+        for(int i = 0; i < n+1; i++)
+            old_x[i] = x[i];
+            
+        for(int i = 1; i < n; i++)
+        {			
+            I1 = f(lambda, (old_x[i-1] + old_x[i])/2, (old_x[i] - old_x[i-1])/dt)*dt + f(lambda, (old_x[i+1] + old_x[i])/2, (old_x[i+1] - old_x[i])/dt)*dt;
+        
+            I2 = f(lambda, (old_x[i-1] + h + old_x[i])/2, (old_x[i] + h - old_x[i-1])/dt)*dt + f(lambda, (old_x[i+1] + h + old_x[i])/2, (old_x[i+1] - old_x[i] - h)/dt)*dt;
+            
+            I3 = f(lambda, (old_x[i-1] - h + old_x[i])/2, (old_x[i] - h - old_x[i-1])/dt)*dt + f(lambda, (old_x[i+1] + old_x[i] - h)/2, (old_x[i+1] - old_x[i] + h)/dt)*dt;
+        
+            if(I2 < I1 && I2 < I3)
+                x[i] = old_x[i] + h;
+            else if(I3 < I1 && I3 < I2)
+                x[i] = old_x[i] - h;
+            else
+                x[i] = old_x[i];
+        }
+        
+        r = 0;
+        for(int i = 0; i < n+1; i++)
+            r = r + fabs(old_x[i] - x[i]);
+    }while(r > 0);
+    
+    double integ;
+    integ = (x[0] + x[n])/2;
+    for(int i = 0; i < n; i++)
+        integ = integ + x[i];
+    integ = integ*dt;
+    return integ;
+}
+
+int main(int argc, char **argv)
+{
+    // argv[0] n h
+    if(argc == 3)
+    {
+        n = atof(argv[1]);
+        h = atof(argv[2]);
+    }
+    
+    ofstream info("//tmp//info"), plot("//tmp//plot");
+    info.precision(3);
+    info.width(10);
+
+    for(double i = 0; i < 1.0001; i += 0.01)
+    {
+        double old_x;
+        old_x = 3 * i*i + 2*i + 1;
+    	//plot<<i<<" "<<old_x<<" ";
+    }
+    
+    double lambda0, lambda = 12.0;
+    double dt = 1.0/n;
+    double delta = 0.01;
+    
+    x = new double[n+1];
+    
+    x[0] = 1;
+    x[n] = 6;
+    
+    for(int i = 1; i < n; i++)
+        x[i] = (x[n] - x[0])/(n - i + 1);
+        
+    /*do
+    {
+        lambda0 = lambda;
+        lambda = lambda0 - ((integral(lambda0) - 3.0)/(integral(lambda0+delta) - integral(lambda0)))*delta;
+    }while(fabs(lambda-lambda0) > 0.001);*/
+
+    integral(lambda);
+        
+    for(int i = 0; i < n+1; i++)
+    {
+        info.width(10);
+        info<<i * dt;
+        info.width(10);
+        info<<x[i]<<endl;
+        plot<<i*dt<<" "<<x[i]<<" ";
+    }
+
+    double integr = 0;
+    for(int i = 1; i < n + 1; i++)
+    {
+        integr += ((x[i] - x[i-1]) *((x[i] - x[i-1])  / dt / dt) + lambda * (x[i] + x[i - 1]) / 2) * dt;
+    }
+    info<<integr - 36<<endl;
+
+    return 0;
+}

@@ -1,0 +1,21 @@
+package neuralNet;
+
+public class Dummy
+{
+	private neural net;
+	public void run()
+	{
+		System.out.println("Dummy: run() start");
+		net.teaching();
+		System.out.println("Dummy: run() end");
+	}
+
+	public Dummy()
+	{
+		System.out.println("Dummy: construct start");
+
+		net = new neural();
+
+		System.out.println("Dummy: construct end");
+	}
+}

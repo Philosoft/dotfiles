@@ -1,0 +1,50 @@
+#!/usr/bin/python3
+
+import re
+import feedparser
+
+#TODO:
+#   + config
+#       + sq | hq | sd | hdtv
+#       + inotify
+#   + store info in .local/app
+#   + parse config
+#   + serialize
+#   + grab links
+#   + grab info from cookies
+#   + autoadd in transmission
+#   + notify-send
+#   + mail | jabber
+#   + daemonize
+#   
+#   * str -> list
+
+feed_url = 'http://lostfilm.tv/rssdd.xml'
+feed = feedparser.parse(feed_url)
+
+result = []
+# we can do re.search('1|2|3', str)
+for entry in feed.entries:
+    if re.search('Endgame', entry.title):
+        result.append(entry.title)
+
+nresult = []
+for i in result:
+    if not re.search('720p', i):
+        nresult.append(i)
+
+result = nresult
+
+with open('get.txt', 'r') as f:
+    lines = f.readlines()
+    for i in lines:
+        for j in result:
+            if j in i[:-1]:
+                result.remove(j)
+
+print('Results: ', str(len(result)))
+for i in result:
+    print('  :: ', i)
+with open('get.txt', 'a') as f:
+    for i in result:
+        f.write(i + '\n')

@@ -1,0 +1,398 @@
+<!doctype html>
+<html lang="ru">
+	<head>
+		<meta charset="UTF-8"/>
+		<title>Kemppi</title>
+		<link rel="stylesheet" href="./css/bootstrap.min.css" type="text/css" media="screen" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!--<script src="./js/jquery.js"></script>-->
+		<script src="http://cdn.jquerytools.org/1.2.7/full/jquery.tools.min.js"></script>
+		<script src="./js/bootstrap.min.js"> </script>
+		<script src="./js/bootstrap-tab.js"></script>
+		<link rel="stylesheet" type="text/css" href="./style.less" />
+		<script src="less.js" type="text/javascript"></script>
+		<style>
+
+
+			.middle-line {
+				display: inline-block;
+				vertical-align: middle;
+				border-bottom: 2px solid red;
+				margin: 2px auto;
+			}
+
+
+			#articles {
+				border-bottom: solid 3px #fff;
+			}
+
+			/*******************************************/
+			.scrollable {
+				/* required settings */
+				position:relative;
+				overflow:hidden;
+				width: 1020px;
+				height: 213px;
+			}
+
+			.scrollable .items {
+				/* this cannot be too large */
+				width:20000em;
+				position:absolute;
+				clear:both;
+			}
+
+			.items div {
+				float:left;
+				width:1020px;
+			}
+
+			/* single scrollable item */
+			.scrollable img {
+				background-color:#fff;
+				padding:2px;
+				border:1px solid #ccc;
+				width:1020px;
+				height:213px;
+
+				-moz-border-radius:4px;
+				-webkit-border-radius:4px;
+			}
+
+			/* active item */
+			.scrollable .active {
+				border:2px solid #000;
+				position:relative;
+				cursor:default;
+			}
+
+
+			/* this makes it possible to add next button beside scrollable */
+			.scrollable {
+				float:left;
+			}
+			/*****************************/
+
+			.navbar {
+				margin: -25px 0 0 4%;
+				z-index: 3;
+				position: absolute;
+				box-shadow: 0px 6px 6px rgb(147, 147, 147);
+			}
+
+			.navbar-inner {
+				background-image: url("./img/menu_background.png");
+			}
+
+			.navi:after {
+				content: "";
+				clear: both;
+				display: table;
+			}
+
+			.navi li:first-child {
+				margin-left: 0px;
+			}
+
+			#menu {
+				text-transform: uppercase;
+			}
+
+			.nav li {
+				float: left;
+				font-weight: bold;
+				margin-left: 15px;
+			}
+
+			.navi a {
+				color: lightgray;
+				text-decoration: underline;
+			}
+
+
+			.navi {
+				list-style-type: none;
+			}
+
+			.news-link {
+				text-decoration: underline;
+				color: #000;
+			}
+
+			.news-link:hover {
+				text-decoration: none;
+				color: #00acea;
+			}
+
+			.arrow {
+				position: relative;
+			}
+
+			.arrow:after {
+				content: ' ' url("./img/arrow.png");
+				vertical-align: baseline;
+			    /*position: absolute;
+				bottom: -2px;
+				right: -20px;*/
+			}
+
+			#catalog {
+				text-align: right;
+			}
+
+			.pics {
+				text-align: center;
+				margin-bottom: 5px;
+			}
+
+			.footer {
+				padding-top: 5px;
+				background-color: rgb(100, 100, 100);
+				border-top: solid 4px rgb(204, 90, 27);
+				color: lightgray;
+			}
+
+			.footer a {
+				text-color: lightgray;
+			}
+
+			.catalog_pics {
+				border: solid 1px #eee;
+				border-radius: 7px;
+				padding: 3px 25px;
+			}
+
+			.thumbnail {
+				text-align: center;
+			}
+
+			.circle a {
+				color: #fff;
+				background-color: #fff;
+				width: 11px;
+				height: 11px;
+				box-shadow: 1px 1px 4px gray inset;
+				border-radius: 7px;
+				display: inline-block;
+				position: relative;
+				color: rgb(0, 140, 235);
+			}
+
+			.circle a.active {
+				background: none repeat scroll 0% 0% rgb(225, 133, 70) !important;
+			}
+			.circle a:focus{
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="container">
+			<div class="row" style="margin-bottom: 35px;">
+				<div class="span10">
+					<img src="./img/logo.png" alt="Сварочные аппараты kemppi" title="Сварочные аппараты kemppi" />
+					<span><span style="font-weight: bold;">Официальный представитель в России</span> финского производителя!</span>
+				</div>
+				<div class="span2">
+					<p>Наш телефон<br/>+7 (963) <span class="telephone">990-44-08</span></p>
+				</div>
+			</div>
+			<div class="row navbar-row">
+				<div id="menu" class="navbar">
+					<div class="navbar-inner">
+						<ul class="nav">
+							<li class="active"><a href="#">Главная</a></li>
+							<li><a href="#">О компании</a></li>
+							<li><a href="#">Продукция</a></li>
+							<li><a href="#">Статьи</a></li>
+							<li><a href="#">Обратная связь</a></li>
+							<li><a href="#">Контакты</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="span12">
+					<div class="scrollable" id="scrollable" style="position: relative;">
+						<div class="items">
+							<div><img src="./img/banner.png" /></div>
+							<div><img src="./img/banner.png" /></div>
+							<div><img src="./img/banner.png" /></div>
+						</div>
+					<div class="navi circle" style="z-index: 10000; position: absolute; bottom: -0px; left: 49%; width: 100px; heigh: 10px;">
+						<a href="#1" class="active" rel="nofollow" ></a>
+						<a href="#2" rel="nofollow" ></a>
+						<a href="#3" rel="nofollow" ></a>
+					</div>
+					</div>
+					
+					<a href="#" class="prev" >&lt;=</a>
+					<a href="#" class="next" >=&gt;</a>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="span2">
+					<p style="font-size: 150%;">Наша продукция</p>
+				</div>
+				<div class="span7 middle-line">&nbsp;</div>
+				<div class="span2" id="catalog">
+					<a href="#" class="arrow">Весь каталог продукции</a>
+				</div>
+			</div>
+
+			<div class="row">
+				<ul class="thumbnails">
+					<li class="span3">
+						<div class="thumbnail">
+							<img data-src="holder.js/300x200" src="./img/pic1_1.jpg"/>
+							<a href="#">Сварка MIG/MAG</a>
+						</div>
+					</li>
+					<li class="span3">
+						<div class="thumbnail">
+							<img src="./img/pic1_2.jpg" />
+							<a href="#">Сварка TIG</a>
+						</div>
+					</li>
+					<li class="span3">
+						<div class="thumbnail">
+							<img src="./img/pic1_3.jpg" />
+							<a href="#">Ручная дуговая сварка</a>
+						</div>
+					</li>
+					<li class="span3">
+						<div class="thumbnail">
+							<img data-src="holder.js/300x200" src="./img/pic1_4.jpg" />
+							<a href="#">Автоматизация сварки</a>
+						</div>
+					</li>
+				</ul>
+			</div>
+
+			<div class="row">
+				<div class="span9">
+					<h3>Сварочное оборудование - высшего качества!</h3>
+					<p style="text-align: justify;">Компания Kempi является ведущим поставщиком высококачественных и эффективных решений для сварки. Сварочное оборудование и решения Kempi, представляющие новейшие технологии в отрасли, известны по всему миру.</p>
+					<div class="row pics">
+						<div class="span2">
+							<img src="./img/pic2_1.png"/>
+						</div>
+						<div class="span2">
+							<img src="./img/pic2_2.png"/>
+						</div>
+						<div class="span2">
+							<img src="./img/pic2_3.png"/>
+						</div>
+						<div class="span2">
+							<img src="./img/pic2_4.png"/>
+						</div>
+					</div>
+					<p style="text-align: justify;">В соответствии с лозунгом Kempi мы "держим дугу под контролем" и каждый раз предлагаем нашим заказчикам все более совершенные решения. Компания по-прежнему доверяет основным ценостям, которые с момента зарождения компании задают направление ее развития.</p>
+					<div class="tabbable">
+						<ul id="mytab" class="nav nav-tabs" data-tabs="tabs" >
+							<li class="active"><a href="#spirit" data-toggle="tab">Предпренимательский дух</a></li>
+							<li><a href="#innovation" data-toggle="tab">Инновации</a></li>
+							<li><a href="#honesty" data-toggle="tab">Честность</a></li>
+							<li><a href="#respect" data-toggle="tab">Уважение к людям</a></li>
+						</ul>
+						<div class="tab-content">
+							<div class="tab-pane active" id="spirit">
+								<p>Предпринимательский дух и уверенность в собственных силах - залог успеха компании Kempi. Именно на этом прочном фундаменте основывается решимость и готовность брать на себя риск, который является неотъемлемой частью решения проблем современного рынка.</p>
+							</div>
+							<div class="tab-pane" id="innovation">
+								<p>Инновации, а также любопытство и постоянный поиск чего-то нового выражаются в постоянной потребность в новых идеях. Изобретательность означает также смелость взглянуть на вещи с другой стороны. Не стоит бояться ошибок, а стоить учиться на них.</p>
+							</div>
+							<div class="tab-pane" id="honesty">
+								<p> Честность и надежность – неразделимые понятия для нашей компании. Мы относимся честно к нашим клиентам и это является основным принципом нашей компании. Kemppi всегда держит свое слово.</p>
+							</div>
+							<div class="tab-pane" id="respect">
+								<p>Любое сотрудничество, а особенно международное, требует уважения мнений других людей и способность прислушиваться к ним. Укажение личности и стремление понять мотивы других является основополагающим принципом нашей компании.</p>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div id="articles" class="span3">
+					<h5>Статьи</h5>
+					<div style="width: 100%; margin-top: -2em; margin-left: -20px; border-bottom: 2px solid rgb(205, 91, 29);">
+						&nbsp;
+					</div>
+					<article>
+						<time datetime="13.12.2012" pubdate>13.12.2012</time>
+						<header><a href="#" class="news-link">Новость на тему</a></header>
+						<p>Some content</p>
+					</article>
+					<article>
+						<time datetime="13.12.2012" pubdate>13.12.2012</time>
+						<header><a href="#" class="news-link">Новость на тему</a></header>
+						<p>Some content</p>
+					</article>
+					<article>
+						<time datetime="13.12.2012" pubdate>13.12.2012</time>
+						<header><a href="#" class="news-link">Новость на тему</a></header>
+						<p>Some content</p>
+					</article>
+					<article>
+						<time datetime="13.12.2012" pubdate>13.12.2012</time>
+						<header><a href="#" class="news-link">Новость на тему</a></header>
+						<p>Some content</p>
+					</article>
+					<a href="#" class="arrow">Все статьи </a>
+				</div>
+			</div>
+			<div class="row">
+				<div class="span12">
+					<h3>Компания «Кемпи» — надежный производитель аппаратов для сварки</h3>
+					<p>Kemppi - один из мировых лидеров по производству и продаже сварочного оборудования. Компания организована в 1949 г. в городе Лахти (Финляндия). Название произошло от фамилии ее создателей — братьев Kemppi.</p>
+					<p>Компания имеет торговые представительства и отделения более чем в 70 странах. На сегодняшний день «Кемпи» является одной из самых популярных марок в России. Фирма обеспечивает полный комплекс услуг по производству и поставке сварочного оборудования и комплектующих. К данному списку также можно причислить проводящиеся на высочайшем уровне мероприятия по ремонту и сервисному обслуживанию.</p>
+					<p>Продукция марки «Кемпи» является высококачественной, отвечающей требованиям сертификатов ISO 9001 и ISO 14001. Она соответствует всем европейским правилам и документам, которые касаются безопасности труда, охраны здоровья человека, защиты окружающей среды и прав потребителей. Кроме того, фирменные изделия «Кемпи» завоевали различные награды и премии на выставках и мероприятиях мирового масштаба.</p>
+					<p>В период своего существования компания представила огромное количество новаторских решений в развитии сварочных технологий. Kemppi и сейчас активно продолжает направлять инвестиции в разработку и исследования новинок для того, чтобы сварка, осуществляемая аппаратами «Кемпи», на протяжении долгих лет оставалась прочной и качественной.</p>
+					<p>Техника Kemppi, производимая данной компанией, отличается не только своей надежностью и безупречной работой, но и безопасностью использования и удобством эксплуатации. Ее можно использовать как в производственных, так и в бытовых условиях, в помещениях с различной температурой воздуха.</p>
+					<p>Главными ценностями компании Kemppi являются:</p>
+					<ol>
+						<li>Честность и надежность. Мы всегда держим слово перед клиентами и выполняем все возложенные на нас обязательства.</li>
+						<li>Инновации и предприимчивость. Мы находимся в постоянном поиске свежих идей, проявляем изобретательность и смелость в применении новых разработок.</li>
+						<li>Уверенность в собственных силах. На этом принципе основывается решимость и готовность взять на себя ответственность за выполняемые действия.</li>
+						<li>Уважение к личности. В своей деятельности мы ориентируемся на клиентов, а потому понимаем, чего они ждут от нашей продукции. Взаимное уважение — это фундамент любого выгодного и приятного сотрудничества.</li>
+					</ol>
+					<p>Предлагаем Вам купить аппараты для сварки марки «Кемпи» на нашем сайте. У нас Вы можете приобрести сварочные аппараты:</p>
+					<ul>
+						<li>бытовые;</li>
+						<li>промышленные;</li>
+						<li>компактные;</li>
+						<li>полуавтоматы;</li>
+						<li>для труб;</li>
+						<li>дополнительные принадлежности.</li>
+					</ul>
+					<p>С полным перечнем предлагаемой продукции Вы можете ознакомиться в нашем каталоге. Цены, предлагаемые нами, являются оптимальными для высококачественной, безукоризненно надежной и долговечной сварочной продукции.</p>
+					<p>Девиз и четкое правило нашей фирмы - «Дуга под контролем». Оценить высокое качество продукции компании «Кемпи» теперь можете и Вы! </p>
+				</div>
+			</div>
+
+			<div class="row footer">
+				<footer>
+					<div class="span2">
+						&copy;kemppioy.ru, 2013
+					</div>
+					<div class="span8">
+						<ul class="navi">
+							<li class="active"><a href="#">Главная</a></li>
+							<li><a href="#">О компании</a></li>
+							<li><a href="#">Продукция</a></li>
+							<li><a href="#">Статьи</a></li>
+							<li><a href="#">Обратная связь</a></li>
+							<li><a href="#">Контакты</a></li>
+						</ul>
+					</div>
+					<div class="span2">
+						<p>+7 (963) 990-44-08</p>
+					</div>
+				</footer>
+			</div>
+		</div>
+		<script>
+			jQuery(".scrollable").scrollable().navigator().autoscroll({ circular: true, autoplay: 1 });
+		</script>
+	</body>
+</html>

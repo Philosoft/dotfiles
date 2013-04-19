@@ -1,0 +1,10 @@
+regex/\.png|bmp|jpg|jpeg$
+    Open=feh %f
+regex/\.[pP][dD][fF]$
+    Open=zathura %f
+regex/\.([Zz][Ii][Pp])$
+    View=%view{ascii} zip -v %f
+regex/\.(avi|flv|mkv|mpg|ogv|mp4)$
+    Open=mplayer %f
+regex/\.([Dd][Jj][Vv][Uu])$
+	Open=evince %f

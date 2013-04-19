@@ -1,0 +1,26 @@
+import java.awt.*;
+import java.applet.*;
+import javax.swing.*;
+import java.awt.event.*;
+
+public class alala extends Applet
+{
+  JTextField jt;
+  JButton jb;
+
+  public void init()
+  {
+    setLayout(null);
+
+    jt = new JTextField("");
+    jb = new JButton("Ололо");
+
+    jt.setBounds(5, 5, 200, 20);
+    jb.setBounds(5, 25, 200, 20);
+
+    jb.addActionListener(new ActionListener() { public void actionPerformed(ActionEvent ae){ jt.setTeext("alala"); } } );
+
+    add(jt);
+    add(jb);
+  }
+}

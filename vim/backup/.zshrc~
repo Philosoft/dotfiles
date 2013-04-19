@@ -1,0 +1,47 @@
+# Переменные {
+export EDITOR='vim'
+export GTK_IM_MODULE='xim'
+export LANG='ru_RU.utf8'
+export PAGER='vimpager'
+export PATH="/home/$USER/bin:$PATH"
+export CLASSPATH="/home/philosoft/jlibs/jfreechart-1.0.13.jar:/home/philosoft/jlibs/jcommon-1.0.16.jar:./"
+
+# sh-like word splitting
+setopt shwordsplit
+# }
+# История {
+HISTFILE='~/.zsh/history'
+HISTSIZE=30
+setopt APPEND_HISTORY
+setopt HIST_IGNORE_ALL_DUPS
+setopt HIST_IGNORE_SPACE
+# расскомментировать, если при ^r будут проблемы
+# setopt HIST_LEX_WORDS
+setopt HIST_REDUCE_BLANKS
+setopt SHARE_HISTORY
+# }
+
+# keybindings {
+setopt EMACS
+export WORDSPLIT=''
+# }
+
+autoload -U compinit && compinit && zstyle ':completion:*' menu select
+
+[[ -f ~/.zsh/aliases ]] && source ~/.zsh/aliases
+
+# Автозапуск {{{
+if [[ -z $DISPLAY ]]; then
+  echo -e "\n\n\n" >> .X.log
+  exec startx &>> .X.log
+else
+    if [[ -x $(which fortune) ]]; then
+        fortune
+    fi
+fi
+# }}}
+
+# prompt {{{
+source /usr/share/zsh/functions/Prompts/promptinit
+source ${HOME}/.zsh/phils.txt
+# }}}

@@ -1,0 +1,26 @@
+#!/bin/bash
+
+if [[ -z $1 ]]; then
+    workdir='./';
+else
+    workdir="$1";
+fi
+
+mkdir archs docs sounds pics
+
+for curfile in $(find $workdir -type f); do
+    file_processed=0;
+    if [[ $file_processed == 0 && $(echo $curfile | egrep -i '\.(tar|t(gz|xz|bz2)|tar\.(gz|xz|bz2))$') ]]; then
+        echo ' :: $curfile is an archive';
+        echo '  `=> moving it to archs';
+        mv "$curfile" archs;
+        file_processed=1;
+    fi
+
+    if [[ $file_processed == 0 && $(echo $curfile | egrep -i '\.(png|jpg|jpeg|bmp|gif)$') ]]; then
+        echo ' :: $curfile is an image'
+        echo '  `=> moving it to pics';
+        mv "$curfile" pics/;
+        file_processed=1;
+    fi
+done

@@ -1,0 +1,666 @@
+# -*- coding: utf-8 -*-
+
+#TODO:
+#   Для основного режима точность 0.01, для прогонки с оптимальными параметрами 0.001
+#   множители для Q
+#   имит-проход
+#   add z_list plot
+#   причесать код
+
+# std libs {
+import math
+from math import exp
+from math import e
+from math import sqrt
+import os
+# }
+
+# gui {
+## gtk {{
+import pygtk
+pygtk.require('2.0')
+import gtk
+## }}
+
+## graphs {{
+from matplotlib.pyplot import *
+
+from matplotlib.figure import Figure
+from matplotlib.backends.backend_gtkagg import FigureCanvasGTKAgg as FigureCanvas
+from matplotlib.backends.backend_gtkagg import NavigationToolbar2GTKAgg as NavigationToolbar
+from numpy import pi
+from matplotlib import interactive
+## }}
+# }
+
+interactive(True)
+
+C1 = []
+C2 = []
+C3 = []
+C4 = []
+C5 = []
+T = []
+time_list = []
+
+class App(gtk.Builder):
+    '''Графическая оболочка для показа результатов расчётов'''
+    def __init__(self):
+        super(App, self).__init__()
+        self.add_from_file('litovka.ui')
+        self.connect_signals(self)
+        self.window1.connect('destroy', lambda x: gtk.main_quit())
+
+        # оптимальных значений {
+        self.fig = Figure(figsize = (5,4), dpi = 100)
+        self.canvas = FigureCanvas(self.fig)
+        self.vbox1.pack_start(self.canvas)
+        self.toolbar = NavigationToolbar(self.canvas, self.window1)
+        self.vbox1.pack_start(self.toolbar, False, False)
+        # }
+
+        # для имит модели {
+        self.fig2 = Figure(figsize = (5,4), dpi = 100)
+        self.canava = FigureCanvas(self.fig2)
+        self.vbox2.pack_start(self.canava)
+        self.toolbar2 = NavigationToolbar(self.canava, self.window1)
+        self.vbox2.pack_start(self.toolbar2, False, False)
+        # }
+
+        self.window1.show_all()
+        gtk.main()
+
+    def __getattr__(self, attr):
+        obj = self.get_object(attr)
+        if not obj:
+            raise AttributeError('There are no such attr as `' + attr + '\'')
+        setattr(self, attr, obj)
+        return obj
+
+    def click_cb(self, widget):
+        self.draw([C1_, C2_, C3_, C4_, C5_, time_list_])
+
+    def draw(self, list_of_lists):
+        '''Рисуем графики для наёденых оптимальных значений ←
+        и для прогонки через имит-модель →'''
+        self.fig.clf()
+        ax = self.fig.add_subplot(111)
+        ax.grid()
+
+
+        time = list_of_lists[-1]
+
+        i = 1
+        for l in list_of_lists[0:-1]:
+            ax.plot(time, l, label="C%i(t)" %(i))
+            i += 1
+        self.fig.canvas.draw()
+
+        # имит-модель
+        self.fig2.clf()
+        ax2 = self.fig2.add_subplot(111)
+        ptr = 0
+        ax2.set_ylim(top=18)
+        ax2.grid()
+        #print t_list
+        #print c_list
+        ax2.plot(t_list, c_list)
+        self.fig2.canvas.draw()
+
+# начальные значения и константы {
+
+## Для иммитационного моделирования {{
+M0 = 15.0
+sig0 = 12.0
+al0 = 0.1
+## }}
+
+R = 8.31
+
+p = 1.9
+
+E1 = 156000.0
+A1 = 10000.0
+E2 = 166400.0
+A2 = 20000.0
+E3 = 177000.0
+A3 = 50000.0
+E4 = 160000.0
+A4 = 500
+
+Q1 = 361.0 * 10**3
+Q2 = 950.0 * 10**3
+Q4 = 152.0 * 10**4
+
+Ct = 1200.0
+Tt = 500.0
+Kt = 2000.0
+
+V = 10
+
+M = V * p
+
+Fb = 5.0
+Fe = 20.0
+vb = 0.01
+ve = 0.2
+# }
+
+# ↓ ===== Имит модель === ↓
+l1 = 0.1885
+l2 = 0.5771
+buf = ''
+k_list = []
+z_list = []
+kz_list = []
+glob_kz_list = []
+imit_flag = False
+final_alz = 0.0
+
+def func(k, X, sig, A1, A2):
+    Ns = 10
+    res = 0.0
+
+    i = k
+    while i < Ns + k + 1:
+        res = res + (X[i]*sqrt(sig0/(sig*al0*A1))*A2*pow(2.71, -A2*al0*(i-k)))
+        i += 1
+    res = res*1.0/Ns + M0
+
+    return res
+
+
+def Kz(alz, S, sigz):
+    return sigz * pow(e, -alz * S)
+
+def approx(alz, sigz, K):
+    res = 0.0
+    for i in range(8):
+        k0 = 0.0
+        k0 = Kz(alz, i, sigz)
+        res += abs(K[i] - k0)
+    return res
+
+
+def v(Z, X, A1, A2, sigx, K):
+    global buf
+    res = range(6)
+
+    Mz   = 0.0
+    sigz = 0.0
+    alz  = 0.0
+    rs   = 0.0
+    del_ = 0.0
+    del0 = 0.0
+    step = 0.01
+    count = 200
+
+    for i in range(count):
+        Z[i] = func(i, X, sigx, A1, A2)
+
+    Mz = 0.0
+    for i in range(count):
+        Mz += Z[i]
+    Mz/= (count)
+    sigz = 0
+    for i in range(count):
+        sigz+= pow((Z[i] - Mz), 2.0)
+    sigz /= (count)
+
+    for i in range(20):
+        K[i] = 0.0
+        for j in range(count - i):
+            K[i] += (Z[j] - Mz) * (Z[i + j] - Mz)
+        K[i] /= (count - i)
+        #i += 1
+
+    alz = 0.0
+    del_ = approx(alz, sigz,  K)
+    del0 = approx(alz + step, sigz, K)
+
+    if del0 > del_:
+        step = -step
+        del0 = approx(alz + step, sigz, K)
+
+    while del0 < del_:
+        del_ = del0
+        alz += step
+        del0 = approx(alz + step, sigz, K)
+
+    res[0] = Mz
+    res[1] = sigz
+    res[2] = alz
+    res[3] = abs(Mz - M0) / M0
+    res[4] = abs(sigz - sig0) / sig0
+    res[5] = abs(alz - al0) / al0
+
+    return res
+
+
+def run():
+    global buf
+    count = 200
+    e1 = 0.0
+    e2 = 0.0
+    e3 = 0.0
+    e4 = 0.0
+    res = range(6)
+    X = range(count+10)
+    Z = range(count)
+    K = range(20)
+
+    rs    = 0.0
+    rs0   = 0.0
+    Mx    = 0.0
+    sigx  = 0.0
+    Mz    = 0.0
+    sigz  = 0.0
+    alz   = 0.0
+    step  = 0.01
+    A1 = 1.0
+    A2 = 1.0
+
+    global l1, l2
+    l3 = l1 * l2
+    X[0] = float('0.' + str(l3 * 100).split('.')[1][:4])
+    X[0] = X[0] - 0.5
+    #buf += 'i = %3i\tx = %2.4f\n' %(0, X[0])
+    l1 = l2
+    l2 = l3
+
+    i = 1
+    while i < count + 10:
+        l3 = float('0.' + str(l1 * l2 * 100).split('.')[1][:4])
+        X[i] = l3
+        X[i] = X[i] - 0.5
+        l1 = l2
+        l2 = l3
+        #buf += 'i = %3i\tx = %2.4f\n' %(i, X[i])
+        i += 1
+
+    Mx = 0.0
+    for i in range(count):
+        Mx+= X[i]
+    Mx/= count
+    sigx = 0
+    for i in range(count):
+        sigx+= pow((X[i] - Mx), 2.0)
+    sigx/= count
+
+    flag = True
+    while flag:
+        #print 'Mx =', Mx
+        res = v(Z, X, A1, A2, sigx, K)
+        Mz = res[0]
+        sigz = res[1]
+        rs = res[4]
+        alz = res[2]
+        res = v(Z, X, A1+step, A2, sigx, K)
+        rs0 = res[4]
+
+        if(rs0 > rs):
+            step = -step
+            res = v(Z, X, A1+step, A2, sigx, K)
+            rs0 = res[4]
+
+        while(rs0 < rs):
+            rs = rs0
+            A1 += step
+            Mz = res[0]
+            sigz = res[1]
+            alz = res[2]
+            res = v(Z, X, A1+step, A2, sigx, K)
+            rs0 = res[4]
+
+        res = v(Z, X, A1, A2, sigx, K)
+        Mz = res[0]
+        sigz = res[1]
+        rs = res[5]
+        alz = res[2]
+        res = v(Z, X, A1, A2+step, sigx, K)
+        rs0 = res[5]
+
+        if(rs0 > rs):
+            step = -step
+            res = v(Z, X, A1, A2+step, sigx, K)
+            rs0 = res[5]
+
+        while(rs0 < rs):
+            rs = rs0
+            A2 += step
+            Mz = res[0]
+            sigz = res[1]
+            alz = res[2]
+            res = v(Z, X, A1, A2+step, sigx, K)
+            rs0 = res[5]
+
+        #buf += 'M0 = %2.4f\tMz = %2.4f\n' %(M0, Mz)
+        #buf += 'sig0 = %2.4f\tsigz = %2.4f\n' %(sig0, sigz)
+        #print 'al0 = %2.4f\talz = %2.4f\n' %(al0, alz)
+        e2 = (abs(sig0 - sigz)/sig0) * 100.0
+        e3 = (abs(al0 - alz)/al0) * 100.0
+        #print u'α =', alz
+        if (e2 > 10.0) or (e3 > 30.0):
+            pass
+        else:
+            flag = False
+    res = v(Z, X, A1, A2, sigx, K)
+    Mz = res[0]
+    sigz = res[1]
+    alz = res[2]
+
+    for i in range(count):
+        buf += 'i = %3i\tz = %2.4f\n' %(i, Z[i])
+        z_list.append(Z[i])
+
+    for i in range(8):
+        #buf += 'i = %3i\tk = %2.5f\n' %(i, K[i])
+        k_list.append(K[i])
+    global final_alz
+    final_alz = res[3]
+
+    i = 0.0
+    global glob_kz_list
+    while i < 8.1:
+        glob_kz_list.append(Kz(alz, i, sigz))
+        i += 0.1
+
+    buf += 'M  = %2.4f\tM0  = %2.4f\n' %(Mz, M0)
+    buf += 'sigma = %2.4f\tsigma0 = %2.4f\n' %(sigz, sig0)
+    buf += 'alpha = %2.4f\talpha0 = %2.4f\n' %(alz, al0)
+
+# ↑ === имит модель === ↑
+
+Tv = 1200.0
+
+C1 = []
+C2 = []
+C3 = []
+C4 = []
+C5 = []
+T  = []
+time_list = []
+
+def math_model(F, vv):
+    # начальные точки в массивы С_i , T
+    # перевод
+    global C1, C2, C3, C4, C5, T
+    C1v = (13.0*p)/(16.0 * 10**(-1))
+    C2v = (15.0*p)/(17.0 * 10**(-1))
+    C3v = (12.0*p)/(32.0 * 10**(-1))
+    C4v = 0.0
+    C5v = 0.0
+
+    if imit_flag:
+        C1 = [z_list[0]]
+    else:
+        C1 = [C1v]
+    C2 = [C2v]
+    C3 = [C3v]
+    C4 = [C4v]
+    C5 = [C5v]
+    T  = [Tv]
+
+    tau = 1.0*vv/V
+
+
+    flag = True
+    step = 0.01
+    i = 0
+    while flag:
+        k1 = A1 * math.e **(-E1 / (R * T[i]))
+        #print 'T = %2.4f | len(T) = %i | -E1 = %f | A1 = %f' %(T[i], len(T), -E1, A1)
+        k2 = A2 * math.e **(-E2 / (R * T[i]))
+        k3 = A3 * math.e **(-E3 / (R * T[i]))
+        k4 = A4 * math.e **(-E4 / (R * T[i]))
+
+        # концентрации
+        if imit_flag:
+            t1 = z_list[i]
+        else:
+            t1 = C1[i] + step*( tau*(C1v - C1[i]) - 2*k1 * C1[i] * C2[i] * C3[i] \
+                            - k2 * C1[i] * C4[i] - 2*k3 * C1[i] * C3[i])
+        t2 = C2[i] + step*( tau*(C2v - C2[i]) - 2*k1 * C1[i] * C2[i] * C3[i] \
+                        - 4*k4 * C2[i] * C3[i])
+        t3 = C3[i] + step*( tau*(C3v - C3[i]) - 3*k1 * C1[i] * C2[i] * C3[i] \
+                        - k3 * C1[i] * C3[i] - k4 * C2[i] * C3[i])
+        t4 = C4[i] + step*( tau*(C4v - C4[i]) + 6*k1 * C1[i] * C2[i] * C3[i] \
+                        - k2 * C1[i] * C4[i] + 6*k4 * C2[i] * C3[i])
+        t5 = C5[i] + step*( tau*(C5v - C5[i]) + 2*k1 * C1[i] * C2[i] * C3[i] )
+        # температура
+        #FIXME множители для Q
+        t6 = T[i] + step*(tau*(Tv - T[i]) + Kt * F / M / Ct * ( Tt - T[i] ) + (Q1 * k1 * C1[i] * C2[i] * C3[i]) / Ct \
+                        - (Q2 * k2 * C1[i] * C4[i]) / Ct + (Q4 * k4 * C2[i] * C3[i]) / Ct)
+
+        C1.append(t1)
+        C2.append(t2)
+        C3.append(t3)
+        C4.append(t4)
+        C5.append(t5)
+        if imit_flag:
+            c_list.append(t5)
+        T.append(t6)
+
+        if imit_flag and i == 200:
+            flag = False
+        #FIXME: ↓ variable < e
+        if abs( (C5[i + 1] - C5[i]) / C5[i + 1]) < 0.01:
+            flag = False
+
+        i += 1
+
+    global time_list
+    time_list = []
+    time_list.append(0)
+    for t in xrange(i):
+        tmp = step * (t+1)
+        time_list.append(tmp)
+
+    #IMIT
+    if imit_flag:
+        #print 'imit'
+        global t_list
+        t_list = []
+        t_list.append(0)
+        for t in xrange(i-1):
+            t_list.append(step * (t+1))
+
+    return C5[-1]
+
+# ограничения {
+def f1(x1, x2):
+    return (x1 - Fb)
+
+def f2(x1, x2):
+    return (Fe - x1)
+
+def f3(x1, x2):
+    return (x2 - vb)
+
+def f4(x1, x2):
+    return (ve - x2)
+
+def fi(x1, x2):
+    return (min(0, f1(x1, x2)) + min(0, f2(x1, x2)))
+
+
+def opt_func(k, x1, x2, func = math_model):
+    # was +k
+    return func(x1, x2) - k * (min(0, f1(x1, x2))**2 + min(0, f2(x1, x2))**2 + min(0, f3(x1, x2))**2 + min(0, f4(x1, x2))**2)
+# }
+
+def Method(x10, x20, K, e1, R):
+    deltax = 0.0001
+    h = 0.1
+    steps = 1
+    overallbuf = ''
+    steper  = 0.1
+
+    overallbuf += "Перед началом метода:\n"
+    overallbuf += "x10 = " + str(x10) + "  x20 = " + str(x20) + '\n'
+    overallbuf += "fi(x10, x20) = " + str(fi(x10, x20)) + "  R(1, x10, x20) = " + str(R(1, x10, x20)) + '\n'
+    overallbuf += "f1(x10, x20) = " + str(f1(x10, x20)) + "\n"
+    overallbuf += "f2(x10, x20) = " + str(f2(x10, x20)) + "\n"
+    overallbuf += "==========\n"
+
+    flag = True
+    while flag:
+        x1t = x10 #запоминаем текущую точку, после отработки метода Пауэлла она станет предыдущей
+        x2t = x20
+        dx1 = 1
+        dx2 = 1
+        while dx1 <> 0 or dx2 <> 0: #метод Пауэлла
+            #print dx1, dx2
+            x1 = x10
+            x2 = x20
+
+            fx1 = R(K, x1, x2)
+            fx2 = R(K, x1+steper, x2)
+            if fx1 < fx2:
+                h = steper
+            else:
+                h = -steper
+                fx2 = R(K, x1-steper, x2)
+
+            x1 = x1 + h
+            #print 'stage 1...',
+            while fx1 < fx2:
+                #print 'x1 = %2.4f x2 = %2.4f fx1 = %2.4f fx2 = %2.4f' %(x1, x2, fx1, fx2)
+                fx1 = fx2
+                x1 = x1+h
+                fx2 = R(K, x1, x2)
+            x1 = x1 - h
+
+            fx1 = R(K, x1, x2)
+            fx2 = R(K, x1, x2+steper)
+
+            if fx1 < fx2:
+                h = steper
+            else:
+                h = -steper
+                fx2 = R(K, x1, x2-steper)
+
+            #print 'DONE'
+            #print 'stage 2...',
+            x2 = x2 + h
+            while fx1 < fx2:
+                fx1 = fx2
+                x2 = x2 + h
+                fx2 = R(K, x1, x2)
+            x2 = x2 - h
+
+            dx1 = x1 - x10
+            dx2 = x2 - x20
+            fx2 = R(K, x1+dx1, x2+dx2)
+
+            x1 = x1 + dx1
+            x2 = x2 + dx2
+
+            #print 'DONE'
+            #print 'stage 3...',
+            while fx1 < fx2:
+                fx1 = fx2
+                x1 = x1 + dx1
+                x2 = x2 + dx2
+                fx2 = R(K, x1, x2)
+
+            #print 'DONE'
+            x10 = x1 - dx1
+            x20 = x2 - dx2
+        #пауэлл кончился
+        overallbuf += "# " + str(steps) + ". При K = " + str(K) + " минимум функции равен:\n"
+        overallbuf += "x1 = " + str(x10) + "  x2 = " + str(x20) + "  R(k, x10, x20) = " + str(fx2) + '\n'
+        overallbuf += "fi(x10, x20) = " + str(fi(x10, x20)) + '\n'
+        overallbuf += "f1(x10, x20) = " + str(f1(x10, x20)) + "\n"
+        overallbuf += "f2(x10, x20) = " + str(f2(x10, x20)) + "\n"
+        overallbuf += "==========\n"
+        K = K*10.0 #увеличиваем к
+        delta = abs(x1t - x10) + abs(x2t - x20) #точность
+        steps += 1
+        #print '='*20
+        #print 'step:', steps
+        #print 'F =', x10, 'vv =', x20
+        #print 'd = %f, e = %f'
+        #print x10, x20
+        if delta <= e1:
+            flag = False
+    overallbuf += "fi(x1, x2) = " + str(fi(x10, x20)) + "  R(k, x1, x2) = " + str(R(K/10, x10, x20)) + '\n'
+    #print overallbuf
+
+#print math_model(-10.19, 0.01)
+Method(Fb, vb, 1.0, 0.01, opt_func)
+C1_ = C1
+C2_ = C2
+C3_ = C3
+C4_ = C4
+C5_ = C5
+time_list_ = time_list
+run()
+c_list = []
+t_list = []
+imit_flag = True
+#FIXME
+math_model(5.0, 0.01)
+#a = App()
+
+# imit-model
+F = 5.0
+vv = 0.01
+C1, C2, C3, C4, C5 = [], [], [], [], []
+
+C1v = z_list[0]
+C2v = (15.0*p)/(17.0 * 10**(-1))
+C3v = (12.0*p)/(32.0 * 10**(-1))
+C4v = 0.0
+C5v = 0.0
+
+C1 = [C1v]
+C2 = [C2v]
+C3 = [C3v]
+C4 = [C4v]
+C5 = [C5v]
+T  = [Tv]
+
+tau = 1.0*vv/V
+
+
+flag = True
+step = 0.01
+i = 0
+while flag:
+    k1 = A1 * math.e **(-E1 / (R * T[i]))
+    #print 'T = %2.4f | len(T) = %i | -E1 = %f | A1 = %f' %(T[i], len(T), -E1, A1)
+    k2 = A2 * math.e **(-E2 / (R * T[i]))
+    k3 = A3 * math.e **(-E3 / (R * T[i]))
+    k4 = A4 * math.e **(-E4 / (R * T[i]))
+
+    # концентрации
+    t1 = z_list[i]
+    t2 = C2[i] + step*( tau*(C2v - C2[i]) - 2*k1 * C1[i] * C2[i] * C3[i] \
+                    - 4*k4 * C2[i] * C3[i])
+    t3 = C3[i] + step*( tau*(C3v - C3[i]) - 3*k1 * C1[i] * C2[i] * C3[i] \
+                    - k3 * C1[i] * C3[i] - k4 * C2[i] * C3[i])
+    t4 = C4[i] + step*( tau*(C4v - C4[i]) + 6*k1 * C1[i] * C2[i] * C3[i] \
+                    - k2 * C1[i] * C4[i] + 6*k4 * C2[i] * C3[i])
+    t5 = C5[i] + step*( tau*(C5v - C5[i]) + 2*k1 * C1[i] * C2[i] * C3[i] )
+    # температура
+    #FIXME множители для Q
+    t6 = T[i] + step*(tau*(Tv - T[i]) + Kt * F / M / Ct * ( Tt - T[i] ) + (Q1 * k1 * C1[i] * C2[i] * C3[i]) / Ct \
+                    - (Q2 * k2 * C1[i] * C4[i]) / Ct + (Q4 * k4 * C2[i] * C3[i]) / Ct)
+
+    C1.append(t1)
+    C2.append(t2)
+    C3.append(t3)
+    C4.append(t4)
+    C5.append(t5)
+    if imit_flag:
+        c_list.append(t5)
+    T.append(t6)
+
+    i += 1
+    if imit_flag and i == 200:
+        flag = False
+    #FIXME: ↓ variable < e
+
+for i in range(len(C5)):
+    print C5[i], i * 0.01

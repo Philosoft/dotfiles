@@ -1,0 +1,119 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdint.h>
+#include <errno.h>
+
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+#include <unistd.h>
+
+
+typedef uint32_t WORD;
+#define w 32
+#define r 8
+#define b 16
+#define c 4
+#define t 26
+
+WORD S[t];
+WORD P = 0xb7e15163,
+	 Q = 0x9e3779b9;
+
+#define ROTL(x, y) (( (x) << (y & (w - 1)) ) | ((x) >> (w-(y&(w-1)))))
+#define ROTR(x, y) (( (x) >> (y & (w - 1)) ) | ((x) << (w-(y&(w-1)))))
+
+void encrypt(WORD *pt, WORD *ct)
+{
+	WORD i,
+		 A = pt[0] + S[0],
+		 B = pt[1] + S[1];
+	for(i = 1; i <= r; i++)
+	{
+		A = ROTL(A ^ B, B) + S[2 * i];
+		B = ROTL(B ^ A, A) + S[2 * i + 1];
+	}
+	ct[0] = A;
+	ct[1] = B;
+}
+
+void decrypt(WORD *ct, WORD *pt)
+{
+	WORD i,
+		 B = ct[1],
+		 A = ct[0];
+	for(i = r; i > 0; i--)
+	{
+		B = ROTR(B - S[2 * i + 1], A) ^ A;
+		A = ROTR(A - S[2 * i], B) ^ B;
+	}
+	pt[1] = B - S[1];
+	pt[0] = A - S[0];
+}
+
+void setup(unsigned char *K)
+{
+	WORD i, j, k, u = w/8, A, B, L[c];
+	for(i = b - 1, L[c-1] = 0; i != -1; i--)
+		L[i/u] = (L[i/u] << 8) + K[i];
+
+	for(S[0] = P, i = 1; i<t; i++)
+		S[i] = S[i-1] + Q;
+
+	for(A = B = i = j = k = 0; k < 3 * t; k++, i = (i+1)%t, j = (j+1)%c)
+	{
+		A = S[i] = ROTL(S[i] + (A+B), 3);
+		B = L[j] = ROTL(L[j] + (A+B), (A+B));
+	}
+}
+
+void main(int argc, char **argv)
+{
+	WORD i, j, k, pt1[2], pt2[2], ct[2] = {0, 0};
+	unsigned char key[] = "qwertyuiopasdfgh";
+
+	int in, out, out2;
+	ssize_t sz, sz_wr;
+	in = open(argv[1], O_RDONLY);
+	out = open(argv[2], O_WRONLY | O_CREAT);
+
+	setup(key);
+
+	printf(":: Encrypt ::\n");
+	printf("  `- in: %s\n  |- out: %s\n", argv[2], argv[3]);
+	while( (sz = read(in, pt1, 8)) == 8)
+	{
+		encrypt(pt1, ct);
+		sz_wr = write(out, ct, 8);
+		if(sz_wr != 8)
+		{
+			perror("write(): ");
+			exit(EXIT_FAILURE);
+		}
+	}
+
+	if(sz != -1 || sz != 0)
+		write(out, pt1, sz);
+
+	close(in);
+	close(out);
+
+	printf(":: Decrypt ::\n");
+	printf("  `- in: %s\n  `- out: %s\n", argv[2], argv[3]);
+	in = open(argv[2], O_RDONLY);
+	out = open(argv[3], O_WRONLY | O_CREAT);
+	while( (sz = read(in, ct, 8)) == 8)
+	{
+		decrypt(ct, pt1);
+		sz_wr = write(out, pt1, 8);
+		if(sz_wr != 8)
+		{
+			exit(EXIT_FAILURE);
+		}
+	}
+
+	if(sz != -1 || sz != 0)
+		write(out, ct, sz);
+
+	exit(EXIT_SUCCESS);
+}

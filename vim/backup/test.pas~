@@ -1,0 +1,86 @@
+Program test;
+
+type
+	arr = array[1..5] of Integer;
+
+const
+	constant = 0;
+
+var
+	a, i, x : Integer;
+	ar : arr;
+	sum : Integer;
+
+function power(x : Integer) : Integer;
+begin
+	power := x * x;
+end;
+
+Begin
+	{
+	Randomize;
+
+	a := 4;
+	WriteLn('Hell ', a);
+
+	for i := 10 downto 0 do
+	begin
+		WriteLn('i = ', i, ' i^2 = ', i * i, ' <=> ', power(i));
+		if (i mod 2) = 0 then
+		begin
+			WriteLn('   ЧОООТ');
+		end
+		else
+		begin
+			WriteLn('   Неээээ ЧОООООт');
+		end;
+	end;
+
+	Write('Введи число: '); Read(x);
+	case x of
+		0:
+			WriteLn('case 0');
+		10: WriteLn('case 10');
+		else
+		begin
+			WriteLn('а я хз что это');
+		end;
+	end;
+
+
+	for i := 1 to 5 do
+	begin
+		ar[i] := Random(256);
+	end;
+
+	for i := 1 to 5 do
+	begin
+		WriteLn('arr[', i, '] = ', ar[i]);
+	end;
+	}
+
+	for i := 1 to 5 do
+	begin
+		Write('Введите ar[', i, '] = ');
+		Read(ar[i]);
+	end;
+	{
+		Write('arr = '); Read(ar[1], ar[2], ar[3], ar[4], ar[5]);
+	}
+	
+
+	Write('arr = [ ');
+	for i := 1 to 5 do
+		Write(ar[i], ' ');
+		
+	WriteLn(']');
+
+	sum := 0;
+	Write('Ответ: ');
+	for i := 1 to 5 do
+	begin
+		sum := sum + ar[i];
+	end;
+	WriteLn(sum);
+
+End.

@@ -1,0 +1,20 @@
+#!/bin/bash 
+
+# Common Music Collection Structere(r)
+
+#Разбор аргументов
+if [ $1 ]; then
+  workdir=$1
+else
+  workdir='./'
+fi
+
+list=`find $wordir -type d -print0`
+for i in "$list";
+do
+  echo "Проверяю каталог $i..."
+  if [ -d "$i" -a "$"i != "_album_info" ]; then
+    echo -e "$i"
+    mkdir -p "$i/_album_info"
+  fi
+done

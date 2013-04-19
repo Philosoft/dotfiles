@@ -1,0 +1,37 @@
+#!/bin/python 
+# -*- coding: utf8 -*-
+
+import hashlib
+import sys
+import os
+import threading
+from optparse import OptionParser
+
+parser = OptionParser()
+parser.add_option("--dict", dest="dict", help="dictionary file", metavar="FILE")
+parser.add_option("--hash", dest="hash", help="hash", type="string", metavar="HASH")
+
+(options, args) = parser.parse_args()
+
+if options.hash is None or options.dict is None:
+    print "Аргументы подавайте"
+    sys.exit(0)
+
+hash = options.hash;
+try:
+    dict = open(os.path.realpath(os.path.expanduser(options.dict)),  "r")
+except IOError, e:
+    print e.filename, ': ', e.strerror
+    sys.exit(1)
+
+md5 = hashlib.md5()
+md5.update('')
+str = '1'
+while md5.hexdigest() <> hash and str <> '':
+    str = dict.readline()
+    md5.update(str)
+
+if md5.hexdigest() <> hash:
+    print "Пароль не найден"
+else:
+    print "Пароль: ", str

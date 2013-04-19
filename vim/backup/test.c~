@@ -1,0 +1,110 @@
+#include <math.h>
+#include <stdio.h>
+
+//# начальные значения и константы {
+double R = 8.31;
+
+double p = 1.9;
+
+double E1 = 156000.0;
+double A1 = 10000.0;
+double E2 = 166400.0;
+double A2 = 20000.0;
+double E3 = 177000.0;
+double A3 = 50000.0;
+double E4 = 160000.0;
+double A4 = 500;
+
+double Q1 = 361000.0 ;
+double Q2 = 950000.0 ;
+double Q4 = 1520000.0;
+
+double Ct = 1200.0;
+double Tt = 500.0;
+double Kt = 2000.0;
+double F = 5;
+
+double V = 10;
+#define M V * p 
+
+//# объёмный расход?
+double vv = 0.7;
+
+double	C1v;
+double	C2v;
+double	C3v;
+double	C4v;
+double	C5v;
+//# }
+
+//# перевод
+
+double Tv = 1200.0;
+
+double C1[10000];
+double C2[10000];
+double C3[10000];
+double C4[10000];
+double C5[10000];
+double T[10000];
+
+double math_model(F, vv){
+    //# начальные точки в массивы С_i , T
+    C1[0] = C1v;
+    C2[0] = C2v;
+    C3[0] = C3v;
+    C4[0] = C4v;
+    C5[0] = C5v;
+    T [0] = Tv;
+
+    double tau = 1.0*vv/V;
+
+
+    int flag = 1;
+    double step = 0.01;
+    int i = 0;
+	int ptr = 1;
+    while(flag){
+        double k1 = A1 * pow(2.71, -E1 / (R * T[i]));
+        double k2 = A2 * pow(2.71, -E2 / (R * T[i]));
+        double k3 = A3 * pow(2.71, -E3 / (R * T[i]));
+        double k4 = A4 * pow(2.71, -E4 / (R * T[i]));
+
+        //# концентрации
+        double t1 = C1[i] + step*( tau*(C1v - C1[i]) - 2*k1 * C1[i] * C2[i] * C3[i] - k2 * C1[i] * C4[i] - 2*k3 * C1[i] * C3[i]);
+        double t2 = C2[i] + step*( tau*(C2v - C2[i]) - 2*k1 * C1[i] * C2[i] * C3[i] - 4*k4 * C2[i] * C3[i]);
+        double t3 = C3[i] + step*( tau*(C3v - C3[i]) - 3*k1 * C1[i] * C2[i] * C3[i] - k3 * C1[i] * C3[i] - k4 * C2[i] * C3[i]);
+        double t4 = C4[i] + step*( tau*(C4v - C4[i]) + 6*k1 * C1[i] * C2[i] * C3[i] - k2 * C1[i] * C4[i] + 6*k4 * C2[i] * C3[i]);
+        double t5 = C5[i] + step*( tau*(C5v - C5[i]) + 2*k1 * C1[i] * C2[i] * C3[i] );
+        double t6 = T[i] + step*(tau*(Tv - T[i]) +
+				Kt * (F)
+				/ (M) / (Ct)
+				* ( Tt - T[i] ) + (Q1 * k1 * C1[i] * C2[i] * C3[i]) / Ct - (Q2 * k2 * C1[i] * C4[i]) / Ct + (Q4 * k4 * C2[i] * C3[i]) / Ct);
+
+		//FIXME-C
+		C1[ptr] = t1;
+		C2[ptr] = t2;
+		C3[ptr] = t3;
+		C4[ptr] = t4;
+		C5[ptr] = t5;
+		T[ptr] = t6;
+		ptr++;
+
+		printf("%f\n", t5);
+        if( fabs( (C5[i + 1] - C5[i]) / C5[i + 1]) < 1)
+			flag = 0;
+
+        i += 1;
+	}
+
+    return C5[i];
+}
+
+int main(){
+	C1v = (13.0*p)/(1.60);
+	C2v = (15.0*p)/(1.70);
+	C3v = (12.0*p)/(3.20);
+	C4v = 0.0;
+	C5v = 0.0;
+	math_model(5, 0.7);
+}

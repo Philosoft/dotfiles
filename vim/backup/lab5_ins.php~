@@ -1,0 +1,18 @@
+<?
+require "header.php";
+require "base_con.php";
+
+// if($_POST['ins_mark'] == "" || $_POST['ins_model'] == "" || $_POST['ins_moins_name'] == "" || $_POST['ins_foreign_c'] == "")
+// {
+// 	echo "fatality: Заполните все поля";
+// 	exit();
+// }
+$sql_qu = "insert into cars (mark, model, model_name, foreign_c) values ('" . $_POST['ins_mark'] . "', " 
+																		. "'" . $_POST['ins_model'] . "', " 
+																	. $_POST['ins_model_name'] . ", " 
+																		. $_POST['ins_foreign_c'] . ")";
+mysql_query($sql_qu) or die(mysql_error());
+echo "Успех и феерверки";
+
+require "footer.php";
+?>

@@ -1,0 +1,61 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+int main()
+{
+	int m, n;
+	char str_m[4], str_n[4], str_already_was[4];
+	for(int i = 0; i < 4; i++)
+		str_already_was[i] = '\0';
+
+	printf("Введите m: ");
+	scanf("%i", &m);
+	if(m > 9999 || m < 0)
+	{
+		printf("m должно быть натуральным числом меньше 9999\n");
+		return -1;
+	}
+	printf("Введите n: ");
+	scanf("%i", &n);
+	if(n > 9999 || n < 0)
+	{
+		printf("n должно быть натуральным числом меньше 9999\n");
+		return -1;
+	}
+
+	sprintf(str_m, "%d", m);
+	sprintf(str_n, "%d", n);
+
+	int overall_flag = 0;
+	//printf("  :: [debug] strlen(m) = %i strlen(n) = %i\n", strlen(str_m), strlen(str_n));
+	//printf("Совпадающие цифры: ");
+	for(int i = 0; i < strlen(str_m); i++)
+	{
+		for(int j = 0; j < strlen(str_n); j++)
+		{
+			if(str_m[i] == str_n[j])
+			{
+				int flag = 0;
+				for(int t = 0; t < strlen(str_already_was); t++)
+				{
+					if(str_already_was[t] == str_m[i])
+					{
+						flag = 1;
+					}
+				}
+				if(flag == 0)
+				{
+					str_already_was[strlen(str_already_was)] = str_m[i];
+					printf("%c", str_m[i]);
+					overall_flag++;
+				}
+			}
+		}
+	}
+	if(overall_flag == 0)
+		printf("отсутствуют");
+	printf("\n");
+
+	return 0;
+}

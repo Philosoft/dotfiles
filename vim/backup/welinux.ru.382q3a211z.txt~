@@ -1,0 +1,61 @@
+Набросал скрипт для для управления mpd с помощью dmenu, но так как sh очень странный язык который позволяет быстро расширить возможности скрипта, то заодно немного и расширились возможности dmpd 
+
+Собственно, основная функция это добавление в плейлист каталога/файла, выбор файла и навигация по текущему плейлиста. Но заодно получилось что можно выполнять любую команду mpc, отчистить текущий плейлист и сразу создать новый...
+
+Писалось для себя, поэтому некоторые моменты в управлении могут кому-то не понравиться (но менять скрипт под себя никто же не запрещает)
+
+<code lang='bash'>
+#!/bin/dash
+# некоторые функции управления mpd через dmenu
+# в зависимостях dmenu, mpc, dash, awk
+# ну и notify какое-нибудь ^_^
+# да и что-нибудь типа mpdnotify не помешает (см. конфиг)
+################### dmpd - mpd manager ##################
+#      Version 0.1.1 by muhas [muhas [(a)] muhas.ru]    #  
+#########################################################
+# config
+BG="#737373"
+FG="#e7e3e7"
+# команда dmenu без приглашения
+DMENU="dmenu -nb $BG -nf $FG -sb $FG -sf $BG -i"
+SHOW=mpdnotify #скрипт для показа текущего трека
+MUSIC=$HOME/all/muzlo/
+ACTIONS="info\nshuffle\nrandom\nstop\nplay\npause" # дополнительные действия для mpc
+# /config
+
+# body
+if [ .$1 = ."" ]; then # выбираем первоначальное действие
+cmd=$(echo "current\nadd\nplaylist\nclear\n$ACTIONS" |$DMENU  -p "select action") &&  $0 $cmd
+fi
+# ну и дальше уже всё зависит от выбранного действия
+if [ .$1 != ."" ];then
+case "$1" in
+ 'add') cmd=$(mpc ls | $DMENU -p "select folder")
+		while [ .$open != ."add" ]; do # скакаем по каталогам
+		 open=$(echo "add\nopen" | $DMENU -p "select action")
+		 if [ .$open != ."add" ]; then
+		  cmd=$(mpc ls "$cmd" | $DMENU -p "select")
+		  [ -f "$MUSIC$cmd" ] && break #если файл то нафига открывать?
+		 fi
+		done		
+		mpc add "$cmd" && mpc play
+		;;
+ 'clear') mpc clear
+		cmd=$(echo "add\nplaylist" | $DMENU -p "select action")
+		$0 $cmd
+		;;
+ 'current') cmd=$(mpc playlist --format '%position% %title% by %artist%' | $DMENU  -p "select file" |awk  '{print $1}')
+		mpc play "$cmd"
+		;;
+ 'playlist') cmd=$(mpc lsplaylists| $DMENU  -p "select playlist" )
+		mpc load "$cmd" && mpc play
+		;;
+ 'info') $SHOW
+		;;
+ *)  	mpc $1
+		notify-send "`mpc|head -n 1|grep -v volume` " "`mpc |tail -n 1`"
+		;;
+esac
+fi
+# /body</code>
+Кроспост из моего бложика Заметки аскетичного гика

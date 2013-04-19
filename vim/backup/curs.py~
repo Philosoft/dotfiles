@@ -1,0 +1,507 @@
+#!/usr/bin/python3
+
+from gi.repository import Gtk, Gdk
+import sqlite3
+import sys
+
+class AboutDialog(Gtk.Dialog):
+	'''
+	Диалог о программе
+	'''
+	def __init__(self, parent):
+		Gtk.Dialog.__init__(self, "About", parent, 0,
+			(Gtk.STOCK_OK, Gtk.ResponseType.OK))
+
+		self.set_default_size(150, 100)
+
+		label = Gtk.Label("Курсовой проект по АКиТП, вариант №11\nАвтор: Флоров А.В., гр. ССП-51")
+
+		box = self.get_content_area()
+		box.add(label)
+		self.show_all()
+
+class InfoDialog(Gtk.Dialog):
+	'''
+	Диалог о программе
+	'''
+	def __init__(self, parent):
+		Gtk.Dialog.__init__(self, "About", parent, 0,
+			(Gtk.STOCK_OK, Gtk.ResponseType.OK))
+
+		self.set_default_size(150, 100)
+
+		label = Gtk.Label("""
+В левой части окна с помощью кнопок "+" набираются
+технологические операции из выпадающего списка,
+наполняющегося из базы данных.
+С помощью кнопки "-" существует возможность удалять
+лишние строки.
+Кнопка "Оптимизировать" - запускает основную программу.
+Меню файл - "по-новой" очищает все поля и
+подготавливает программу для новой итерации.
+""")
+#Доступные операции:
+#Сверление - сверлить отверстие
+#Зенкерование - больше класс точности и чистоты
+#Растачивание
+#Развёртывание
+#Зенковка
+#Цековка
+#Нарезка резьбы - внутри отверстия
+#Фрезерование паза
+#Снятие фаски
+#Фрезеровать ласточкин хвост
+#Фрезеровать шпоночную канавку
+#Фрезеровать уступ - вырезание уступа
+#Разрезать заготовку - разрезание на части
+#Шлифовать - шлифовка поверхности
+#		""")
+
+		box = self.get_content_area()
+		box.add(label)
+		self.show_all()
+
+class MyMainWindow(Gtk.Builder):
+	'''
+	Основной класс с gui
+	'''
+	def __init__(self):
+		super().__init__()
+		self.add_from_file('curs.ui')
+		self.connect_signals(self)
+		self.window1.connect('delete-event',  self.main_quit)
+		self.window1.show_all()
+
+		self.con = sqlite3.connect('./database.db')
+		self.cur = self.con.cursor()
+
+		self.cur.execute('SELECT * FROM operations')
+		self.ops = []
+		for row in self.cur:
+			self.ops.append(row[1])
+
+		del self.ops[1]
+		del self.ops[1]
+		del self.ops[1]
+		del self.ops[1]
+		del self.ops[1]
+		del self.ops[1]
+		del self.ops[-1]
+		del self.ops[2]
+		del self.ops[2]
+		del self.ops[2]
+		del self.ops[2]
+		del self.ops[2]
+		del self.ops[-1]
+		#print(self.ops)
+		#sys.exit()
+		#del self.ops[-2]
+		#del self.ops[-3]
+		####################
+		#del self.ops[-1]
+		#del self.ops[-1]
+		#del self.ops[-1]
+		#del self.ops[-1]
+		#del self.ops[-1]
+		#del self.ops[0]
+		#del self.ops[0]
+
+		self.populate_combobox(self.ops, self.combobox1)
+
+		self.boxes  = []
+		self.cboxes = []
+		self.cboxes.append(self.combobox1)
+		self.mbtns  = []
+		self.pbtns  = []
+
+		# TreeView {
+		self.m = Gtk.ListStore(str)
+
+		render_text = Gtk.CellRendererText()
+		column_op = Gtk.TreeViewColumn("Маршрутная карта", render_text, text = 0)
+		self.treeview1.set_model(self.m)
+		self.treeview1.append_column(column_op)
+
+		self.selection = self.treeview1.get_selection()
+		self.selection.set_mode(Gtk.SelectionMode.SINGLE)
+		self.selection.connect('changed', self.on_view_changed)
+
+		self.treeview1.enable_model_drag_source(Gdk.ModifierType.BUTTON1_MASK, [], Gdk.DragAction.MOVE)
+		self.treeview1.enable_model_drag_dest([], Gdk.DragAction.MOVE)
+		#self.treeview1.drag_source_set(Gdk.ModifierType.BUTTON1_MASK, [Gtk.TargetEntry.new('text/plain', Gtk.TargetFlags.SAME_WIDGET, 80)], Gdk.DragAction.MOVE)
+		#self.treeview1.drag_dest_set(Gtk.DestDefaults.ALL, [], Gdk.DragAction.MOVE)
+		self.treeview1.connect("drag-data-received", self.on_drag_data_received)
+		self.treeview1.connect("drag-data-get", self.on_drag_data_get)
+
+		self.treeview1.connect("drag-begin", self.on_drag_begin)
+		# }
+
+
+		self.worker = []
+		self.worker_index = 0
+
+	def add_paz(self, widget):
+		tmp_b = Gtk.Box(orientation = Gtk.Orientation.HORIZONTAL)
+		tmp_l_size = Gtk.Label("Размер")
+		tmp_l_end  = Gtk.Label("мм")
+
+	def on_drag_end(self, w, dc):
+		print(" => end")
+
+	def on_drag_begin(self, widget, drag_context):
+		print(" => begin")
+
+	def on_drag_data_get(self, widget, drag_context, data, info, time):
+		print(info, type(info), str(info))
+
+	def on_drag_data_received(self, widget, drag_context, x, y, data, info, time):
+		print('='*20)
+		print(data, type(data), str(data))
+		print('='*20)
+
+	def __getattr__(self, attr):
+		'''
+		Обеспечивает простой доступ к элементам формы
+		через интерфейс self.widget
+		'''
+		obj = self.get_object(attr)
+		if not obj:
+			raise AttributeError('There r no such attr as `' + attr + '\'')
+		setattr(self, attr, obj)
+		return obj
+
+	def on_view_changed(self, sel):
+		model, t_iter = sel.get_selected()
+		if t_iter != None:
+			print(model[t_iter][0])
+
+	def main_quit(self, widget, action):
+		''' Сохраняем изменения в базе и выходим '''
+		self.con.commit()
+		self.cur.close()
+		Gtk.main_quit()
+
+	# combobox related {
+	def create_list_store(self, arr):
+		'''
+		Вспомогательная функция для создания объекта Gtk.ListStore
+		'''
+		unnamed_ls = Gtk.ListStore(str)
+		for e in arr:
+			unnamed_ls.append([e])
+
+		return unnamed_ls
+
+	def populate_combobox(self, arr, combo):
+		'''
+		Заполняет новый combobox значениями из базы
+		'''
+		self.ls = self.create_list_store(arr)
+		combo.set_model(self.ls)
+		renderer_text = Gtk.CellRendererText()
+		combo.pack_start(renderer_text, True)
+		combo.add_attribute(renderer_text, "text", 0)
+	# }
+
+	def btn_plus_click(self, widget):
+		'''
+		Обработчик нажатия для кнопки "+"
+		Добавляет новую строку с элементами
+		'''
+		tmp_box = Gtk.Box(orientation = Gtk.Orientation.HORIZONTAL)
+		tmp_cbox = Gtk.ComboBox()
+		tmp_cbox.connect('changed', self.combo_changed)
+		tmp_plus_btn = Gtk.Button('+')
+		tmp_plus_btn.connect('clicked', self.btn_plus_click)
+		tmp_minus_btn = Gtk.Button('-')
+		tmp_minus_btn.connect('clicked', self.btn_minus_click)
+		self.box4.pack_start(tmp_box, False, False, 0)
+		tmp_box.pack_start(tmp_cbox, True, True, 0)
+		tmp_box.pack_start(tmp_minus_btn, False, False, 0)
+		tmp_box.pack_start(tmp_plus_btn, False, False, 0)
+		tmp_box.show()
+		tmp_cbox.show()
+		tmp_plus_btn.show()
+		tmp_minus_btn.show()
+
+		self.boxes.append(tmp_box)
+		self.cboxes.append(tmp_cbox)
+		self.pbtns.append(tmp_plus_btn)
+		self.mbtns.append(tmp_minus_btn)
+
+		self.populate_combobox(self.ops, tmp_cbox)
+
+
+	def btn_minus_click(self, widget):
+		'''
+		Обработчик для кнопки "-"
+		Удаляет свою строку с элементами управления
+		'''
+		for b in self.mbtns:
+			if widget == b:
+				ind = self.mbtns.index(b)
+
+		#print('='*15)
+		#print(ind)
+		#print('='*15)
+
+		try:
+			del self.worker[ind]
+			self.worker_index -= 1
+		except:
+			pass
+
+		self.pbtns[ind].destroy()
+		del self.pbtns[ind]
+
+		self.mbtns[ind].destroy()
+		del self.mbtns[ind]
+
+		self.cboxes[ind+1].destroy()
+		del self.cboxes[ind+1]
+
+		self.boxes[ind].destroy()
+		del self.boxes[ind]
+
+	def delete_ui_elements(self, ui):
+		'''
+		Вспомогательная функция для удаления элементов интерфейса
+		'''
+		for e in ui:
+			e.destroy()
+
+	def menu_new(self, widget):
+		'''
+		Обработчик "Файл - по-новой"
+		Приводит форму к первоначальному виду
+		'''
+		self.worker = []
+		self.worker_index = 0
+
+		self.delete_ui_elements(self.mbtns)
+		self.mbtns = []
+
+		self.delete_ui_elements(self.pbtns)
+		self.pbtns = []
+
+		self.delete_ui_elements(self.cboxes[1:])
+		self.cboxes = [self.cboxes[0]]
+
+		self.delete_ui_elements(self.boxes)
+		self.boxes = []
+
+		self.m.clear()
+
+
+	def combo_changed(self, combo):
+		'''
+		Вспомогательная функция-обработчик события выбора в combobox'e
+		Следит за список набранных технологических операций
+		'''
+		index = 0
+		for cb in self.cboxes:
+			if cb == combo:
+				break
+			else:
+				index += 1
+
+		tree_iter = combo.get_active_iter()
+		if tree_iter != None:
+			model = combo.get_model()
+			try:
+				self.worker[index] = model[tree_iter][0]
+			except:
+				self.worker.append(model[tree_iter][0])
+
+		#tmp_b = Gtk.Box(orientation = Gtk.Orientation.HORIZONTAL)
+
+	def menu_quit(self, widget):
+		'''
+		Обработчик для меню Выход и для закрытия окна
+		корректное завершение программы
+		'''
+		self.main_quit(None, None)
+
+	def menu_about(self, widget):
+		'''
+		Обработчик пункта "О программе"
+		Диалог
+		'''
+		d = AboutDialog(self.window1)
+		resp = d.run()
+		d.destroy()
+
+	def end_btn(self, widget):
+		'''
+		Функция-обработчик кнопки `end' Оптимизация и вывод на форму
+		'''
+		op_params = {'h': float(self.entry_h.get_text()), 'w': float(self.entry_w.get_text()), 'd': float(self.entry_deep.get_text())}
+		#if op_params['h'] <= 0 or op_params['w'] <= 0 or op_params['d'] <= 0:
+		#	return
+		self.m.clear()
+		weights = []
+		ops = []
+		order = []
+		self.cur.execute('SELECT * from operations')
+		for r in self.cur:
+			ops.append(r[1])
+			weights.append(r[4])
+			order.append(r[3])
+
+		indexes = []
+		for el in self.worker:
+			indexes.append(ops.index(el))
+
+		_w = []
+		for ind in indexes:
+			_w.append(weights[ind])
+		_o = []
+		for ind in indexes:
+			_o.append(order[ind])
+
+		_o.sort()
+
+		_o = list(map(lambda x: x+1, _o))
+		# ###
+		descript = {}
+		self.cur.execute("SELECT * from descript")
+		for row in self.cur:
+			descript[row[0]] = [row[1], row[2]]
+		# ###
+
+		# ###
+		operations = {}
+		self.cur.execute("SELECT * FROM operations")
+		for row in self.cur:
+			operations[int(row[0])] = row[1]
+		# ###
+
+		b_line = {}
+		self.cur.execute("SELECT * from b_line")
+		for row in self.cur:
+			b_line[int(row[0])] = [row[1], float(row[2]), float(row[3])]
+
+		times_normus = {}
+		for op in _o:
+			_t = b_line[op][2]
+			_t /= 100.0
+			times_normus[op] = _t
+			print(_t)
+			print(b_line[op][2])
+
+		print(times_normus)
+
+
+		#формируем строки для вывода
+		# шапка
+		self.m.append(["A    | Цех | Уч | РМ | Опер | Код, наименование операции | Обозначение документа"])
+		self.m.append(["Б    | Код, наименование оборудования | СМ | Проф | Р | Ут | Кр | КОИД | ЕН | ОП | Кш | Тпз | Тшт"])
+		mmap = []
+		a_lines = ['']
+		o_lines = ['']
+		i = 1
+		op_prev = -1
+		prev = ''
+		time = 0.0
+		for op in _o:
+			desc = operations[op]
+			a_line, o_line = descript[op]
+			a_lines.append(a_line)
+			o_lines.append(o_line)
+			self.m.append(["A{}  | ".format(i) + a_line])
+			print("A{}  |".format(i), a_line)
+			i += 1
+			if operations[op] == "Шлифовать":
+				t_prod  = b_line[op][2] / 100 * max(op_params['w'], op_params['h'])
+				t_pop   = b_line[op][2] / 100 * min(op_params['w'], op_params['h'])
+				t_final = t_prod * max(op_params['w'], op_params['h']) + t_pop * min(op_params['w'], op_params['h'])
+				self.m.append(["Б{}  | ".format(i) + b_line[op][0] +  " "*80 + " | " + str(b_line[op][1]) + "мин | " + "{:.2f}мин".format(t_final / 60)])
+				i += 1
+				time += t_final
+				if op_params['w'] != op_params['h']:
+					_s = '''
+		1) Двигать прямой подачей вдоль длинного края ({}мм) на {}мм
+		2) Сдвинуть фрезу в сторону на {}мм
+		3) Двигать обратной подачей вдоль длинного края ({}мм) на {}мм
+		4) Повторить 1-3 {} раз
+		5) Повторить 1-4 {} раз'''
+				else:
+					_s = '''
+		1) Двигать прямой подачей вдоль края ({}мм) на {}мм
+		2) Сдвинуть фрезу в сторону на {}мм
+		3) Двигать обратной подачей вдоль края ({}мм) на {}мм
+		4) Повторить 1-3 {} раз
+		5) Повторить 1-4 {} раз'''
+				_formated_s = _s.format(2,
+						max(op_params['w'], op_params['h']), max(op_params['w'], op_params['h']),
+						5,
+						max(op_params['w'], op_params['h']), max(op_params['w'], op_params['h']),
+						int(min(op_params['w'], op_params['h']) / 5),
+						int(op_params['d'] / 2))
+				self.m.append(["O{}  | Шлифовать поверхность с размерами {} x {} (Ш х Д)".format(i, op_params['w'], op_params['h']) + _formated_s])
+				# =============================================================================== #
+				#print("O{}  |".format(i), o_line)
+			if operations[op] == "Сверление":
+				i += 1
+				print('='*10)
+				print(b_line[op][2])
+				t_deep  = b_line[op][2] / 100
+				t_final = t_deep * op_params['d']
+				time += t_final
+				print(t_final)
+				self.m.append(["Б{}  | ".format(i) + b_line[op][0] +  " "*80 + " | " + str(b_line[op][1]) + "мин | " + "{:.2f}c".format(t_final)])
+				self.m.append(["O{}  | Просверлить отверстие на глубину {}мм".format(i, op_params['d'])])
+			if operations[op] == "Фрезерование паза":
+				# =============================================================================== #
+				# ПАЗ
+				t_prod  = b_line[op][2] / 100 * max(op_params['w'], op_params['h']) / 2
+				t_pop   = b_line[op][2] / 100 * min(op_params['w'], op_params['h'])
+				t_deep  = b_line[op][2] / 100 * op_params['d'] / 2.0
+				t_final = t_prod * max(op_params['w'], op_params['h']) + t_pop * min(op_params['w'], op_params['h']) + t_deep * op_params['d']#b_line[op][2] / 100
+				self.m.append(["Б{}  | ".format(i) + b_line[op][0] +  " "*80 + " | " + str(b_line[op][1]) + "мин | " + "{:.2f}мин".format(t_final / 60)])
+				i += 1
+				time += t_final
+				if op_params['w'] != op_params['h']:
+					_s = '''
+			1) Опустить фрезу на глубину {}мм
+			2) Двигать прямой подачей вдоль длинного края ({}мм) на {}мм
+			3) Сдвинуть фрезу в сторону на {}мм
+			4) Двигать обратной подачей вдоль длинного края ({}мм) на {}мм
+			5) Повторить 2-4 {} раз
+			6) Повторить 1-5 {} раз'''
+				else:
+					_s = '''
+			1) Опустить фрезу на глубину {}мм
+			2) Двигать прямой подачей вдоль края ({}мм) на {}мм
+			3) Сдвинуть фрезу в сторону на {}мм
+			4) Двигать обратной подачей вдоль края ({}мм) на {}мм
+			5) Повторить 2-4 {} раз
+			6) Повторить 1-5 {} раз'''
+				_formated_s = _s.format(2,
+						max(op_params['w'], op_params['h']), max(op_params['w'], op_params['h']),
+						5,
+						max(op_params['w'], op_params['h']), max(op_params['w'], op_params['h']),
+						int(min(op_params['w'], op_params['h']) / 5),
+						int(op_params['d'] / 2))
+				self.m.append(["O{}  | Фрезеровать паз с размерами {} x {} x {} (Ш х Д х Г)".format(i, op_params['w'], op_params['h'], op_params['d']) + _formated_s])
+				# =============================================================================== #
+				#print("O{}  |".format(i), o_line)
+			i += 1
+
+			op_prev = op
+		self.m.append(["                            Общее время: {:.4f}мин".format(time / 60)])
+
+	def info_dialog(self, widget):
+		'''
+		Обработчик пункта "Информация"
+		Диалог
+		'''
+		d = InfoDialog(self.window1)
+		resp = d.run()
+		d.destroy()
+
+
+if __name__ == "__main__":
+	mmw = MyMainWindow()
+	Gtk.main()
+	sys.exit()

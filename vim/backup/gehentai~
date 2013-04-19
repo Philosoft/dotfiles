@@ -1,0 +1,65 @@
+#!/bin/bash
+
+RED=$(tput setaf 1)
+GREEN=$(tput setaf 2)
+BLUE=$(tput setaf 4)
+DEFAULT=$(tput sgr0)
+
+#get content of entire page
+echo -n "Geting start page content... "
+page_content=$(curl $1 2>/dev/null)
+echo "${GREEN}[DONE]${DEFAULT}"
+
+#get title
+echo -n "Getting title... "
+title=$(echo $page_content | egrep -o '<title>.*<\/title>' | sed 's/<\/\?title>//g')
+echo "${GREEN}[DONE]${DEFAULT}"
+echo " :: title is $title"
+
+mkdir "$title" 2>/dev/null
+cd "$title"
+
+#get number of pages
+echo -n "Getting number of pages... "
+nums=$(echo $page_content | egrep -o '[0-9]+</span> / <span>[0-9]+</span>' | head -n 1 | sed 's/<\/\?span>//g' | cut -f 3 -d ' ')
+echo "${GREEN}[DONE]${DEFAULT}"
+echo " :: total pages - $(tput setaf 2)$nums${DEFAULT}"
+
+for (( i = 1; i != nums; i++ ));
+do
+    # get next page
+    echo -n "Getting next page url... "
+    let tmp=i+1
+    nextpage=$(echo $page_content | sed 's/>/\n/g' | egrep -o "http://g.e-hentai.org/.*-$tmp" | head -n 1)
+    echo "${GREEN}[DONE]${DEFAULT}"
+    echo " :: next page url is ${BLUE}$nextpage${DEFAULT}"
+
+    #get current img link
+    echo -n "Getting current image url... "
+    img=$(echo $page_content | egrep -m1 '::.*::' | egrep -o '</iframe><a href.*<img src=".*jpg"' | egrep -o 'src=".*' | egrep -o 'http://.*"' | sed 's/"//g')
+    echo "${GREEN}[DONE]${DEFAULT}"
+    echo " :: Current image url is ${BLUE}$img${DEFAULT}"
+
+    #get image
+    echo -n "Downliading image... "
+    wget "$img" -q -t 3
+    echo "${GREEN}[DONE]${DEFAULT}"
+
+    page_content=$(curl $nextpage 2>/dev/null)
+    if [[ $? -ne 0 ]]; then
+        let count=0
+        let result=1
+        while [[ $result -ne 0 ]];
+        do
+            page_content=$(curl $nextpage 2>/dev/null)
+            result=$?
+            let count++
+            if [[ $count -gt 10 ]]; then
+                break;
+            fi
+        done
+    fi
+
+    let t=RANDOM%15
+    sleep $t
+done

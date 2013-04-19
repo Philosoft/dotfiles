@@ -1,0 +1,81 @@
+# -*- coding: utf-8 -*-
+
+import pygtk
+pygtk.require('2.0')
+import gtk
+import os
+
+from matplotlib.figure import Figure
+from matplotlib.backends.backend_gtkagg import FigureCanvasGTKAgg as FigureCanvas
+from matplotlib.backends.backend_gtkagg import NavigationToolbar2GTKAgg as NavigationToolbar
+from numpy import arange, sin, pi, cos
+from matplotlib import interactive
+
+interactive(True)
+
+class App(gtk.Builder):
+    def __init__(self):
+        super(App, self).__init__()
+        self.add_from_file('opt_lab4.ui')
+        self.connect_signals(self)
+        self.window1.connect('destroy', lambda x: gtk.main_quit())
+        self.tbuf = self.textview1.get_buffer()
+
+        self.fig = Figure(figsize = (5, 4), dpi = 100)
+
+        self.canvas = FigureCanvas(self.fig)  # a gtk.DrawingArea
+        self.vbox2.pack_start(self.canvas)
+        toolbar = NavigationToolbar(self.canvas, self.window1)
+        self.vbox2.pack_start(toolbar, False, False)
+
+        # ORIGINAL PLOT HERE
+        t = arange(0, 1, float(self.step.get_text()))
+        x = []
+        for i in t:
+            x.append(3 * i**2 + 2 * i + 1)
+        ax = self.fig.add_subplot(111)
+        ax.plot(t, x)
+
+
+        self.window1.show_all()
+        gtk.main()
+
+    def __getattr__(self, attr):
+        obj = self.get_object(attr)
+        if not obj:
+            raise AttributeError('There are no such attribute as `' + attr + '\'')
+        setattr(self, attr, obj)
+        return obj
+
+    def runit(self, widget):
+        self.tbuf.set_text('')
+        args = "./lab4 " + self.entry_n.get_text() + ' ' + self.step.get_text()
+        os.system(args)
+        f = open("/tmp/info")
+        if f:
+            content = f.read()
+            f.close()
+            self.tbuf.set_text(content)
+
+        f = open("/tmp/plot")
+        if f:
+            content = f.read()
+            content = content[:-1].split(" ")
+            t = []
+            x = []
+            it_t = True
+            for el in content:
+                if it_t:
+                    t.append(el)
+                    it_t = False
+                else:
+                    x.append(el)
+                    it_t = True
+            ax = self.fig.add_subplot(111)
+            ax.plot(t, x)
+            self.fig.canvas.draw()
+            f.close()
+            for i in xrange(len(t)):
+                print 'x(', t[i], ') =', x[i]
+
+a = App()

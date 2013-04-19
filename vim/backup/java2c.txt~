@@ -1,0 +1,4 @@
+%s/Integer/int/g
+%s/Double/double/g
+
+type name[] -> type *name

@@ -1,0 +1,17 @@
+BEGIN TRANSACTION;
+CREATE TABLE operations (id NUMERIC, name TEXT, transactions TEXT, order NUMERIC, weight NUMERIC);
+INSERT INTO operations VALUES(1,'Сверление',NULL,0, 0);
+INSERT INTO operations VALUES(2,'Растачивание',NULL,1, 0);
+INSERT INTO operations VALUES(3,'Развёртывание',NULL,2, 0);
+INSERT INTO operations VALUES(4,'Зенкерование',NULL,3, 0);
+INSERT INTO operations VALUES(5,'Зенковка',NULL,4, 0);
+INSERT INTO operations VALUES(6,'Цековка',NULL,5,0);
+INSERT INTO operations VALUES(7,'Нарезка резьбы',NULL,6,0);
+INSERT INTO operations VALUES(8,'Фрезерование паза',NULL,0,0);
+INSERT INTO operations VALUES(9,'Снятие фаски',NULL,0,0);
+INSERT INTO operations VALUES(10,'Фрезеровать ласточкин хвост',NULL,0,0);
+INSERT INTO operations VALUES(11,'Фрезеровать шпоночную канавку',NULL,0,0);
+INSERT INTO operations VALUES(12,'Разрезать заготовку',NULL,0,0);
+INSERT INTO operations VALUES(13,'Фрезеровать уступ',NULL,0,0);
+INSERT INTO operations VALUES(14,'Шлифовать',NULL,100,0);
+COMMIT;

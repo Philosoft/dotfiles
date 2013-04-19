@@ -1,0 +1,8 @@
+#!/bin/bash
+# script xepyhr-awesome
+# author: dante4d <dante4d@gmail.com>
+export LANG='en_US.UTF-8'
+Xephyr -ac -br -noreset -screen 800x600 :1 &
+sleep 1
+DISPLAY=:1.0 awesome -c ~/.config/awesome/rc.lua.shifty
+exit 0

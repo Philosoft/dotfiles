@@ -1,0 +1,11 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =9
+let g:netrw_dirhist_1='/'
+let g:netrw_dirhist_2='/.pulse'
+let g:netrw_dirhist_3='/'
+let g:netrw_dirhist_4='/usr'
+let g:netrw_dirhist_5='/usr/share'
+let g:netrw_dirhist_6='/usr/share/awesome'
+let g:netrw_dirhist_7='/usr/share/awesome/lib'
+let g:netrw_dirhist_8='/usr/lib/python2.7/site-packages/visual/demos'
+let g:netrw_dirhist_9='/home/philosoft'

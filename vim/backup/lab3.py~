@@ -1,0 +1,182 @@
+#!/usr/bin/python3
+
+from gi.repository import Gtk
+from math import fabs
+
+from sys import exit
+
+presure_dict = {
+		0: "Малое",
+		1: "Среднее",
+		2: "Большое"
+		}
+
+temp_dict = {
+		0: "Малая",
+		1: "Средняя",
+		2: "Большая",
+		}
+
+presure_cur = 0
+temp_cur = 0
+
+def calc_presure(p):
+	small = fabs(1 / (1 + 0.5 * p))
+	try:
+		avg = fabs(1 / (1 + 0.5 * (p - 25)))
+	except:
+		avg = 1
+	try:
+		big = fabs(1 / (1 + 0.5 * (p - 50)))
+	except:
+		big = 1
+	if small > 1: small = 1
+	if avg > 1: avg = 1
+	if big > 1: big = 1
+	return small, avg, big
+
+#for i in range(51):
+#	a, b, c = calc_presure(i)
+#	print(i, a, b, c)
+#
+#exit()
+
+def calc_temp(t):
+	small = (1 / 10000) * (t - 200)**2
+	avg = 1 - ((1 / 1000) * (125 - t)**2)
+	big = (1 / 10000) * (t - 50)**2
+	vbig = big**2
+
+	if small > 1: small = 1
+	if avg > 1: avg = 1
+	if big > 1: big = 1
+	if vbig > 2: vbig = 1
+	return small, avg, big, vbig
+
+#for i in range(100, 151):
+#	s, a, b, vb = calc_temp(i)
+#	print(i, s, a, b, vb)
+#
+#exit()
+
+class MyWindow(Gtk.Window):
+	def __init__(self):
+		Gtk.Window.__init__(self, title = "Лабораторная работа №3")
+		self.set_default_size(300, 200)
+
+		self.hcont = Gtk.Box(orientation = Gtk.Orientation.HORIZONTAL)
+		self.vcont = Gtk.Box(orientation = Gtk.Orientation.VERTICAL)
+		self.sw = Gtk.ScrolledWindow()
+		self.tv = Gtk.TextView()
+		self.tb = self.tv.get_buffer()
+
+		self.temp_adj = Gtk.Adjustment(100, 100, 151, 1, 1, 1)
+		self.temp_adj.connect("value-changed", self.cb_temp_ch)
+		self.temp_scale = Gtk.Scale(digits = 0, adjustment = self.temp_adj)
+		self.temp_cont = Gtk.Box(orientation = Gtk.Orientation.HORIZONTAL)
+		self.temp_label = Gtk.Label("Температура")
+
+		self.add(self.hcont)
+		self.hcont.pack_start(self.vcont, True, True, 0)
+		self.hcont.pack_start(self.sw, True, True, 0)
+		self.sw.add(self.tv)
+		self.vcont.pack_start(self.temp_cont, True, True, 0)
+
+		self.temp_result_label = Gtk.Label("Малая")
+
+		self.temp_cont.pack_start(self.temp_label, False, True, 0)
+		self.temp_cont.pack_start(self.temp_scale, True, True, 0)
+		self.temp_cont.pack_start(self.temp_result_label, False, True, 0)
+
+
+		self.presure_cont = Gtk.Box(orientation = Gtk.Orientation.HORIZONTAL)
+		self.presure_adj = Gtk.Adjustment(0, 0, 51, 1, 1, 1)
+		self.presure_adj.connect("value-changed", self.cb_presure_ch)
+		self.presure_scale = Gtk.Scale(digits = 0, adjustment = self.presure_adj)
+		self.presure_label = Gtk.Label("Давление")
+		self.presure_result_label = Gtk.Label("Малое")
+		self.vcont.pack_start(self.presure_cont, True, True, 0)
+		self.presure_cont.pack_start(self.presure_label, False, True, 0)
+		self.presure_cont.pack_start(self.presure_scale, True, True, 0)
+		self.presure_cont.pack_start(self.presure_result_label, False, True, 0)
+
+
+	def cb_temp_ch(self, adj):
+		self.on_temp_ch(adj.get_value())
+
+	def on_temp_ch(self, t):
+		global temp_cur
+		small, avg, big, vbig = calc_temp(t)
+		##print(calc_temp(t))
+		m = max(small, avg, big, vbig)
+		if m == small:
+			temp_cur = 0
+		elif m == avg:
+			temp_cur = 1
+		elif m == big:
+			temp_cur = 2
+		else:
+			temp_cur = 3
+		#print(temp_dict[temp_cur])
+		self.temp_result_label.set_text(temp_dict[temp_cur])
+		self.run()
+
+	def cb_presure_ch(self, adj):
+		self.on_presure_ch(adj.get_value())
+
+	def on_presure_ch(self, presure):
+		global presure_cur
+		small, avg, big = calc_presure(presure)
+		m = max(small, avg, big)
+		if m == small:
+			presure_cur = 0
+		elif m == avg:
+			presure_cur = 1
+		else:
+			presure_cur = 2
+		self.presure_result_label.set_text(presure_dict[presure_cur])
+		self.run()
+
+	def run(self):
+		p_l, p_a, p_b = calc_presure(self.presure_adj.get_value())
+		t_l, t_a, t_b, t_vb = calc_temp(self.temp_adj.get_value())
+
+		proc1 = max(min(t_l, p_l), min(t_l, p_a), min(t_a, p_l))
+		proc2 = max(min(t_l, p_b), min(t_b, p_l), min(t_a, p_a))
+		proc3 = max(min(t_a, p_b), min(t_a, max(p_a, p_b)))
+		proc4 = min(t_vb, max(p_l, p_a, p_b))
+		buf = "Я советую использовать процесс "
+		m  = max(proc1, proc2, proc3, proc4)
+		f = False
+
+		mu1 = min(1, 1 - proc1 + 1) + min(1, 1 - proc2 + 0) + min(1, 1 - proc3 + 0) + min(1, 1 - proc4 + 0)
+		mu2 = min(1, 1 - proc1 + 0) + min(1, 1 - proc2 + 1) + min(1, 1 - proc3 + 0) + min(1, 1 - proc4 + 0)
+		mu3 = min(1, 1 - proc1 + 0) + min(1, 1 - proc2 + 0) + min(1, 1 - proc3 + 1) + min(1, 1 - proc4 + 0)
+		mu4 = min(1, 1 - proc1 + 0) + min(1, 1 - proc2 + 0) + min(1, 1 - proc3 + 0) + min(1, 1 - proc4 + 1)
+
+		m = max(mu1, mu2, mu3, mu4)
+
+		if m == mu1:
+			buf += "№1 "
+			f = True
+		if m == mu2:
+			if f:
+				buf += " или "
+			buf += " №2 "
+			f = True
+		if m == mu3:
+			if f:
+				buf  += " или "
+			buf += " №3 "
+			f = True
+		if m == mu4:
+			if f:
+				buf += " или "
+			buf += " №4 "
+		self.tb.set_text(buf)
+
+
+w = MyWindow()
+w.show_all()
+w.connect("delete-event", Gtk.main_quit)
+Gtk.main()

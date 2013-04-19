@@ -1,0 +1,32 @@
+stage3
+snapshot (portage)
+
+date
+timezone (cp from /usr/share/zoneinfo/ )
+
+emerge --sync
+eselect
+	news
+	profile
+
+/etc/locale.gen
+locale-gen
+
+/etc/make.conf
+MAKEOPTS='-j2'
+USE=''
+LINGUAS='ru'
+VIDEO_CARDS=''
+INPUT_DEVICES='evdev'
+CFLAGS='' en.gentoo-wiki.com/wiki/Safe_Cflags
+
+emerge grub dhcpcd [wireless-tools] [wicd] gentoo-sources
+
+
+emerge eix gentoolkit vim mc htop bash-completion
+
+/etc/conf.d/hostname
+
+== Обновление xorg-server ==
+Для портажа <2.22 нужно будет руками пересобрать все дрова
+

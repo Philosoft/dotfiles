@@ -1,0 +1,187 @@
+# -*-  coding: utf-8 -*-
+
+import pygtk
+pygtk.require('2.0')
+import gtk
+import os
+
+from matplotlib.figure import Figure
+from matplotlib.backends.backend_gtkagg import FigureCanvasGTKAgg as FigureCanvas
+from matplotlib.backends.backend_gtkagg import NavigationToolbar2GTKAgg as NavigationToolbar
+from numpy import pi, cos
+from math import exp
+from matplotlib import interactive
+
+interactive(True)
+
+### constants {
+kt = 6500.0
+ct = 4190.0
+p  = 1000.0
+Tt = 80.0
+L  = 1.0
+D  = 0.05
+u  = 0.2
+tau_max = 10.0
+delta_alpha = 0.3
+delta_beta = 0.2
+
+tau_s = L / u
+### }
+
+def T0(l):
+    return 25.0 - 2.0 * (l + 1.5) **2
+
+def Tvh(tau):
+    return tau + 5.0 * cos(tau) + 15.5
+
+class App(gtk.Builder):
+    def __init__(self):
+        super(App, self).__init__()
+        self.add_from_file('gui.ui')
+        self.connect_signals(self)
+        self.window1.connect('destroy', lambda x: gtk.main_quit())
+
+        self.fig = Figure(figsize = (5,4), dpi = 100)
+        self.canvas = FigureCanvas(self.fig)
+        self.vbox1.pack_start(self.canvas)
+        self.toolbar = NavigationToolbar(self.canvas, self.window1)
+        self.vbox1.pack_start(self.toolbar, False, False)
+
+        self.tbuf = self.textview1.get_buffer()
+
+        self.window1.show_all()
+        gtk.main()
+
+    def __getattr__(self, attr):
+        obj = self.get_object(attr)
+        if not obj:
+            raise AttributeError('There are no such attr as `' + attr + '\'')
+        setattr(self, attr, obj)
+        return obj
+
+    def run(self, widget):
+        buf = ''
+
+        t_list = []
+        a = []
+        b_list = []
+        b = - tau_s / 2.0
+        # all_alphas, all_betas and t_list >> file
+        all_alphas = []
+        all_betas = []
+        all_t = []
+        while b < 0.01:
+            t = T0(-2.0 * u * b)
+            buf += 'a = ' + str(-b) + '; b = ' + str(b) + '; T = ' + str(t)[:6] + '\n'
+            t_list.append(t)
+            a.append(-b)
+            b_list.append(b)
+            al = -b + delta_alpha
+            i = 1
+
+            while al < b + tau_s + 0.01:
+                t = t + (Tt - t) * 4.0 * kt / (ct * p * D)
+                t_list.append(t)
+                a.append(al)
+                buf += 'a = ' + str(al) + '; b = ' + str(b) + '; T = ' + str(t)[:6] + '\n'
+                i += 1
+                b_list.append(b)
+                al += delta_alpha
+
+            ### charts {
+            buf+= '========\n'
+            ax = self.fig.add_subplot(111)
+
+            ax.plot(b_list, a)
+            self.fig.canvas.draw()
+            ### }
+            b += delta_beta
+
+        for i in range(len(a)):
+            all_alphas.append(a[i])
+            all_betas.append(b_list[i])
+            all_t.append(t_list[i])
+
+        t_list = []
+        a = []
+        b_list = []
+        b = 0.0
+        while b <= (tau_max - tau_s) / 2.0:
+            t = Tvh(2.0 * b)
+            buf += 'a = ' + str(b) + '; b = ' + str(b) + '; T = ' + str(t)[:6] + '\n'
+            t_list.append(t)
+            a.append(b)
+            b_list.append(b)
+            al = b + delta_alpha
+            i = 1
+
+            while al < b + tau_s + 0.01:
+                t = t + (Tt - t) * 4.0 * kt / (ct * p * D)
+                t_list.append(t)
+                a.append(al)
+                buf += 'a = ' + str(al) + '; b = ' + str(b) + '; T = ' + str(t)[:6] + '\n'
+                i += 1
+                b_list.append(b)
+                al += delta_alpha
+
+            ### charts {
+            ax = self.fig.add_subplot(111)
+
+            ax.plot(b_list, a)
+            self.fig.canvas.draw()
+            ### }
+            b += delta_beta
+
+
+
+        for i in range(len(a)):
+            all_alphas.append(a[i])
+            all_betas.append(b_list[i])
+            all_t.append(t_list[i])
+
+        t_list = []
+        a = []
+        b_list = []
+        b = (tau_max - tau_s) / 2.0
+        while b <= (tau_max) / 2.0 + 0.01:
+            t = Tvh(2.0 * b)
+            buf += 'a = ' + str(b) + '; b = ' + str(b) + '; T = ' + str(t)[:6] + '\n'
+            t_list.append(t)
+            a.append(b)
+            b_list.append(b)
+            al = b + delta_alpha
+            i = 1
+
+            while al < -b + tau_max + 0.01:
+                t = t + (Tt - t) * 4.0 * kt / (ct * p * D)
+                t_list.append(t)
+                a.append(al)
+                buf += 'a = ' + str(al) + '; b = ' + str(b) + '; T = ' + str(t)[:6] + '\n'
+                i += 1
+                b_list.append(b)
+                al += delta_alpha
+
+            ### charts {
+            ax = self.fig.add_subplot(111)
+
+            ax.plot(b_list, a)
+            self.fig.canvas.draw()
+            ### }
+            b += delta_beta
+
+        self.tbuf.set_text(buf)
+
+        for i in range(len(a)):
+            all_alphas.append(a[i])
+            all_betas.append(b_list[i])
+            all_t.append(t_list[i])
+
+        with open('olol', 'w') as f:
+            for i in range(len(all_alphas)):
+                l = u*(all_alphas[i] - all_betas[i])
+                t = all_alphas[i] + all_betas[i]
+                buf = str(l) + ' ' + str(t) + ' ' + str(all_t[i]) + '\n'
+                f.write(buf)
+
+a = App()

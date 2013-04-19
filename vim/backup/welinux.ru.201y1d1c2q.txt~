@@ -1,0 +1,93 @@
+<h3>Дисклеймер:</h3> 
+статья написана в попытке развеять застой на ресурсе. Обнаружив, что срач, поднятый <user>lwilis</user> собрал больше комментариев, чем любой другой пост за последнее время, мне стало обидно. Так что это - затравочка, а вы давайте годные посты.
+ 
+<h3>Здравствуйте</h3> 
+Статья короткая от того, что ничего сложного в ней нет. Это - мой способ избавления себя от рутинного вбивания пары логин/пароль при логине на свитч. А если нужно проследить всю цепочку свитчей до серверной (9 свитчей, в среднем), а делается это не 1 и даже не 31 раз за день, то пальцы начинают плакать. Поэтому, под катом пара скриптов и небольшое пояснение по настройке и использованию.
+ 
+<cut>
+<h3>Сам пост:</h3> 
+Сначала скрипты, которые осуществят задуманное. Их нужно положить в один каталог (можно разнести по разным, но это потребует переписывания bash скрипта, что сделать совсем не сложно).
+ 
+bash скрипт firefox_telneting:
+ 
+<spoiler><code lang="bash">#!/bin/bash
+<br></br> 
+<br></br>addr=`echo $1 | cut -d / -f 3 | tr ":" " "`
+<br></br>gnome-terminal --tab -t $addr -e "`dirname $0`/i_telneter.py $addr"</code></spoiler> 
+ 
+python скрипт i_telneter.py (Скрипт отображается неверно. Я постил <a href="https://github.com/nvbn/djang0byte/issues/5">багу</a>, но <del>всем по</del> пока не поправили, поэтому можно <a href="http://dn90.ru/share/i_telneter.py">скачать</a> готовый скрипт файлом.):
+ 
+<spoiler><code lang="python">#!/usr/bin/env python
+<br></br># -*- coding: utf-8 -*-
+<br></br>import pexpect
+<br></br>import keyring
+<br></br>import os
+<br></br>from sys import argv
+<br></br> 
+<br></br>tmt = 3
+<br></br>models=['D-Link', 'Cisco', 'UserName', 'Username']
+<br></br>synonims = [[2, 0], [3, 1]]
+<br></br>username = 'username'
+<br></br> 
+<br></br>ip = argv[1]
+<br></br>def notify(title = 'OLOLO', message = 'trololo', pic = '/usr/share/pixmaps/gnome-color-browser.png'):
+<br></br>    os.system("notify-send \"%s\" \"%s\" -i %s" % (title, message, pic))
+<br></br> 
+<br></br>def auth(tlnt, model, username, ip):
+<br></br>    password = keyring.get_password(model, username)
+<br></br> 
+<br></br>    try:
+<br></br>        tlnt.expect(['Username:', 'login','UserName'], timeout=tmt)
+<br></br>    except pexpect.TIMEOUT:
+<br></br>        notify("Обломался автологин на %s" % ip, "Всё в твоих руках.", '/usr/share/pixmaps/faces/coffee.jpg')
+<br></br>        tlnt.interact()
+<br></br> 
+<br></br>    tlnt.sendline(username)
+<br></br>    tlnt.expect(['Password:','PassWord'])
+<br></br>    tlnt.sendline(password)
+<br></br>    notify("Автологин на %s" % ip, "Это %s, а ты - %s" % (model, username), '/usr/share/pixmaps/faces/puppy.jpg')
+<br></br>    tlnt.interact()
+<br></br>    notify("Закрылось соединение на %s" % ip, "Волнует ли тебя это?", '/usr/share/pixmaps/faces/coffee.jpg')
+<br></br>    tlnt = pexpect.spawn('telnet %s' % ip)
+<br></br> 
+<br></br>i = tlnt.expect(models)
+<br></br>for j in synonims:
+<br></br>    if i == j[0]:
+<br></br>        i = j[1]
+<br></br>        break
+<br></br>try:
+<br></br>    auth(tlnt, models[i], username, ip)
+<br></br>except pexpect.EOF:
+<br></br>    pass</code></spoiler> 
+ 
+Для работы питонячьего скрипта понадобится установить модули pexpect и keyring (хотя в убунте, например, keyring уже стоит).
+ 
+Bash скрипт трогать не нужно. Поскольку пароли я предлагаю хранить на брелке gnome-keyring), то с питоном стоит поступить так: зайти в интерактивную консольку питона (для этого просто набрать в консоли: python), импортировать модуль для доступа к брелку (для этого набрать в консоли уже питона: import keyring) и вбить пароли по одному (keyring.set_password('name', 'username', 'password')). В качестве name нужно использовать некоторые идентификаторы. У меня это — D-Link и Cisco. Всё остальное объявляется синонимами.
+Синонимы работают так: в переменной models указывается список идентификаторов, к которым привязаны пароли на брелке и строки, по которым expect будет определять, на что мы логинимся. Например, строка запроса имени пользователя будет отличаться для циски и длинка. Для других вендоров тоже можно найти свои особенности. Главное теперь, правильно настроить синонимы. Они указываются вложенными списками в списке synonims по следующему принципу: [номер синонима, номер идентификатора]. Под номером подразумевается порядковый номер в списке models (python считает с нуля, помни об этом, дружок).
+ 
+Пример:
+<strong>models</strong> = [ <strong>длинк</strong>, <strong>циска</strong>, <strong>синоним_длинк1</strong>, <strong>синоним_длинк2</strong>, <strong>синоним_циска</strong> ]
+<strong>synonims</strong> = [ [<strong>2,0</strong>], [<strong>3,0</strong>], [<strong>4,1</strong>] ]
+ 
+Скрипт активно сообщает о каждом своём чихе с помощью всплывающих уведомлений, а именно — используя программу <strong>notify-send</strong>, так что нужно не забыть установить её. На этом всё. Далее милые бонусы.
+ 
+<strong>Бонусы</strong>
+<strong>Открытие telnet ссылок в firefox.</strong>
+<ul> 
+В адресной строке пишем: about:config. Мы в конфигураторе.
+Кликаем правой клавишей на таблице значений -> New -> Boolean
+Создаём запись «network.protocol-handler.expose.telnet = false» и закрываем конфигуратор.
+Теперь кликаем на любую telnet ссылку.
+Браузер спросит: «чем открыть, хозяин?». Вот тут то вы ему и покажете на скрипт <strong>firefox-telneting</strong>.</ul> 
+ 
+Теперь работает.
+ 
+ 
+<strong>Открытие telnet ссылок в google crome.</strong> 
+Тут всё сложнее и проще сразу. Хром самый умный. Он знает, что в линуксе за открытие всего и вся отвечает скрипт /usr/bin/xdg-open. Через него и предлагает он открывать незнакомые ссылки. Всё было бы хорошо, но: xdg-open срать хотел на telnet:// ссылки, а даже если бы и знал о сущесвовании их, то всё равно всё испортил бы, потому, что нам нужен автологин, а не простая консолька с телнетом. Поэтому нужно открыть текстовым редактором /usr/bin/xdg-open и в нужную функцию (они зависят от DE, для гнома - open_gnome) добавьте строки:
+ 
+<code lang="bash">if (echo "$1" | grep -q '^telnet://'); then
+путь/до/скрипта/firefox_telneting $1
+exit 0</code> 
+ 
+Теперь совсем всё.

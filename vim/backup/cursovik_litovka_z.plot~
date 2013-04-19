@@ -1,0 +1,6 @@
+set grid
+set xlabel 't, c'
+set ylabel 'C1, моль/м³'
+set terminal png
+set output "/tmp/z_data.png"
+plot "/tmp/z_data" u 2:1 w l t "C₁"

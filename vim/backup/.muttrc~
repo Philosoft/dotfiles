@@ -1,0 +1,25 @@
+set imap_user="thephilosoft@gmail.com"
+set imap_pass="5557600cnhtrjpf"
+
+set smtp_url="smtp://thephilosoft@smtp.gmail.com:587/"
+set smtp_pass="5557600cnhtrjpf"
+set from="thephilosoft@gmail.com"
+set realname="Alaxandr Frolov"
+
+set folder="imaps://imap.gmail.com:993"
+set spoolfile="+INBOX"
+set postponed="+/Drafts"
+
+set header_cache=~/mutt/cache/headers
+set message_cachedir=~/.mutt/cache/bodies
+
+set move=no
+
+set sort='threads'
+set sort_aux='last-date-recieved'
+set imap_check_subscribed
+
+ignore "Authentication-Results:"
+ignore "DomainKey-Signature:"
+ignore "DKIM-Signature:"
+hdr_order Date From To Cc

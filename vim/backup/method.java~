@@ -1,0 +1,150 @@
+//import java.lang.*;
+import java.util.*;
+import java.lang.Math.*;
+
+public class method
+{
+  public static void main(String[] args)
+  {
+    boolean _flag;
+    if( Integer.parseInt(args[3]) == 1)
+    {
+      _flag = true;
+    }
+    else
+    {
+      _flag = false;
+    }
+    double _x0 = Double.parseDouble(args[0]);
+    double _y0 = Double.parseDouble(args[1]);
+    double _e  = Double.parseDouble(args[2]);
+    method(_x0, _y0, _e, _flag);
+  }
+
+public static double f_parab(double x, double y)
+{
+  double a = 3.0;
+  double b = 3.0;
+  double c = 1.0;
+  double d = 2.0;
+  double alpha = 15.0;
+
+  double result = ((x - a) * Math.cos(alpha) + (y - b) * Math.sin(alpha)) * ((x - a) * Math.cos(alpha) + (y - b) * Math.sin(alpha));
+  result /= c * c;
+  result += ((y - b) * Math.cos(alpha) - (x - a) * Math.sin(alpha)) * ((y - b) * Math.cos(alpha) - (x - a) * Math.sin(alpha));
+  result /= d * d;
+  return result;
+}
+public static double f_rozen(double x, double y)
+{
+  return 100.0 * Math.pow(y - Math.pow(x, 2), 2) + Math.pow(1 - x, 2);
+}
+
+public static void method(double x0, double y0, double e, boolean flag)
+{
+        Double h, xi, yi, x, y;
+        Double xr, yr, f0, f;
+        h = 0.5;
+        Random rand;
+        rand = new Random();
+        if(flag)
+            f0 = f_parab(x0, y0);
+        else
+            f0 = f_rozen(x0, y0);
+        int i = 0;
+        int j = -1;
+        do
+        {
+            j++;
+            i = 0;
+            System.out.println("Начинаем итерацию №" + Integer.toString(j));
+            boolean fl = false;
+            yr = y0;
+            xr = x0;
+            x = x0;
+            y = y0;
+            System.out.println("  Генерируем случайные коэффициэнты:");
+            xi = Math.abs(rand.nextDouble() % 1) - 0.5;
+            yi = Math.abs(rand.nextDouble() % 1) - 0.5;
+            System.out.println("    xi = " + Double.toString(xi));
+            System.out.println("    yi = " + Double.toString(yi));
+            f = f0 + 1;
+            System.out.println("  Ищем удачное направление");
+            while(f > f0)
+            {
+                xi = Math.abs(rand.nextDouble() % 1) - 0.5;
+                yi = Math.abs(rand.nextDouble() % 1) - 0.5;
+                x = x0 + h*xi;
+                y = y0 + h*yi;
+                if(flag)
+                    f = f_parab(x, y);
+                else
+                    f = f_rozen(x, y);
+                if(f > f0)
+                {
+                    x = x0 - h*xi;
+                    y = y0 - h*yi;
+                    if(flag)
+                        f = f_parab(x, y);
+                    else
+                        f = f_rozen(x, y);
+                }
+                if(f > f0)
+                {
+                    x = x0 + h*yi;
+                    y = y0 - h*xi;
+                    if(flag)
+                        f = f_parab(x, y);
+                    else
+                        f = f_rozen(x, y);
+                }
+                if(f > f0)
+                {
+                    x = x0 - h*yi;
+                    y = y0 + h*xi;
+                    if(flag)
+                        f = f_parab(x, y);
+                    else
+                        f = f_rozen(x, y);
+                }
+                if(i > 10000)
+                    break;
+                i++;
+            }
+            System.out.println("  Идём по нему");
+            while(f0 > f)
+            {
+                fl = true;
+                x0 = x + h*xi;
+                y0 = y + h*yi;
+                x = x0;
+                y = y0;
+                f0 = f;
+                if(flag)
+                    f = f_parab(x0, y0);
+                else
+                    f = f_rozen(x0, y0);
+            }
+            if(fl)
+            {
+                x0 = x - h*xi;
+                y0 = y - h*yi;
+            }
+            System.out.println("  Достигнут предел улучшения по найденному направлению");
+            System.out.println("  Текущие результаты:");
+            System.out.println("  x = " + Double.toString(x0));
+            System.out.println("  y = " + Double.toString(y0));
+            System.out.println("  f = " + Double.toString(y0));
+            System.out.println("=============================");
+        } while(Math.abs(x0 - xr) + Math.abs(yr - y0) > e);
+        if(flag)
+            f0 = f_parab(x0, y0);
+        else
+            f0 = f_rozen(x0, y0);
+        System.out.println();
+        System.out.println("Ответ:");
+        System.out.println("x = " + Double.toString(x0));
+        System.out.println("y = " + Double.toString(y0));
+        System.out.println("f = " + f0.toString());
+    }
+}

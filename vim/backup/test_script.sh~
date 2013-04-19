@@ -1,0 +1,19 @@
+#!/bin/bash
+
+devs="$(ls /dev/sd* | egrep 'sd[b-z][0-9]')"
+
+list=''
+first=1
+for i in "$devs"; do
+	if [[ $first == 1 ]]; then
+		list="True $i"
+	else
+		list="$list False $i"
+	fi
+done
+
+choice="$(zenity --title='custom umount' --list --text='Что отмонтировать?' --radiolist --column='dev' --column='name' $list)"
+
+pumount /dev/$choice
+
+zenity --info --text='done'

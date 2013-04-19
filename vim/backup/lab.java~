@@ -1,0 +1,75 @@
+import java.io.*;
+
+public class lab{                                                                                          
+	public static double fi(double x){
+		return 25 - 2 * (x + 1) * (x + 1);
+	}
+	public static double f1(double t){
+		return t + 5 * Math.cos(t) + 18;
+	}
+	public static double f2(double t){
+		return 17 + 0.15 * t;
+	}
+	public static void main(String[] args){
+		try{
+		double a, X, d_x, tmax, d_t;
+
+		a = 0.013;
+		d_x = 0.1;
+		tmax = 100.0;
+		X = 1.0;
+		d_t = 0.5*d_x*d_x;
+
+		double T[][] = new double[(int) Math.round(tmax/d_t) + 1][(int) Math.round(X/d_x) + 1];
+			FileOutputStream os = new FileOutputStream("./res2");
+		int c = 0;
+		
+		for(double i = 0.0; i < X + 0.00001; i+= d_x)
+		{
+			T[0][c] = fi(i);
+			c++;
+			i = Math.round(i*1000.0)/1000.0;
+		}
+		
+		c = 0;
+		for(double i = 0.0; i < tmax + d_t; i+= d_t)
+		{
+			T[c][0] = f1(i);
+			c++;
+			i = Math.round(i*1000.0)/1000.0;
+		}
+
+		c = 0;
+		for(double i = 0.0; i < tmax + d_t; i+= d_t)
+		{
+			T[c][(int) (X/d_x)] = f2(i);
+			c++;
+			i = Math.round(i*1000.0)/1000.0;
+		}
+
+		int k = 1;
+		for(double j = d_t; j < tmax; j+= d_t)
+		{
+			c = 1;
+			for(double i = d_x; i < X; i+= d_x)
+			{
+				T[k][c] = a*d_t/(d_x*d_x)*(T[k-1][c+1] - 2.0*T[k-1][c] + T[k-1][c-1]) + T[k-1][c];
+				System.out.print("t = " + Math.round(j*1000)/1000.0 + "\t l = " + Math.round(i*1000)/1000.0 + "\t T = " + Math.round(T[k][c]*1000)/1000.0 + "\n");
+				c++;
+				i = Math.round(i*1000.0)/1000.0;
+			}
+			k++;
+		}
+
+		for(int i = 0; i < Math.round(tmax/d_t) + 1; i++)
+			for(int j = 0; j < Math.round(X/d_x) + 1; j++)
+			{
+				String st;
+				st = (i*d_t) + " " + (j*d_x) + " " + T[i][j] + "\n";
+				try{
+					os.write(st.getBytes(), 0, st.length());
+				} catch(Exception ex){}
+			}
+		} catch(FileNotFoundException ex) {}
+	}
+}

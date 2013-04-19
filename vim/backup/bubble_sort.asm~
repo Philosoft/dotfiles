@@ -1,0 +1,59 @@
+mov R0, #50h
+mov R7, #0AH
+mov R6, #10
+
+create_arr:
+  mov A, R7
+  mov @R0, A
+  inc R0
+  inc R7
+  dec R6
+  cjne R6, #0, create_arr
+
+mov R7, #10
+dec R0
+loop:
+mov r0, #59h
+    mov A, R7
+    mov R6, A
+  djnz R7, loop2
+  sjmp sort_finish
+  
+  loop2:
+    ; need jmp 2 start
+    dec R6
+    mov A, R6
+    jnz start
+    
+    sjmp loop
+
+    start:
+    ; подготовим числа
+    mov A, @R0
+    mov R5, A
+    dec R0
+    mov A, @R0
+    mov R4, A
+    ; сравним
+    mov A, R5
+    mov B, R4
+    cjne A, B, not_eq
+    sjmp cmp_finish
+
+    not_eq:
+      jnc first_gt_second
+      sjmp cmp_finish
+      first_gt_second:
+          ; переставим
+          mov A, R4
+          mov B, R5
+          mov @R0, B
+          inc R0
+          mov @R0, A
+          dec R0
+      cmp_finish:
+          cjne R6, #0, loop2
+
+  cjne R7, #0, loop
+
+sort_finish:

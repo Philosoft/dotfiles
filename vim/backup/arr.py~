@@ -1,0 +1,270 @@
+# -*- coding: utf-8 -*-
+from visual import * 
+
+# 3 arrows + point. 
+#pt1 = (15, 5, 0)
+#pt2 = (15, 0, 0)
+#v1 = vector(pt1)
+#v2 = vector(pt2)
+#v3 = v1 - v2
+#
+#a1 = arrow(pos = (0, 0, 0), axis = v1, color = color.red)
+#a2 = arrow(pos = (0, 0, 0), axis = v2, color = color.green)
+#a3 = arrow(pos = pt2, axis = v3, color = color.blue)
+#
+#s = sphere(pos = pt1, color = color.magenta, make_trail = True)
+#print s.axis
+#f = frame()
+#s.frame = f
+#
+#while True:
+#    rate(30)
+#    v3 = v3.rotate(radians(1))
+#
+#    x, y, z = pt2
+#    f.rotate(angle = radians(-1), origin = pt2, axis = (0, 0, -1))
+#    a3.axis = v3
+##setting up positions of object
+#setting_up = True
+#obj_counter = 0
+#objects = []
+#while setting_up:
+#    rate(5)
+#    if scene.mouse.clicked:
+#        m = scene.mouse.getclick()
+#        if obj_counter == 0:
+#            c = color.red
+#        else:
+#            c = color.cyan
+#        objects.append(arrow(pos = m.pos, color = c))
+#        obj_counter += 1
+#        if obj_counter == 2:
+#            setting_up = False
+#
+#obj1 = objects[0]
+#obj2 = objects[1]
+#ax = vector(1, 0, 0)
+#ax2 = vector(-1, 0, 0)
+#
+#init_ax  = ax
+#init_ax2 = ax2
+#
+#vel1 = 1
+#vel2 = -2
+#
+##calc leng: ((ax + obj1.pos) - (ax2 + obj2.pos)).mag
+#
+#run_simulation = True
+#first_time = True
+#delta_x = 0.
+#e = 0.0001
+#max_length = 0
+#min_length = 10**3
+#while run_simulation:
+#    rate(30)
+#    old_x = ax.x
+#    ax = ax.rotate(radians(vel1))
+#    new_x = ax.x
+#    delta_x += abs(old_x - new_x)
+#    obj1.axis = ax
+#    ax2 = ax2.rotate(radians(vel2))
+#    obj2.axis = ax2
+#
+#    length = ((ax + obj1.pos) - (ax2 + obj2.pos)).mag
+#    if max_length < length:
+#        max_length = length
+#    if min_length > length:
+#        min_length = length
+#
+#    if delta_x > e:
+#        first_time = False
+#    #TODO: ↓ обернуть в функцию
+#    if ax.x >= init_ax.x - e and ax.x < init_ax.x + e and ax2.x >= init_ax2.x - e and ax2.x <= init_ax2.x + e and not first_time:
+#        run_simulation = False
+#
+#print 'max: %2.4f\nmin: %2.4f' %(max_length, min_length)
+
+scene.range = 8
+
+class gear():
+    def __init__(self, pos, end_p):
+        self.shape = shapes.gear(n = 10)
+        self.pos = [pos, end_p]
+        self.color = color.red
+
+        self.obj = extrusion(shape = self.shape, pos = self.pos, color = self.color)
+
+    def set_invisible(self):
+        self.obj.visible = False
+
+f = frame()
+g = gear((0, 0, 0), (0, 0, 4))
+g.obj.frame = f
+for i in f.objects:
+    print i
+    print i == g
+while True:
+    rate(15)
+    if scene.mouse.events:
+        m1 = scene.mouse.getevent()
+        if m1.pick:
+            print m1.pickpos
+#p1 = sphere(pos = (0, 2, 3), radius=0.5, color = color.green, make_trail = True)
+#p2 = sphere(pos = (2, 2, 3), radius=0.5, color = color.magenta)
+#p3 = sphere(pos = (2, 2, 5), radius=0.5, color = color.cyan)
+#
+#v1 = vector(p1.pos)
+#v2 = vector(p2.pos)
+#v3 = v1 - v2
+#
+#f = frame()
+#p1.frame = f
+#
+#a = arrow(axis = v3, pos = p2.pos)
+#pos = p1.pos
+#
+#ax = p3.pos - p2.pos
+#
+#while True:
+#    rate(15)
+#    #a.rotate(angle = radians(3), axis=(0, 0, -1), origin = pos)
+#    f.rotate(angle = radians(3), axis=ax, origin = p2.pos)
+#    #p1.pos = a.axis
+## 3 arrows + point. 
+#pt1 = (15, 5, 0)
+#pt2 = (15, 0, 0)
+#v1 = vector(pt1)
+#v2 = vector(pt2)
+#v3 = v1 - v2
+#
+#a1 = arrow(pos = (0, 0, 0), axis = v1, color = color.red)
+#a2 = arrow(pos = (0, 0, 0), axis = v2, color = color.green)
+#a3 = arrow(pos = pt2, axis = v3, color = color.blue)
+#
+#s = sphere(pos = pt1, color = color.magenta, make_trail = True)
+#print s.axis
+#f = frame()
+#s.frame = f
+#
+#while True:
+#    rate(30)
+#    v3 = v3.rotate(radians(1))
+#
+#    x, y, z = pt2
+#    f.rotate(angle = radians(-1), origin = pt2, axis = (0, 0, -1))
+#    a3.axis = v3
+
+
+#g = shapes.gear(n = 10)
+#p = [(2, 0, 0), (0, 0, 4)]
+#obj1 = extrusion(shape = g, pos = p, color = color.red)
+#p = [(15, 0, 0), (15, 0, 4)]
+#obj2 = extrusion(shape = g, pos = p, color = color.blue)
+#v1 = vector(1, 0, 0)
+#v2 = vector(1, 0, 0)
+#
+## placing points
+#have_points = False
+#count_points = 0
+#pt_list = []
+#while not have_points:
+#    rate(5)
+#    if scene.mouse.clicked:
+#        m = scene.mouse.getclick()
+#
+#        count_points += 1
+#        if count_points == 1:
+#            have_points = True
+#
+#        if count_points == 1:
+#            c = color.cyan
+#        else:
+#            c = color.green
+#        pt_list.append(sphere(pos = m.pos, color = c))
+#
+#pt1 = pt_list[0]
+##pt2 = pt_list[1]
+#new_x, new_y, new_z = obj2.pos[0]
+#new_pos = (new_x, new_y + 8, new_z)
+#pt2 = sphere(pos = new_pos, color = color.green)
+#
+#va = vector(pt1.pos)
+#vb = vector(pt2.pos)
+#a = arrow(pos = obj1.pos[0], axis = pt1.pos)
+#f = frame()
+#pt2.frame = f
+#
+#while True:
+#    rate(15)
+#    v1 = v1.rotate(radians(2))
+#    v2 = v2.rotate(radians(-2))
+#    va = va.rotate(radians(2))
+#    vb = vb.rotate(radians(2))
+#
+#    obj1.up = v1
+#    obj2.up = v2
+#
+#    pt1.pos = va
+#    a.axis = va
+#    f.rotate(angle = radians(-2), axis = (0, 0, 1), origin = (obj2.pos[0][0], obj2.pos[0][1], pt2.pos.z))
+#
+#
+##setting up positions of object
+#setting_up = True
+#obj_counter = 0
+#objects = []
+#while setting_up:
+#    rate(5)
+#    if scene.mouse.clicked:
+#        m = scene.mouse.getclick()
+#        if obj_counter == 0:
+#            c = color.red
+#        else:
+#            c = color.cyan
+#        objects.append(arrow(pos = m.pos, color = c))
+#        obj_counter += 1
+#        if obj_counter == 2:
+#            setting_up = False
+#
+#obj1 = objects[0]
+#obj2 = objects[1]
+#ax = vector(1, 0, 0)
+#ax2 = vector(-1, 0, 0)
+#
+#init_ax  = ax
+#init_ax2 = ax2
+#
+#vel1 = 1
+#vel2 = -2
+#
+##calc leng: ((ax + obj1.pos) - (ax2 + obj2.pos)).mag
+#
+#run_simulation = True
+#first_time = True
+#delta_x = 0.
+#e = 0.0001
+#max_length = 0
+#min_length = 10**3
+#while run_simulation:
+#    rate(30)
+#    old_x = ax.x
+#    ax = ax.rotate(radians(vel1))
+#    new_x = ax.x
+#    delta_x += abs(old_x - new_x)
+#    obj1.axis = ax
+#    ax2 = ax2.rotate(radians(vel2))
+#    obj2.axis = ax2
+#
+#    length = ((ax + obj1.pos) - (ax2 + obj2.pos)).mag
+#    if max_length < length:
+#        max_length = length
+#    if min_length > length:
+#        min_length = length
+#
+#    if delta_x > e:
+#        first_time = False
+#    #TODO: ↓ обернуть в функцию
+#    if ax.x >= init_ax.x - e and ax.x < init_ax.x + e and ax2.x >= init_ax2.x - e and ax2.x <= init_ax2.x + e and not first_time:
+#        run_simulation = False
+#
+#print 'max: %2.4f\nmin: %2.4f' %(max_length, min_length)

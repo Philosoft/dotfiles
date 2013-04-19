@@ -1,0 +1,9 @@
+#!/usr/bin/python 
+#-*- coding: utf-8 -*-
+
+import xmpp
+
+class Bot:
+    def __init__(self, JID, Password):
+        jid = xmpp.JID(JID)
+        self.connection = xmpp.Client(jid.getDomain(), debug = [])

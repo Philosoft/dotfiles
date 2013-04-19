@@ -1,0 +1,238 @@
+#!/bin/bash
+# By Linuxoid Project. Authors: Rain, AntiChrist.
+ 
+direct='1'
+outdir="$HOME/Music/"
+tempfile="$(date +tempfile.%s)"
+tempcue="$(mktemp).cue"
+ 
+help() {
+ echo -e "\e[1;34mИспользование:
+\t\e[1;32m$(basename $0) \e[1;33m\"Звуковой_файл (ape, flac и т.д.)\" \e[1;33m\"Таблица_Дорожек.cue\"\e[0m\n";
+ 
+ echo -e "\e[1;31mЗависимости\e[0m, необходимые для работы:\e[1;32m
+\tflac
+\tshntool
+\tcuetools
+\tenca\e[0m
+"
+ 
+ echo -e "\e[1;33mДополнительно \e[0;33m(в зависимости от типов конвертируемых файлов)\e[0m:
+\t\e[1;32mmonkeys-audio \e[0;34m(Семейство Debian/*untu)\e[0m или \e[1;32mmac \e[0;34m(Остальные дистрибутивы)\e[0m
+\t\e[1;32mwavpack\e[0m
+\t\e[1;32malac_decoder\e[0m \e[34m(При отсутствии пакета в дистрибутиве качать отсюда: \e[36mhttp://craz.net/programs/itunes/alac.html\e[34m)\e[0m\n";
+ 
+ echo -e "\e[1;32mРезультат конвертации ищите в директории \e[36m$outdir\e[1;32m.
+\t\e[0;32mЕсли хотите изменить путь сохранения - запускайте скрипт, как
+\t\e[1;36mHOME='/путь/к/новому/месту' \e[1;32m$(basename $0) \e[1;33m[параметры]\e[0m.
+\t\e[32mИли же измените переменную \e[1;36moutdir \e[0;32mвнутри скрипта.\e[0m\n"
+}
+ 
+error() {
+echo -e "\e[1;31m${1}\e[0m"
+exit $2
+}
+ 
+ch_utils() {
+uts='';
+uts=$uts"$@";
+	test $(which flac 2>/dev/null) ||  uts=$uts' flac'
+	test $(which shnsplit 2>/dev/null) || uts=$uts' shntools'
+	test $(which enconv 2>/dev/null) || uts=$uts' enca'
+	test $(which cueprint 2>/dev/null) || uts=$uts' cuetools'
+if [[ $uts != '' ]]
+	then
+		echo -e "\e[1;31mУстановите, пожалуйста, следующие пакеты:"
+	for i in ${uts}
+		do
+			echo -e "\e[1;32m$i"
+	done
+	echo -e "\e[1;31mОни необходимы для работы скрипта.\e[0m"
+	exit 1
+fi
+}
+ 
+tag() {
+cf="$1"
+shift
+TN=1
+n=$(cueprint -d '%N' "$cf")
+	if [ $# -ne $n ]; then
+		echo -e "\e[1;31mВнимание\e[0m: Количество получившихся файлов не соответствует количеству треков в исходном файле."
+	fi
+fields='TITLE VERSION ALBUM TRACKNUMBER TRACKTOTAL ARTIST PERFORMER COPYRIGHT LICENSE ORGANIZATION DESCRIPTION GENRE DATE LOCATION CONTACT ISRC ARRANGER'
+	TITLE='%t'
+	VERSION=''
+	ALBUM='%T'
+	TRACKNUMBER='%n'
+	TRACKTOTAL='%N'
+	ARTIST='%c %p'
+	PERFORMER='%p'
+	COPYRIGHT='FMD'
+	LICENSE='CC'
+	ORGANIZATION=''
+	DESCRIPTION='%m'
+	GENRE='%g'
+	DATE=''
+	LOCATION=''
+	CONTACT=''
+	ISRC='%i %u'
+	ARRANGER=''
+ 
+year="$(grep '^REM DATE' "${cf}" | grep -oE '[0-9]{4}')"
+ 
+for file in "$@"; do
+	(for field in $fields; do
+		value=""
+		for conv in `eval echo \\$$field`; do
+			value=$(cueprint -n "$TN" -t "$conv\n" "$cf")
+			if [ -n "$value" ]; then
+				echo -e "$field=${value}"
+				break
+			fi
+		done
+	done) | metaflac --remove-all-tags --import-tags-from=- "$file"
+metaflac --set-tag DATE="${year}" "${file}"
+TN=$(($TN + 1))
+done
+}
+# Сам скрипт
+# Проверка передачи нужного числа параметров
+if [ "${#}" -lt 1 ] || [ "${#}" -gt 2 ]; then
+	help
+	exit
+fi
+ 
+# Проверка наличия необходимых утилит
+ch_utils;
+ 
+# Проверка формата входного файла и проверка наличия декодеров
+if [[ "$(file -b "${1}")" =~ "Monkey's Audio" ]]; then
+	test $(which mac 2>/dev/null) || ch_utils "monkeys-audio \e[1;34m(Семейство Debian/*untu)\e[0m или \e[1;32mmac \e[1;34m(Остальные дистрибутивы)\e[0m"
+		fileformat='APE'
+		echo -e "\e[35mФормат файла - \e[36mMonkey's Audio \e[35m(\e[36mAPE\e[35m)\e[0m\n"
+ 
+elif [[ "$(file -b "${1}")" =~ "iTunes AAC-LC" ]]; then
+		test $(which alac)	|| ch_utils "alac_decoder (запустите скрипт без параметров для справки)"
+		if [ "$(alac -t "${1}" 2>/dev/null)" == 'file type: alac' ]; then
+			fileformat='ALAC'
+			echo -e "\e[35mФормат файла - \e[36mApple Lossless Audio Codec \e[35m(\e[36mALAC\e[35m)\e[0m\n"
+		else
+			error "Формат файла M4A, но он не является ALAC. Перекодировка невозможна." 1
+		fi
+ 
+elif    [[ "$(file -b "${1}")" =~ "FLAC audio" ]]; then
+		fileformat='FLAC'
+		echo -e "\e[35mФормат файла - \e[36mFree Lossless Audio Codec \e[35m(\e[36mFLAC\e[35m)\e[0m\n"
+ 
+elif    [[ "$(file -b "${1}")" =~ "WAVE audio" ]]; then
+		fileformat='WAV'
+		echo -e "\e[35mФормат файла - \e[36mWAVE\e[0m\n"
+ 
+elif    [ "${1##*.}" == 'wv' ]; then
+		test $(which wvunpack)  || ch_utils "wavpack"
+		fileformat='WV'
+		echo -e "\e[35mФормат файла - \e[36mWavPack\e[0m\n"
+ 
+else
+	error "Неизвестный формат входного аудио-файла \"${1}\" (возможно, работа с этим форматом еще не добавлена в скрипт)." 1
+fi
+ 
+# Проверка наличия внешнего или встроенного CUE-файла
+if [ ! -z "${2}" ]; then
+	cuefile="${tempcue}"
+	cat "${2}" | enconv > "${cuefile}"
+	outdir="${outdir}/$(cueprint "${cuefile}" -t "%P/\n"|uniq)$(grep '^REM DATE' "${cuefile}" | grep -oE '[0-9]{4}' | sed -r 's/[0-9]{4}/& - /g')$(cueprint "${cuefile}" -t "%T\n"|uniq)"
+else
+	if [ "${fileformat}" == 'FLAC' ]; then
+		if [ "$(metaflac --list "${1}" | grep -qi cuesheet && echo 1)" ]; then
+			echo -e "\e[1;32mНайдена CUE-таблица внутри файла... Извлекаем...\e[0m"
+			cuefile="${1%.*}.cue"
+			metaflac "${1}" --export-tags-to=- | sed -e 's/CUESHEET=//g' -n -e '/^ *$/,//!p' > "${tempcue}"
+			cat "${tempcue}" | enconv > "${cuefile}"
+			outdir="${outdir}/$(cueprint "${cuefile}" -t "%P/\n"|uniq)$(grep '^REM DATE' "${cuefile}" | grep -oE '[0-9]{4}' | sed -r 's/[0-9]{4}/& - /g')$(cueprint "${cuefile}" -t "%T\n"|uniq)"
+		else
+			echo -e "\e[1;33mCUE-таблица не задана и не найдена в файле.\nКонвертируем ${1} в FLAC без разбивки на треки...\e[0m\n"
+			direct='0'
+			outdir="${outdir}/without_cue"
+		fi
+	else
+		echo -e "\e[1;33mCUE-таблица не задана и не найдена в файле.\n\e[0;35mКонвертируем \e[36m${1}\e[35m в \e[36mFLAC\e[35m без разбивки на треки.\e[0m\n"
+		direct='0'
+		outdir="${outdir}/without_cue"
+	fi
+fi
+ 
+# Создание каталога назначения и имени временного файла
+if [ -e "$outdir" ]; then
+	echo -e "\e[1;31mВнимание: каталог \e[1;34m${outdir} \e[1;31mуже существует.
+Возможно там находятся результаты предыдущей перекодировки этого альбома.\e[0m\n"
+else
+	echo -e "\e[35mСоздаем каталог \e[36m${outdir}\e[35m,\nв который мы будем складывать переконвертированные файлы...\e[0m\n"
+fi
+mkdir -p "${outdir}"
+ 
+# Декодирование файлов в случае пошаговых операций
+if [ "${direct}" == '0' ]; then
+	case "${fileformat}" in
+		APE)
+			echo -e "\e[35mКонвертирование \e[36m"${1}"\e[35m из \e[36m"${fileformat}"\e[35m в \e[36mWAV\e[35m...\e[0m\n"
+			mac "${1}" "${outdir}/${tempfile}.wav" -d
+		;;
+		ALAC)
+			echo -e "\e[35mКонвертирование \e[36m"${1}"\e[35m из \e[36m"${fileformat}"\e[35m в \e[36mWAV\e[35m...\e[0m\n"
+			alac -f "${outdir}/${tempfile}.wav" "$1"
+		;;
+		FLAC)
+			echo -e "\e[35mКонвертирование \e[36m"${1}"\e[35m из \e[36m"${fileformat}"\e[35m в \e[36mWAV\e[35m...\e[0m\n"
+			flac -d "${1}" -o "${outdir}/${tempfile}.wav"
+		;;
+		WAV)
+			echo -e "\e[36m${1} \e[35mготов к обработке, создаем ссылку в \e[36m${outdir}\e[0m\n"
+			ln "${1}" "${outdir}/${tempfile}.wav"
+		;;
+		WV)
+			echo -e "\e[35mКонвертирование \e[36m"${1}"\e[35m из \e[36mWavPack\e[35m в \e[36mWAV\e[35m...\e[0m\n"
+			wvunpack -m "${1}"
+			mv "${1%.*}.wav" "${outdir}/${tempfile}.wav"
+		;;
+	esac
+else
+	case "${fileformat}" in
+		WV)
+			echo -e "\e[35mКонвертирование \e[36m"${1}"\e[35m из \e[36mWavPack\e[35m в \e[36mWAV\e[35m...\e[0m\n"
+			wvunpack -m "${1}"
+			mv "${1%.*}.wav" "${outdir}/${tempfile}.wav"
+		;;
+		ALAC)
+			echo -e "\e[35mКонвертирование \e[36m"${1}"\e[35m из \e[36m"${fileformat}"\e[35m в \e[36mWAV\e[35m...\e[0m\n"
+			alac -f "${outdir}/${tempfile}.wav" "$1"
+		;;
+		*)
+			ln "${1}" "${outdir}/${tempfile}.${1##*.}"
+		;;
+	esac
+fi
+ 
+ 
+if [ -z "${cuefile}" ]; then
+# Кодирование WAV-файла в FLAC в случае отсутствия CUE
+	echo -e "\n\e[35mКонвертация \e[36m${1}\e[35m в \e[36mFLAC\e[0m"
+	flac --delete-input-file --best -V "${outdir}/${tempfile}.wav" -o "${outdir}/${1%.*}.flac"
+else
+	echo -e "\e[35mРазрезаем \e[36m"${1}" \e[35mпо композициям на отдельные FLAC-файлы...\e[0m\n"
+	cd "${outdir}";
+# Нарезка входного файла на треки
+	cat "$cuefile" | shnsplit -0 always -o 'flac ext=flac flac --best -V - -o %f' -t "%n - %t" "${tempfile}"*
+# Удаление временного файла
+	rm -f "${tempfile}"*
+# Удаление pregap-файла
+	rm -f 00*pregap*.flac
+	echo -e "\n\e[35mПрописываем теги в файлы...\e[0m"
+# Заполнение тегов
+	tag "$cuefile" *.flac
+# Удаление ненужного CUE
+	rm -f "${cuefile}" "${tempcue}"
+fi
+ 
+exit 0

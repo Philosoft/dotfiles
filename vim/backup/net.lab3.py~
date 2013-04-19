@@ -1,0 +1,112 @@
+#!/usr/bin/python2
+
+import pygtk
+pygtk.require('2.0')
+import gtk
+import urllib
+import urllib2
+import re
+from threading import Thread
+import gobject
+
+urls = [
+         'http://quotes.nasdaq.com/asp/SummaryQuote.asp?symbol=MSFT'
+         , 'http://www.forexpros.ru/equities/microsoft-corp'
+        ]
+
+gtk.gdk.threads_init()
+class App(gtk.Builder):
+    def __init__(self):
+        super(App, self).__init__()
+        self.add_from_file('net.lab3.ui')
+        self.connect_signals(self)
+        self.window1.show_all()
+
+        gtk.main()
+
+    def __getattr__(self, attr):
+        obj = self.get_object(attr)
+        if not obj:
+            raise AttributeError('there are no such attribute - ' + attr)
+        setattr(self, attr, obj)
+        return obj
+
+    def quit(self, widget, event):
+        gtk.main_quit()
+
+
+    def getMarket(self):
+        gobject.idle_add(lambda : self.market.set_text('Retriving data'))
+        try:
+            req = urllib2.Request('http://www.marketwatch.com/investing/stock/MSFT')
+            content = urllib2.urlopen(req).read()
+            result = re.search(re.compile('data bgLast">\d+\.\d+', re.IGNORECASE), content).group(0)
+            gobject.idle_add(lambda : self.market.set_text('$' + re.search(re.compile('\d+\.\d+'), result).group(0)))
+        except Exception:
+            gobject.idle_add(lambda : self.market.set_text('Timeout'))
+
+    def getYahoo(self):
+        gobject.idle_add(lambda : self.yahoo.set_text('Retriving data'))
+        try:
+            rdata = urllib.urlencode({'s' : 'MSFT'})
+            req = urllib2.Request('http://finance.yahoo.com/q', rdata)
+            req.add_header('User-Agent', 'Mozilla/5.0 (X11; U; Linux x86_64; ru; rv:1.9.2.3) Gecko/20100423 Ubuntu/10.04 (lucid) Firefox/3.6.3')
+            content = urllib2.urlopen(req).read()
+            result = re.search(re.compile('id="yfs_l10_msft">\d+\.\d+<\/span', re.IGNORECASE), content).group(0)
+            gobject.idle_add(lambda : self.yahoo.set_text('$' + re.search(re.compile('\d+\.\d+'), result).group(0)))
+        except Exception:
+            gobject.idle_add(lambda : self.yahoo.set_text('Timeout'))
+
+    def getNASDAQ(self):
+        gobject.idle_add(lambda : self.nasdaq.set_text('Retriving data'))
+        try:
+            nasdaq_re_template = '18.*\$&nbsp;\d+\.\d+'
+            nasdaq_re = re.compile(nasdaq_re_template, re.IGNORECASE)
+
+            nasdaq = urllib2.urlopen(urls[0]).read()
+            nasdaq_result = re.search(nasdaq_re, nasdaq).group(0)
+            nasdaq_result = nasdaq_result.split(';')[-1]
+            gobject.idle_add(lambda : self.nasdaq.set_text('$' + nasdaq_result))
+        except Exception:
+            gobject.idle_add(lambda : self.nasdaq.set_text('Timeout'))
+
+    def getForex(self):
+        gobject.idle_add(lambda : self.forexpro.set_text('Retriving data'))
+        try:
+            req = urllib2.Request(urls[1])
+            req.add_header('User-Agent', 'Mozilla/5.0 (X11; U; Linux x86_64; ru; rv:1.9.2.3) Gecko/20100423 Ubuntu/10.04 (lucid) Firefox/3.6.3')
+            content = urllib2.urlopen(req).read()
+            forex_result = re.search(re.compile('bold;">\d+\.\d+<\/span'), content).group(0)
+            gobject.idle_add(lambda : self.forexpro.set_text('$' + re.search(re.compile('\d+\.\d+'), forex_result).group(0)))
+        except Exception:
+            gobject.idle_add(lambda : self.forexpro.set_text('Timeout'))
+
+    def getLSE(self):
+        gobject.idle_add(lambda : self.lse.set_text('Retriving data'))
+        try:
+            rdata = urllib.urlencode({'symbol' : 'MSFT', 'market' : 'NAS', 'lang' : 'en'})
+            req = urllib2.Request('http://www.londonstockexchange.com/exchange/prices-and-markets/international-markets/indices/company-summary.html', rdata)
+            req.add_header('User-Agent', 'Mozilla/5.0 (X11; U; Linux x86_64; ru; rv:1.9.2.3) Gecko/20100423 Ubuntu/10.04 (lucid) Firefox/3.6.3')
+            content = urllib2.urlopen(req).read()
+            london_result = re.search(re.compile('\d+\.\d+.*<\/td>'), content).group(0)
+            gobject.idle_add(lambda : self.lse.set_text('$' + re.search(re.compile('\d+\.\d+'), london_result.split(' ')[0]).group(0)))
+        except Exception:
+            gobject.idle_add(lambda : self.lse.set_text('Timeout'))
+
+    def get_data(self, widget):
+        ### MarketWatch ###
+        Thread(target=self.getMarket, args=()).start()
+
+        ### Yahoo! Finance ###
+        Thread(target=self.getYahoo, args=()).start()
+
+        ### NASDAQ ###
+        Thread(target=self.getNASDAQ, args=()).start()
+
+        ### ForexPros ###
+        Thread(target=self.getForex, args=()).start()
+
+        ### London Stock Exchange ###
+        Thread(target=self.getLSE, args=()).start()
+
+a = App()

@@ -1,0 +1,183 @@
+/************************/
+@main-color: #00acea;
+/************************/
+
+.telephone {
+	font-weight: bold;
+	font-size: 130%;
+}
+
+.middle-line {
+	display: inline-block;
+	vertical-align: middle;
+	border-bottom: 2px solid red;
+	margin: 2px auto;
+}
+
+
+#articles {
+	border-bottom: solid 3px #fff;
+}
+
+/*******************************************/
+.scrollable {
+	/* required settings */
+	position:relative;
+	overflow:hidden;
+	width: 1020px;
+	height: 213px;
+}
+
+.scrollable .items {
+	/* this cannot be too large */
+	width:20000em;
+	position:absolute;
+	clear:both;
+}
+
+.items div {
+	float:left;
+	width:1020px;
+}
+
+/* single scrollable item */
+.scrollable img {
+	background-color:#fff;
+	padding:2px;
+	border:1px solid #ccc;
+	width:1020px;
+	height:213px;
+
+	-moz-border-radius:4px;
+	-webkit-border-radius:4px;
+}
+
+/* active item */
+.scrollable .active {
+	border:2px solid #000;
+	position:relative;
+	cursor:default;
+}
+
+
+/* this makes it possible to add next button beside scrollable */
+.scrollable {
+	float:left;
+}
+/*****************************/
+
+.navbar {
+	margin: -25px 0 0 4%;
+	z-index: 3;
+	position: absolute;
+	box-shadow: 0px 6px 6px rgb(147, 147, 147);
+}
+
+.navbar-inner {
+	background-image: url("./img/menu_background.png");
+}
+
+.navi:after {
+	content: "";
+	clear: both;
+	display: table;
+}
+
+.navi li:first-child {
+	margin-left: 0px;
+}
+
+#menu {
+	text-transform: uppercase;
+}
+
+.nav li {
+	float: left;
+	font-weight: bold;
+	margin-left: 15px;
+}
+
+.navi a {
+	color: lightgray;
+	text-decoration: underline;
+}
+
+
+.navi {
+	list-style-type: none;
+}
+
+.news-link {
+	text-decoration: underline;
+	color: #000;
+}
+
+.news-link:hover {
+	text-decoration: none;
+	color: @main-color;
+}
+
+.arrow {
+	position: relative;
+
+	&:after {
+		content: ' ' url("./img/arrow.png");
+		vertical-align: baseline;
+	}
+}
+
+/*.arrow:after {*/
+	/*content: ' ' url("./img/arrow.png");*/
+	/*vertical-align: baseline;*/
+	/*/*position: absolute;*/
+	/*bottom: -2px;*/
+	/*right: -20px;*/*/
+/*}*/
+
+#catalog {
+	text-align: right;
+}
+
+.pics {
+	text-align: center;
+	margin-bottom: 5px;
+}
+
+.footer {
+	padding-top: 5px;
+	background-color: rgb(100, 100, 100);
+	border-top: solid 4px rgb(204, 90, 27);
+	color: lightgray;
+}
+
+.footer a {
+	text-color: lightgray;
+}
+
+.catalog_pics {
+	border: solid 1px #eee;
+	border-radius: 7px;
+	padding: 3px 25px;
+}
+
+.thumbnail {
+	text-align: center;
+}
+
+.circle a {
+	color: #fff;
+	background-color: #fff;
+	width: 11px;
+	height: 11px;
+	box-shadow: 1px 1px 4px gray inset;
+	border-radius: 7px;
+	display: inline-block;
+	position: relative;
+	color: rgb(0, 140, 235);
+}
+
+.circle a.active {
+	background: none repeat scroll 0% 0% rgb(225, 133, 70) !important;
+}
+.circle a:focus{
+}

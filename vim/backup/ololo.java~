@@ -1,0 +1,22 @@
+import java.awt.*;
+import java.applet.*;
+
+public class ololo extends Applet
+{
+  String msg;
+  public void init()
+  {
+ // msg = "init → ";
+  }
+  public void start()
+  {
+ //   msg += "start → ";
+  }
+  public void paint(Graphics g)
+  {
+    msg = "0123456789"
+    msg = Integer.toString(msg.length());
+
+    g.drawString(msg, 10, 30);
+  }
+}

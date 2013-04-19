@@ -1,0 +1,7 @@
+Прошу прощения, тут я не специалист, просто пользователь. Я просто воспользовался программой из репозитория: recordmydesktop, а точнее - gtk-recordmydesktop.
+ leonder@obninsk-home:~$ aptitude search recordmydesktop
+i gtk-recordmydesktop - Graphical frontend for recordmydesktop screencast tool
+i recordmydesktop - запись происходящего на экранеПоскольку большинство популярных видео-хостингов портят качество при загрузке видео, а порой и вообще не поддерживают формат theora, в котором пишется видео с экрана, мне пришлось выполнить преобразование перед загрузкой:
+<code lang="bash">ffmpeg -i ~/record.ogv -s vga img2net-demo.flv</code> Конечно, можно и другой размер итогового видео задать, смотрите man ffmpeg за продробностями.
+ 
+Надеюсь этот комментарий будет полезен ;) 

@@ -1,0 +1,210 @@
+// init {
+current_img = 0;
+total_imgs = 2;
+intervalID = null;
+img_list = {
+	img1: './1.jpg',
+	img2: './2.jpg',
+	img3: './3.jpg'
+}
+img_arr = ['./1.jpg', './2.jpg', './3.jpg']
+// }
+
+/*
+ * @func: create_ss_div
+ * @desc: создаём div для слайдшоу
+ * @return value: true - если div был создан, false - уже существует
+ */
+function create_ss_div()
+{
+	if( document.getElementById('ss_div') == null )
+	{
+		// определим ширину окна
+		var w = document.body.clientWidth / 2;
+		// и разместим div в центре
+		var p = document.getElementById('place');
+		p.innerHTML='<div id="ss_div" class="ss" style="position: absolute; top: 1px; left: ' +w+ 'px; margin: 0px 0px 0px -300px; width: 600px; height: 600px;" onclick="click_cb(event)"></div>';
+		return true;
+	}
+	else
+		return false;
+}
+
+function next()
+{
+	if( create_ss_div() == false )
+	{
+		//нам нужно снять обозначение "текущий"
+		//FIXME enable in ie 
+		var s = document.getElementsByClassName('selected');
+		if(s[0] != null) s[0].className = "nonselected";
+	}
+	current_img += 1;
+	if(current_img > total_imgs)
+		current_img = 0;
+
+	var ss_div = document.getElementById('ss_div');
+	// вставим картинку в слайд
+	ss_div.innerHTML = '<img class="std" src="' + img_arr[current_img] + '">';
+	// и обозначим её
+	var img = img_arr[current_img];
+	img = img.replace('./', 'img');
+	img = img.replace('.jpg', '');
+	document.getElementById(img + '_div').className = "selected";
+}
+
+function prev()
+{
+	if( ! create_ss_div() )
+	{
+		//нам нужно снять обозначение "текущий"
+		//FIXME enable in ie 
+		var s = document.getElementsByClassName('selected');
+		if(s[0] != null) s[0].className = "nonselected";
+	}
+	current_img -= 1;
+	if(current_img < 0)
+		current_img = total_imgs;
+
+	var ss_div = document.getElementById('ss_div');
+	// вставим картинку в слайд
+	ss_div.innerHTML = '<img class="std" src="' + img_arr[current_img] + '">';
+	// и обозначим её
+	var img = img_arr[current_img];
+	img = img.replace('./', 'img');
+	img = img.replace('.jpg', '');
+	document.getElementById(img + '_div').className = "selected";
+}
+
+document.onkeydown = kb_handler;
+
+function kb_handler(e)
+{
+	e = e || window.event;
+	
+	var kc = 0;
+	kc = e.keyCode || e.which;
+
+	switch(kc)
+	{
+		case 37:
+			prev();
+			break;
+		case 39:
+			next();
+			break;
+		case 81:
+			close_ss();
+			break
+	}
+}
+
+function close_ss()
+{
+	document.getElementById('place').innerHTML = '';
+	if(intervalID != null)
+		clearInterval(intervalID);
+}
+
+/*
+ * @func: start()
+ * @desc: создаём div для вывода картинки
+ */
+function start(event){
+	// cross-browser solution
+	event = event || window.event;
+	var t = event.target || event.srcElement;
+	t = t.id;
+
+	if(intervalID != 0) // слайдшоу идёт
+		toggle_automatic_change(); // тогда остановим его
+
+
+	if( create_ss_div() ) // div'а ещё нет ⇒ подсветку не трогаем
+	{}
+	else // div уже есть ⇒ надо снять подсвечивание
+	{
+		//нам нужно снять обозначение "текущий"
+		//FIXME enable in ie 
+		var s = document.getElementsByClassName('selected');
+		if(s[0] != null)
+			s[0].className = "nonselected";
+	}
+
+	change_image(t);
+}
+
+/*
+ * @func: toggle_automatic_change
+ * @desc: запускает/останавливает слайдшоу
+ */
+function toggle_automatic_change()
+{
+	var b = document.getElementById('ss_btn_toggle');
+	if(intervalID == null)
+	{
+		intervalID = setInterval(next, 1000 * 3);
+		b.value="Остановить слайдшоу";
+	}
+	else
+	{
+		clearInterval(intervalID);
+		intervalID = null;
+		b.value="Начать слайдшоу";
+	}
+}
+
+//FIXME: del this func & rm all calls
+function click_cb(event)
+{
+	// унифицируем работу
+	event = event || window.event;
+	var e = event;
+	if (!e.which && e.button) {
+	  if (e.button & 1) e.which = 1
+	  else if (e.button & 4) e.which = 2
+	  else if (e.button & 2) e.which = 3
+	}
+
+	if(e.which == 1)
+		alert('next();')
+	if(e.which == 2)
+		alert('stop();')
+	if(e.which == 3)
+		alert('prev();')
+}
+
+/*
+ * @func: change_image
+ * @params: target - id изображения, по которому щёлкнули
+ * @desc: помещает изображение в ss_div и подсвечивает превью
+ */
+function change_image(target)
+{
+	var ss_div = document.getElementById('ss_div');
+	var tmp_str = "img_list." + target;
+	var img = eval(tmp_str);
+
+	// установим счётчик для слайдшоу
+	set_counter(target)
+
+	// вставим картинку в слайд
+	ss_div.innerHTML = '<img class="std" src="' + img + '">';
+	// и обозначим её
+	document.getElementById(target + '_div').className = "selected";
+}
+
+function set_counter(target)
+{
+	switch(target)
+	{
+		case "img1":
+			current_img = 0;
+			break;
+		case "img2":
+			current_img = 1;
+			break;
+		case "img3":
+			current_img = 2;
+	}
+}

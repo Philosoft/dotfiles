@@ -1,0 +1,50 @@
+#include <stdio.h>
+
+int get_and_check_age()
+{
+	int age;
+	printf("Введите ваш возраст: ");
+	scanf("%i", &age);
+	if(age >= 14 && age < 150)
+		return age;
+	else
+	{
+		if(age > 0 && age < 14)
+			printf("Рано!\n");
+		else
+			printf("Вы не реальны!\n");
+	}
+		return 0;
+}
+
+int main()
+{
+	int age, perfect_age = -1;
+	char sex;
+	printf("Введите пол [мМжЖ]: ");
+	scanf("%c", &sex);
+	printf("  :: [debug] %c\n", sex);
+
+	switch(sex)
+	{
+		case 'м':
+		case 'М':
+			if(get_and_check_age(age))
+				perfect_age = age / 2 + 7;
+			break;
+
+		case 'ж':
+		case 'Ж':
+			if(get_and_check_age())
+				perfect_age = age * 2 - 14;
+			break;
+
+		default:
+			printf("Так не бывает!\n");
+	}
+
+	if(perfect_age != -1)
+		printf("Идеальный возраст пары: %i\n", perfect_age);
+
+	return 0;
+}

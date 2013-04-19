@@ -1,0 +1,13 @@
+i=0
+i2=-1
+c=3
+while [ "$i" -lt "$c" ]; do
+        while [ "$i2" -lt "$c" ]; do
+                echo "i2 = $i2   c = $c";
+                echo "ololol";
+                i2=`expr $i2 + 1`;
+        done;
+        i=`expr $i + 1`;
+        echo "parent cycle";
+done
+

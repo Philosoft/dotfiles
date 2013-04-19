@@ -1,0 +1,454 @@
+import java.sql.DriverManager;
+import java.sql.Connection;
+import java.sql.SQLException;
+import javax.swing.JTable;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.BoxLayout;
+import javax.swing.Box;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JLabel;
+import javax.swing.JTabbedPane;
+import javax.swing.JButton;
+import java.awt.Dimension;
+import java.awt.Container;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyListener;
+import java.awt.event.KeyEvent;
+import java.io.*;
+import java.util.*;
+
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.data.xy.XYDataset;
+import org.jfree.data.xy.XYSeries;
+import org.jfree.data.xy.XYSeriesCollection;
+
+class Wind extends JFrame
+{
+	private JButton b[];
+	private JTextField tf[];
+	private JTabbedPane tp;
+	private JTabbedPane tp2;
+	private JPanel p[];
+	private JTextArea a;
+	private JScrollPane sp[]; 
+	private JTable t[];
+	private JLabel lbl[];
+	private ChartPanel panel[];
+	private XYSeriesCollection xyDataset[];
+	private long Tud[][];
+	private long Tper[][][];
+	private long time;
+	private int TableS[] = {70, 44, 68, 85, 76, 84, 192, 59, 80, 66, 81,
+			  82, 75, 86, 89, 74, 71, 72, 67, 78, 69, 65,
+			  91, 87, 88, 73, 79, 93, 83, 77, 222, 46, 90, 32, 47};
+	private String Etal[] = {"а", "б", "в", "г", "д", "е", "ё", "ж", "з", "и", "й",
+			"к", "л", "м", "н", "о", "п", "р", "с", "т", "у", "ф",
+			"х", "ц", "ч", "ш", "щ", "ъ", "ы", "ь", "э", "ю", "я", " ", "."};
+
+	private int Count[];
+		
+	private int Count2[][];
+	int pos;
+
+
+	class ButtonClicked implements ActionListener
+	{
+		public void actionPerformed(ActionEvent ae)
+		{
+			if(ae.getSource() == b[0])
+			{
+			}
+			else
+			{
+				try
+				{
+					File f = new File("./" + tf[0].getText() + "_ud");
+					File f2 = new File("./" + tf[0].getText() + "_per");
+					FileOutputStream os = new FileOutputStream(f);
+					FileOutputStream os2 = new FileOutputStream(f2);
+
+					if(f.exists())
+						tf[7].setText("Данная база уже существует. Она будет перезаписана.\n");
+
+					for(int i = 0; i < 35; i++)
+					{
+						t[0].setValueAt(Etal[i], i, 0);
+						for(int j = 0; j < 35; j++)
+						{
+							t[0].setValueAt(Tud[i][j], i, j+1);
+							t[1].setValueAt(Etal[i] + "-" + Etal[j], 35*i+j, 0);
+							for(int k = 0; k < 35; k++)
+								t[1].setValueAt(Tper[i][j][k], 35*i+j, k+1);
+						}
+					}
+
+					for(int i = 0; i < 35; i++)
+					{
+						if(Count[i] != 0)
+						{
+							String st;
+							int res = 0;
+							for(int j = 0; j < Count[i]; j++)
+								res+= Tud[i][j];
+							res = res/Count[i];
+							st = Etal[i] + " " + res + "\n";
+							os.write(st.getBytes(), 0, st.length());
+						}
+
+						for(int j = 0; j < 35; j++)
+							if(Count2[i][j] != 0)
+							{
+								String st;
+								int res = 0;
+								for(int k = 0; k < Count2[i][j]; k++)
+									res+= Tper[i][j][k];
+								res = res/Count2[i][j];
+								st = Etal[i] + "-" + Etal[j] + " " + res + "\n";
+								os2.write(st.getBytes(), 0, st.length());
+							}
+					}
+				}
+				catch(Exception ex)
+				{	
+				}
+			}
+		}
+	}
+
+	class KeyPR implements KeyListener
+	{
+		public void keyPressed(KeyEvent e)
+		{
+			boolean flag = false;
+			int ct = e.getKeyCode();
+			if(time != 0)
+			{
+				time = System.currentTimeMillis() - time;
+
+				for(int i = 0; i < 35; i++)
+					if(TableS[i] == ct)
+					{
+						Tper[pos][i][Count2[pos][i]] = time;
+						Count2[pos][i]++;
+						flag = true;
+						pos = i;
+						break;
+					}
+
+				if(!flag)
+					time = 0;
+			}
+			a.setText(e.getKeyCode() + " ");
+
+			for(int i = 0; i < 35; i++)
+				if(TableS[i] == ct)
+				{
+					flag = true;
+					pos = i;
+					break;
+				}
+			if(flag)
+				time = System.currentTimeMillis();
+		}
+
+		public void keyReleased(KeyEvent e)
+		{
+			boolean flag = false;
+			//pos = -1;
+			if(time != 0)
+			{
+				time = System.currentTimeMillis() - time;
+				Tud[pos][Count[pos]] = time;
+				Count[pos]++;
+				flag = true;
+				
+				/*int ct = e.getKeyCode();
+				for(int i = 0; i < 35; i++)
+				    if(TableS[i] == ct)
+					{
+						pos = i;
+						Tud[i][Count[i]] = time;
+						Count[i]++;
+						flag = true;
+						break;
+					}*/
+			}
+
+			if(flag)
+				time = System.currentTimeMillis();
+			else
+			{
+				time = 0;
+				pos = -1;
+			}
+		}
+
+		public void keyTyped(KeyEvent e)
+		{}
+	}
+	
+    	Wind(String title)
+	{
+		super(title);
+		
+		Count = new int[35];
+		Count2 = new int[35][35];
+
+		pos = -1;
+		Tud = new long[35][35];
+		Tper = new long[35][35][35];
+
+		for(int i = 0; i < 35; i++)
+		{
+			Count[i] = 0;
+			for(int j = 0; j < 35; j++)
+			{
+				Count2[i][j] = 0;
+				Tud[i][j] = 0;
+				
+				for(int k = 0; k < 35; k++)
+					Tper[i][j][k] = 0;
+			}
+		}
+
+		p = new JPanel[4];
+		sp = new JScrollPane[3];
+		b = new JButton[2];
+		t = new JTable[2];
+		lbl = new JLabel[9];
+		panel = new ChartPanel[4];
+		xyDataset = new XYSeriesCollection[4];
+		tf = new JTextField[8];
+
+		a = new JTextArea("");
+		tp = new JTabbedPane();
+		tp2 = new JTabbedPane();
+
+		lbl[0] = new JLabel("Введите текст");
+		lbl[1] = new JLabel("e1 = ");
+		lbl[2] = new JLabel("e2 = ");
+		lbl[3] = new JLabel("Mmin = ");
+		lbl[4] = new JLabel("Mmax = ");
+		lbl[5] = new JLabel("Amin = ");
+		lbl[6] = new JLabel("Amax = ");
+		lbl[7] = new JLabel("Имя пользователя");
+		lbl[8] = new JLabel("Вывод");
+
+		tf[0] = new JTextField("aerostatka");
+		tf[1] = new JTextField("0.1");
+		tf[2] = new JTextField("20.0");
+		tf[3] = new JTextField("0");
+		tf[4] = new JTextField("20");
+		tf[5] = new JTextField("0");
+		tf[6] = new JTextField("20");
+		tf[7] = new JTextField("");
+
+		p[0] = new JPanel();
+		p[1] = new JPanel();
+		p[2] = new JPanel();
+		p[3] = new JPanel();
+		
+		t[0] = new JTable(35, 36);
+		t[0].setAutoResizeMode(4);
+		t[1] = new JTable(1225, 36);
+		t[1].setAutoResizeMode(4);
+
+		sp[0] = new JScrollPane(a);
+		sp[1] = new JScrollPane(t[0]);
+		sp[2] = new JScrollPane(t[1]);
+		b[0] = new JButton("Проверить почерк");
+		b[1] = new JButton("Создать базу");
+		
+		for(int i = 0; i < 4; i++)
+			xyDataset[i] = new XYSeriesCollection();
+		
+		JFreeChart chart = ChartFactory.createXYLineChart("Нажатия", "Буква", "a", xyDataset[0], PlotOrientation.VERTICAL, true, true, true);	
+		JFreeChart chart2 = ChartFactory.createXYLineChart("Переходы", "Буква", "a", xyDataset[1], PlotOrientation.VERTICAL, true, true, true);	
+		JFreeChart chart3 = ChartFactory.createXYLineChart("Нажатия", "Буква", "m", xyDataset[2], PlotOrientation.VERTICAL, true, true, true);	
+		JFreeChart chart4 = ChartFactory.createXYLineChart("Переходы", "Буква", "m", xyDataset[3], PlotOrientation.VERTICAL, true, true, true);	
+
+		panel[0] = new ChartPanel(chart);
+		panel[1] = new ChartPanel(chart2);
+		panel[2] = new ChartPanel(chart3);
+		panel[3] = new ChartPanel(chart4);
+
+		p[0].setLayout(new BoxLayout(p[0], BoxLayout.Y_AXIS));
+		p[1].setLayout(new BoxLayout(p[1], BoxLayout.Y_AXIS));
+		p[2].setLayout(new BoxLayout(p[2], BoxLayout.Y_AXIS));
+		p[3].setLayout(new BoxLayout(p[3], BoxLayout.Y_AXIS));
+
+		Box box1 = Box.createHorizontalBox();
+		Box box2 = Box.createHorizontalBox();
+		Box box3 = Box.createHorizontalBox();
+		Box box4 = Box.createHorizontalBox();
+		Box box5 = Box.createHorizontalBox();
+		Box box6 = Box.createHorizontalBox();
+		Box box7 = Box.createHorizontalBox();
+		Box box8 = Box.createHorizontalBox();
+		Box box9 = Box.createHorizontalBox();
+		Box box10 = Box.createHorizontalBox();
+		Box box11 = Box.createHorizontalBox();
+
+		p[0].add(Box.createVerticalStrut(20));
+		box1.add(Box.createHorizontalStrut(20));
+		lbl[7].setPreferredSize(new Dimension(900, 20));
+		box1.add(lbl[7]);
+		box1.add(Box.createHorizontalStrut(20));
+		p[0].add(box1);
+		
+		p[0].add(Box.createVerticalStrut(20));
+		box2.add(Box.createHorizontalStrut(20));
+		tf[0].setPreferredSize(new Dimension(900, 20));
+		box2.add(tf[0]);
+		box2.add(Box.createHorizontalStrut(20));
+		p[0].add(box2);
+
+		p[0].add(Box.createVerticalStrut(20));
+		box3.add(Box.createHorizontalStrut(20));
+		lbl[0].setPreferredSize(new Dimension(900, 20));
+		box3.add(lbl[0]);
+		box3.add(Box.createHorizontalStrut(20));
+		p[0].add(box3);
+
+		p[0].add(Box.createVerticalStrut(20));
+		box4.add(Box.createHorizontalStrut(20));
+		sp[0].setPreferredSize(new Dimension(900, 300));
+		box4.add(sp[0]);
+		box4.add(Box.createHorizontalStrut(20));
+		p[0].add(box4);
+
+		p[0].add(Box.createVerticalStrut(20));
+		box9.add(Box.createHorizontalStrut(20));
+		tf[1].setPreferredSize(new Dimension(320, 20));
+		tf[3].setPreferredSize(new Dimension(320, 20));
+		tf[5].setPreferredSize(new Dimension(320, 20));
+		lbl[1].setPreferredSize(new Dimension(100, 20));
+		lbl[3].setPreferredSize(new Dimension(100, 20));
+		lbl[5].setPreferredSize(new Dimension(100, 20));
+		box9.add(Box.createHorizontalStrut(20));
+		box9.add(lbl[1]);
+		box9.add(Box.createHorizontalStrut(20));
+		box9.add(tf[1]);
+		box9.add(Box.createHorizontalStrut(20));
+		box9.add(lbl[3]);
+		box9.add(Box.createHorizontalStrut(20));
+		box9.add(tf[3]);
+		box9.add(Box.createHorizontalStrut(20));
+		box9.add(lbl[5]);
+		box9.add(Box.createHorizontalStrut(20));
+		box9.add(tf[5]);
+		p[0].add(box9);
+		
+		p[0].add(Box.createVerticalStrut(20));
+		box10.add(Box.createHorizontalStrut(20));
+		tf[2].setPreferredSize(new Dimension(320, 20));
+		tf[4].setPreferredSize(new Dimension(320, 20));
+		tf[6].setPreferredSize(new Dimension(320, 20));
+		lbl[2].setPreferredSize(new Dimension(100, 20));
+		lbl[4].setPreferredSize(new Dimension(100, 20));
+		lbl[6].setPreferredSize(new Dimension(100, 20));
+		box10.add(Box.createHorizontalStrut(20));
+		box10.add(lbl[2]);
+		box10.add(Box.createHorizontalStrut(20));
+		box10.add(tf[2]);
+		box10.add(Box.createHorizontalStrut(20));
+		box10.add(lbl[4]);
+		box10.add(Box.createHorizontalStrut(20));
+		box10.add(tf[4]);
+		box10.add(Box.createHorizontalStrut(20));
+		box10.add(lbl[6]);
+		box10.add(Box.createHorizontalStrut(20));
+		box10.add(tf[6]);
+		p[0].add(box10);
+
+		p[0].add(Box.createVerticalStrut(20));
+		box6.add(Box.createHorizontalStrut(20));
+		lbl[8].setPreferredSize(new Dimension(900, 20));
+		box6.add(lbl[8]);
+		box6.add(Box.createHorizontalStrut(20));
+		p[0].add(box6);
+
+		p[0].add(Box.createVerticalStrut(20));
+		box11.add(Box.createHorizontalStrut(20));
+		tf[7].setPreferredSize(new Dimension(900, 20));
+		box11.add(tf[7]);
+		box11.add(Box.createHorizontalStrut(20));
+		p[0].add(box11);
+
+		
+		p[0].add(Box.createVerticalStrut(20));
+		box5.add(Box.createHorizontalStrut(20));
+		b[0].setPreferredSize(new Dimension(440, 20));
+		b[1].setPreferredSize(new Dimension(440, 20));
+		box5.add(Box.createHorizontalStrut(20));
+		box5.add(b[0]);
+		box5.add(Box.createHorizontalStrut(20));
+		box5.add(b[1]);
+		box5.add(Box.createHorizontalStrut(20));
+		p[0].add(box5);
+		p[0].add(Box.createVerticalStrut(20));
+		
+
+		p[1].add(Box.createVerticalStrut(20));
+		sp[1].setPreferredSize(new Dimension(450, 650));
+		sp[2].setPreferredSize(new Dimension(450, 650));
+		p[1].add(sp[1]);
+		p[1].add(Box.createVerticalStrut(20));
+		p[1].add(sp[2]);
+		p[1].add(Box.createVerticalStrut(20));
+
+		p[2].add(Box.createVerticalStrut(20));
+		box7.add(Box.createHorizontalStrut(20));
+		panel[0].setPreferredSize(new Dimension(450, 600));
+		panel[1].setPreferredSize(new Dimension(450, 600));
+		box7.add(panel[0]);
+		box7.add(Box.createHorizontalStrut(20));
+		box7.add(panel[1]);
+		box7.add(Box.createHorizontalStrut(20));
+		p[2].add(box7);
+		
+		p[3].add(Box.createVerticalStrut(20));
+		box8.add(Box.createHorizontalStrut(20));
+		panel[2].setPreferredSize(new Dimension(450, 600));
+		panel[3].setPreferredSize(new Dimension(450, 600));
+		box8.add(panel[2]);
+		box8.add(Box.createHorizontalStrut(20));
+		box8.add(panel[3]);
+		box8.add(Box.createHorizontalStrut(20));
+		p[3].add(box8);
+
+		tp2.addTab("Аддитивные", p[2]);
+		tp2.addTab("Мультипликативные", p[3]);
+		
+		tp.addTab("Ввод текста", p[0]);
+		tp.addTab("Таблицы", p[1]);
+		tp.addTab("Графики", tp2);
+
+		Container c = getContentPane();
+		c.add(tp);
+		time = 0;
+
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		b[0].addActionListener(new ButtonClicked());
+		b[1].addActionListener(new ButtonClicked());
+		a.addKeyListener(new KeyPR());
+	}
+}
+
+public class write 
+{
+
+	public static void main(String[] argv) 
+	{
+		Wind w = new Wind("Лабораторная работа #2");
+		w.setSize(1000, 700);
+		w.show();
+	}
+}

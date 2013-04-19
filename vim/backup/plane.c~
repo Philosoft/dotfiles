@@ -1,0 +1,33 @@
+#include <stdio.h>
+
+int main()
+{
+	int m, n, x, y;
+	int flag = 1;
+
+	while(flag)
+	{
+		printf("Введите m: ");
+		scanf("%i", &m);
+		printf("Введите n: ");
+		scanf("%i", &n);
+		if(m >= n)
+		{
+			printf("Неверные начальные условия. Должно быть m < n\n");
+		}
+		else
+			flag = 1;
+	}
+
+	printf("Введите x: ");
+	scanf("%i", &x);
+	printf("Введите y: ");
+	scanf("%i", &y);
+
+	if(x > m && x < n)
+		printf("Точка (%i, %i) принадлежит плоскости, ограниченной линиями x = %i и x = %i\n", x, y, m, n);
+	else
+		printf("Точка (%i, %i) не принадлежит плоскости, ограниченной линиями x = %i и x = %i\n", x, y, m, n);
+
+	return 0;
+}

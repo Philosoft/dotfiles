@@ -1,0 +1,14 @@
+public class test_cast{
+    static public void main(String[] args){
+        int a = 1;
+        byte b = 1;
+        byte c = 126;
+        int d = (int) c;
+        int e = (int) b;
+        byte f = -15;
+        int g = (int) f;
+        g = 0;
+        g = (0x00000000 | f);
+        System.out.println(a + " " + b + " " + c + " " + d + " " + e + " " + f + " ");
+    }
+}
