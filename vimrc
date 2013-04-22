@@ -1,7 +1,7 @@
 "=== Vundle === {
 set nocompatible
 filetype off
-set rtp+=~/.vim/vundle.git/
+set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 
 " == bundles == {
@@ -13,10 +13,11 @@ call vundle#rc()
 	" non git-hub repos
 	" Bundle 'git://git.blah.com/lol.git
 	" }
+Bundle 'gmarik/vundle'
 Bundle 'python.vim'
 Bundle 'vimwiki'
 Bundle 'L9'
-Bundle 'zencoding-vim'
+Bundle 'mattn/zencoding-vim'
 Bundle 'vim-scripts/bufexplorer.zip'
 
 Bundle 'kien/ctrlp.vim'
@@ -54,12 +55,10 @@ set lazyredraw " не показывать выполнение макросов
 "set foldopen=block,insert,jump,mark,percent,quickfix,search,tag,undo
 
 "Разный фон для gui и консоли   
-let g:molokai_original=1
-colorscheme molokai
 if has("gui_running")
-		set guioptions+=LlRrb guioptions-=LlRrb " remove scrollbars
-    set guioptions-=m
-    set guioptions-=T
+	set guioptions+=LlRrb guioptions-=LlRrb " remove scrollbars
+	set guioptions-=m
+	set guioptions-=T
 	colorscheme solarized
 	set bg=light
 	" Используем символы как в TextMate для табуляции и конца строки
