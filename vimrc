@@ -19,6 +19,7 @@ Bundle 'L9'
 Bundle 'zencoding-vim'
 Bundle 'vim-scripts/bufexplorer.zip'
 
+Bundle 'kien/ctrlp.vim'
 Bundle 'scrooloose/nerdtree'
 Bundle 'scrooloose/nerdcommenter'
 Bundle 'tmhedberg/matchit'
@@ -30,9 +31,16 @@ Bundle 'nathanaelkane/vim-indent-guides'
 Bundle 'kien/rainbow_parentheses.vim'
 Bundle 'kien/ctrlp.vim'
 Bundle 'tomtom/tcomment_vim'
+Bundle 'groenewege/vim-less'
+Bundle 'ervandew/supertab'
+Bundle 'Lokaltog/vim-easymotion'
+Bundle 'scrooloose/syntastic'
 
-Bundle 'altercation/vim-colors-solarized'
+" colorschemes {
 Bundle 'tomasr/molokai'
+Bundle 'altercation/vim-colors-solarized'
+Bundle 'larssmit/vim-getafe'
+" } colorschemes
 " }
 
 filetype plugin indent on
@@ -41,6 +49,7 @@ filetype plugin indent on
 set nu
 syn on
 set foldenable
+set lazyredraw " не показывать выполнение макросов
 "set fdm=indent
 "set foldopen=block,insert,jump,mark,percent,quickfix,search,tag,undo
 
@@ -48,8 +57,15 @@ set foldenable
 let g:molokai_original=1
 colorscheme molokai
 if has("gui_running")
+		set guioptions+=LlRrb guioptions-=LlRrb " remove scrollbars
     set guioptions-=m
     set guioptions-=T
+	colorscheme solarized
+	set bg=light
+	" Используем символы как в TextMate для табуляции и конца строки
+	set listchars=tab:▸·,eol:¬,extends:»,precedes:«
+	set list
+	set showbreak=↪
 else
     set bg=dark
 endif
@@ -60,10 +76,12 @@ set t_Co=256
 "=== Some opts === {
 set autochdir "Автоматически менять каталог
 set nocompatible
-set visualbell
+set novisualbell
 set t_vb=
 set confirm "Диалоги вместо сообщений об ошибках
-set clipboard+=unnamed " share windows clipboard
+"set clipboard+=unnamed " share windows clipboard
+set clipboard=unnamedplus,unnamed,exclude:cons\|linux
+"default clipboard=autoselect,exclude:cons\|linux,unnamed
 
 set spelllang=en,ru          " Языки для проверки правописания
 set encoding=utf-8
@@ -80,17 +98,22 @@ filetype indent on
 set backup
 set backupdir=~/.vim/backup/
 set directory=~/.vim/tmp/
+set undodir=~/.vim/undo/
 let g:session_dir='~/.vim/sessions/'
 ""}
+
+" undos {
+set undofile
+" }
 
 ""=== Оступы === {
 set tabstop=2
 set softtabstop=2
 set shiftwidth=2
 set smarttab
-set expandtab
+set noexpandtab
 set shiftround
-set ai
+set autoindent
 set smartindent
 inoremap # X#
 "backspace стирает отступ и перевод строки
@@ -175,8 +198,53 @@ nmap И b
 nmap а f
 nmap А F
 
-nmap щ o
-nmap Щ O
+" mappings {
+map <leader>hs :nohl<CR>
+" }
+"
+"
+" Меню Encoding -->
+" Выбор кодировки, в которой читать файл -->
+set wildmenu
+set wcm=<Tab>
+menu Encoding.Read.utf-8<Tab><F7> :e ++enc=utf8 <CR>
+menu Encoding.Read.windows-1251<Tab><F7> :e ++enc=cp1251<CR>
+menu Encoding.Read.koi8-r<Tab><F7> :e ++enc=koi8-r<CR>
+menu Encoding.Read.cp866<Tab><F7> :e ++enc=cp866<CR>
+map <F8> :emenu Encoding.Read.<TAB>
+" Выбор кодировки, в которой читать файл <--
+
+" Выбор кодировки, в которой сохранять файл -->
+set wildmenu
+set wcm=<Tab>
+menu Encoding.Write.utf-8<Tab><S-F7> :set fenc=utf8 <CR>
+menu Encoding.Write.windows-1251<Tab><S-F7> :set fenc=cp1251<CR>
+menu Encoding.Write.koi8-r<Tab><S-F7> :set fenc=koi8-r<CR>
+menu Encoding.Write.cp866<Tab><S-F7> :set fenc=cp866<CR>
+map <S-F7> :emenu Encoding.Write.<TAB>
+" Выбор кодировки, в которой сохранять файл <--
+
+" Выбор формата концов строк (dos - <CR><NL>, unix - <NL>, mac - <CR>) -->
+set wildmenu
+set wcm=<Tab>
+menu Encoding.End_line_format.unix<Tab><C-F7> :set fileformat=unix<CR>
+menu Encoding.End_line_format.dos<Tab><C-F7> :set fileformat=dos<CR>
+menu Encoding.End_line_format.mac<Tab><C-F7> :set fileformat=mac<CR>
+map <C-F7> :emenu Encoding.End_line_format.<TAB>
+" Выбор формата концов строк (dos - <CR><NL>, unix - <NL>, mac - <CR>) <--
+" Меню Encoding <--
+
+" Mappings {
+" zencoding
+" разметить тегами и загрузить в иксовый буфер
+nmap <C-l> ggVG<C-y>,ul>li*<CR>ggVGdi
+nmap <C-p> ggVG<C-y>,p*<CR>ggVGdi
+
+imap <C-l> <ESC>ggVG<C-y>,ul>li*<CR>ggVGdi
+"imap <C-p> <ESC>ggVG<C-y>,p*<CR>ggVGdi
+imap <C-a> <ESC>ggVG<C-y>,ul>li*<CR>ggVGdi
+imap <C-e> <ESC>gg0<C-v>GlxggVG<C-y>,ul>li*<CR>ggVGdi
+imap <C-q> <ESC>ggVG<C-y>,p*<CR>ggVGdi
 
 nmap Ж :
 
@@ -211,4 +279,7 @@ map <F2> :NERDTreeToggle<CR>
 
 "command Thtml :%!tidy -q -i --show-errors 0 "Tidy up hmtl in current buffer
 
+" abbreviations {
+iab ipip if ( $_SERVER['REQUEST_URI'] == '77.93.125.96' ) {<CR>}<Esc>Oecho "<!--DEBUG\n";<CR>echo "/DEBUG -->\n";<Esc>O
+iab lorem Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 " }
