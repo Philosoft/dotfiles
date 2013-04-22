@@ -17,25 +17,27 @@ Bundle 'gmarik/vundle'
 Bundle 'python.vim'
 Bundle 'vimwiki'
 Bundle 'L9'
-Bundle 'mattn/zencoding-vim'
 Bundle 'vim-scripts/bufexplorer.zip'
 
-Bundle 'kien/ctrlp.vim'
-Bundle 'scrooloose/nerdtree'
-Bundle 'scrooloose/nerdcommenter'
-Bundle 'tmhedberg/matchit'
-Bundle 'tpope/vim-surround'
 Bundle 'weierophinney/paster.vim'
+Bundle 'groenewege/vim-less'
+
+" programming helpers {
+Bundle 'tpope/vim-abolish'
+Bundle 'tpope/vim-surround'
+Bundle 'kien/ctrlp.vim'
+Bundle 'tmhedberg/matchit'
 Bundle 'majutsushi/tagbar'
 Bundle 'sjl/gundo.vim'
 Bundle 'nathanaelkane/vim-indent-guides'
 Bundle 'kien/rainbow_parentheses.vim'
-Bundle 'kien/ctrlp.vim'
+Bundle 'scrooloose/nerdtree'
 Bundle 'tomtom/tcomment_vim'
-Bundle 'groenewege/vim-less'
+Bundle 'mattn/zencoding-vim'
 Bundle 'ervandew/supertab'
-Bundle 'Lokaltog/vim-easymotion'
 Bundle 'scrooloose/syntastic'
+" }
+Bundle 'Lokaltog/vim-easymotion'
 
 " colorschemes {
 Bundle 'tomasr/molokai'
@@ -61,6 +63,7 @@ if has("gui_running")
 	set guioptions-=T
 	colorscheme solarized
 	set bg=light
+	let g:molokai_original=1 " just in case we want to change colorscheme in runtime
 	" Используем символы как в TextMate для табуляции и конца строки
 	set listchars=tab:▸·,eol:¬,extends:»,precedes:«
 	set list
@@ -281,4 +284,9 @@ map <F2> :NERDTreeToggle<CR>
 " abbreviations {
 iab ipip if ( $_SERVER['REQUEST_URI'] == '77.93.125.96' ) {<CR>}<Esc>Oecho "<!--DEBUG\n";<CR>echo "/DEBUG -->\n";<Esc>O
 iab lorem Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+" }
+
+" autocommands {
+autocmd InsertEnter * :set number
+autocmd InsertLeave * :set relativenumber
 " }
