@@ -59,6 +59,7 @@ set lazyredraw " не показывать выполнение макросов
 
 "Разный фон для gui и консоли   
 if has("gui_running")
+	set guifont=Monaco
 	set guioptions+=LlRrb guioptions-=LlRrb " remove scrollbars
 	set guioptions-=m
 	set guioptions-=T
