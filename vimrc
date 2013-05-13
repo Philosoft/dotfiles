@@ -44,7 +44,6 @@ Bundle 'Lokaltog/vim-easymotion'
 " colorschemes {
 Bundle 'tomasr/molokai'
 Bundle 'altercation/vim-colors-solarized'
-Bundle 'larssmit/vim-getafe'
 " } colorschemes
 " }
 
