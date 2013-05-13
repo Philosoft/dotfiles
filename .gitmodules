@@ -1,0 +1,11 @@
+[submodule "vundle"]
+	path = vim/bundle/vundle
+	url = git://github.com/gmarik/vundle.git
+
+[submodule "solarized"]
+	path = vim/bundle/vim-colors-solarized
+	url = git://github.com/altercation/vim-colors-solarized.git
+
+[submodule "molokai"]
+	path= vim/bundle/molokai
+	url = git://github.com/tomasr/molokai.git
