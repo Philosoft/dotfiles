@@ -134,8 +134,8 @@ set showbreak=↪
 set modeline
 
 " переключение между буферами
-nmap <c-p> :bp<CR>
-nmap <c-n> :bn<CR>
+" nmap <c-p> :bp<CR>
+" nmap <c-n> :bn<CR>
 
 ""=== Прокрутка === {
 ""set scrolloff=7
@@ -240,9 +240,12 @@ map <C-F7> :emenu Encoding.End_line_format.<TAB>
 
 " Mappings {
 " zencoding
+vmap <C-l> <C-y>,ul>li*<CR>
+vmap <C-p> <C-y>,p*<CR>
+vmap <C-o> <C-y>,p[style="font-weight: bold;"]<CR>
 " разметить тегами и загрузить в иксовый буфер
-nmap <C-l> ggVG<C-y>,ul>li*<CR>ggVGdi
-nmap <C-p> ggVG<C-y>,p*<CR>ggVGdi
+" nmap <C-l> ggVG<C-y>,ul>li*<CR>ggVGdi
+" nmap <C-p> ggVG<C-y>,p*<CR>ggVGdi
 
 imap <C-l> <ESC>ggVG<C-y>,ul>li*<CR>ggVGdi
 "imap <C-p> <ESC>ggVG<C-y>,p*<CR>ggVGdi
@@ -284,7 +287,7 @@ map <F2> :NERDTreeToggle<CR>
 "command Thtml :%!tidy -q -i --show-errors 0 "Tidy up hmtl in current buffer
 
 " abbreviations {
-iab ipip if ( $_SERVER['REQUEST_URI'] == '77.93.125.96' ) {<CR>}<Esc>Oecho "<!--DEBUG\n";<CR>echo "/DEBUG -->\n";<Esc>O
+iab ipip if ( $_SERVER['REMOTE_ADDR'] == '77.93.125.96' ) {<CR>}<Esc>Oecho "<!--DEBUG\n";<CR>echo "/DEBUG -->\n";<Esc>O
 iab lorem Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 " }
 

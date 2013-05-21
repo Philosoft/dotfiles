@@ -1,11 +1,18 @@
+[submodule "vim/bundle/molokai"]
+	path = vim/bundle/molokai
+	url = git://github.com/tomasr/molokai.git
+[submodule "ctrlp.vim"]
+	path = ctrlp.vim
+	url = git://github.com/kien/ctrlp.vim.git
 [submodule "vundle"]
+	path = vundle
+	url = git://github.com/gmarik/vundle.git
+[submodule "vim/bundle/bufexplorer.zip"]
+	path = vim/bundle/bufexplorer.zip
+	url = git://github.com/vim-scripts/bufexplorer.zip.git
+[submodule "vim/bundle/paster.vim"]
+	path = vim/bundle/paster.vim
+	url = git://github.com/weierophinney/paster.vim.git
+[submodule "vim/bundle/vundle"]
 	path = vim/bundle/vundle
 	url = git://github.com/gmarik/vundle.git
-
-[submodule "solarized"]
-	path = vim/bundle/vim-colors-solarized
-	url = git://github.com/altercation/vim-colors-solarized.git
-
-[submodule "molokai"]
-	path= vim/bundle/molokai
-	url = git://github.com/tomasr/molokai.git
