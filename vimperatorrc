@@ -1,3 +1,4 @@
 set hintchars=hjklasdfgyuiopqwertnmzxcvb
 map <C-u> :viewsource<CR>
 map <C-i> :pageinfo<CR>
+map <leader>hs :nohlsearch<CR>
