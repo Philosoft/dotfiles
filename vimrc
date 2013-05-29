@@ -273,7 +273,7 @@ endfunc
 
 nnoremap <leader>r :call ToggleNumbering()<CR>
 " tagbar {
-let g:tagbar_left=1
+"let g:tagbar_left=1
 nnoremap <silent> <F9> :TagbarToggle<CR>
 " }
 
