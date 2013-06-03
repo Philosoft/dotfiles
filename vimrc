@@ -38,6 +38,7 @@ Bundle 'tomtom/tcomment_vim'
 Bundle 'mattn/zencoding-vim'
 Bundle 'ervandew/supertab'
 Bundle 'scrooloose/syntastic'
+Bundle 'msanders/snipmate.vim'
 " }
 Bundle 'Lokaltog/vim-easymotion'
 
