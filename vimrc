@@ -36,7 +36,7 @@ Bundle 'kien/rainbow_parentheses.vim'
 Bundle 'scrooloose/nerdtree'
 Bundle 'tomtom/tcomment_vim'
 Bundle 'mattn/zencoding-vim'
-Bundle 'ervandew/supertab'
+"Bundle 'ervandew/supertab'
 Bundle 'scrooloose/syntastic'
 Bundle 'msanders/snipmate.vim'
 " }
@@ -283,6 +283,10 @@ nnoremap <F5> :GundoToggle<CR>
 map <F2> :NERDTreeToggle<CR>
 " }
 "
+" supertab {
+let g:SuperTabDefaultCompletionType = "<C-x><C-o>"
+"}
+
 " commands {
 
 "command Thtml :%!tidy -q -i --show-errors 0 "Tidy up hmtl in current buffer
