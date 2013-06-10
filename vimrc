@@ -61,12 +61,12 @@ set lazyredraw " не показывать выполнение макросов
 "Разный фон для gui и консоли   
 if has("gui_running")
 	set guifont=Monaco
+	let g:molokai_original=1 " just in case we want to change colorscheme in runtime
 	set guioptions+=LlRrb guioptions-=LlRrb " remove scrollbars
 	set guioptions-=m
 	set guioptions-=T
-	colorscheme solarized
-	set bg=light
-	let g:molokai_original=1 " just in case we want to change colorscheme in runtime
+	colorscheme molokai
+	set bg=dark
 	" Используем символы как в TextMate для табуляции и конца строки
 	set listchars=tab:▸·,eol:¬,extends:»,precedes:«
 	set list
@@ -153,7 +153,7 @@ set smartcase "Игнорировать предыдущую опцию, есл�
 "}
 
 "=== История ==={
-set history=20
+set history=100
 set viminfo+=h "Сохранять историю
 "}
 
