@@ -254,6 +254,8 @@ imap <C-a> <ESC>ggVG<C-y>,ul>li*<CR>ggVGdi
 imap <C-e> <ESC>gg0<C-v>GlxggVG<C-y>,ul>li*<CR>ggVGdi
 imap <C-q> <ESC>ggVG<C-y>,p*<CR>ggVGdi
 
+nmap <C-t> f+vt.<C-y>,span[style="font-weight: bold;"]<CR>
+
 nmap Ж :
 
 nmap т n
