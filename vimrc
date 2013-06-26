@@ -22,6 +22,10 @@ Bundle 'vim-scripts/bufexplorer.zip'
 Bundle 'weierophinney/paster.vim'
 Bundle 'groenewege/vim-less'
 
+" vim enhanchments {
+Bundle 'mhinz/vim-startify'
+" }
+
 " programming helpers {
 Bundle 'nathanaelkane/vim-indent-guides'
 Bundle 'tpope/vim-abolish'
