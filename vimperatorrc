@@ -2,3 +2,11 @@ set hintchars=hjklasdfgyuiopqwertnmzxcvb
 map <C-u> :viewsource<CR>
 map <C-i> :pageinfo<CR>
 map <leader>hs :nohlsearch<CR>
+
+" styling hints {
+hi Hint background: linear-gradient(to bottom, rgb(255, 247, 133), rgb(255, 197, 66)); border: 1px solid rgb(227, 190, 35);
+hi HintElem background-color: none;
+hi HintActive background: linear-gradient(to bottom, rgba(255, 247, 133, 0.65), rgba(255, 197, 66, 0.65)); border-radius: 5px; border: 1px solid #C38A22;
+" }
+
+" vim:ft=vim
