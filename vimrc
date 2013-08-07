@@ -18,6 +18,7 @@ Bundle 'python.vim'
 Bundle 'vimwiki'
 Bundle 'L9'
 Bundle 'vim-scripts/bufexplorer.zip'
+Bundle 'bling/vim-airline'
 
 Bundle 'weierophinney/paster.vim'
 Bundle 'groenewege/vim-less'
@@ -27,24 +28,25 @@ Bundle 'mhinz/vim-startify'
 " }
 
 " programming helpers {
-Bundle 'nathanaelkane/vim-indent-guides'
-Bundle 'tpope/vim-abolish'
-Bundle 'tpope/vim-surround'
-Bundle 'kien/ctrlp.vim'
-Bundle 'gregsexton/MatchTag'
-Bundle 'tmhedberg/matchit'
-Bundle 'majutsushi/tagbar'
-Bundle 'sjl/gundo.vim'
-Bundle 'nathanaelkane/vim-indent-guides'
-Bundle 'kien/rainbow_parentheses.vim'
-Bundle 'scrooloose/nerdtree'
-Bundle 'tomtom/tcomment_vim'
-Bundle 'mattn/zencoding-vim'
 "Bundle 'ervandew/supertab'
-Bundle 'scrooloose/syntastic'
+Bundle 'gregsexton/MatchTag'
+Bundle 'honza/vim-snippets'
+Bundle 'kien/ctrlp.vim'
+Bundle 'kien/rainbow_parentheses.vim'
+Bundle 'majutsushi/tagbar'
+Bundle 'mattn/emmet-vim'
+Bundle 'mileszs/ack.vim'
 Bundle 'msanders/snipmate.vim'
-
+Bundle 'nathanaelkane/vim-indent-guides'
+Bundle 'nathanaelkane/vim-indent-guides'
+Bundle 'scrooloose/nerdtree'
+Bundle 'scrooloose/syntastic'
+Bundle 'sjl/gundo.vim'
+Bundle 'tmhedberg/matchit'
+Bundle 'tomtom/tcomment_vim'
+Bundle 'tpope/vim-abolish'
 Bundle 'tpope/vim-fugitive'
+Bundle 'tpope/vim-surround'
 " }
 Bundle 'Lokaltog/vim-easymotion'
 
@@ -77,6 +79,25 @@ if has("gui_running")
 	set listchars=tab:▸·,eol:¬,extends:»,precedes:«
 	set list
 	set showbreak=↪
+	
+	" vim-airline {
+	let g:airline_enable_branch=1
+	let g:airline_branch_prefix=1
+	let g:airline_enable_syntastic=1
+	let g:airline_theme='molokai'
+  " unicode symbols
+  let g:airline_left_sep = '»'
+  let g:airline_left_sep = '▶'
+  let g:airline_right_sep = '«'
+  let g:airline_right_sep = '◀'
+  let g:airline_linecolumn_prefix = '␊ '
+  let g:airline_linecolumn_prefix = '␤ '
+  let g:airline_linecolumn_prefix = '¶ '
+  let g:airline_branch_prefix = '⎇ '
+  let g:airline_paste_symbol = 'ρ'
+  let g:airline_paste_symbol = 'Þ'
+  let g:airline_paste_symbol = '∥'
+	" }
 else
     set bg=dark
 endif
@@ -168,7 +189,7 @@ set laststatus=2 "Всегда отображать статусную стро�
 set shortmess=atToOI
 set showcmd
 set showmode
-set statusline=%<%f%h%m
+set statusline=%<%f%h%m%{fugitive#statusline(5)}
 set statusline+=%#Error#%r%*%=
 set statusline+=\ type=%Y
 set statusline+=\ Line:\ %l/%L 
