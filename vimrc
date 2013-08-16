@@ -14,6 +14,7 @@ call vundle#rc()
 	" Bundle 'git://git.blah.com/lol.git
 	" }
 Bundle 'gmarik/vundle'
+Bundle 'kshenoy/vim-signature'
 Bundle 'python.vim'
 Bundle 'vimwiki'
 Bundle 'L9'
@@ -38,9 +39,8 @@ Bundle 'mattn/emmet-vim'
 Bundle 'mileszs/ack.vim'
 Bundle 'msanders/snipmate.vim'
 Bundle 'nathanaelkane/vim-indent-guides'
-Bundle 'nathanaelkane/vim-indent-guides'
 Bundle 'scrooloose/nerdtree'
-Bundle 'scrooloose/syntastic'
+" Bundle 'scrooloose/syntastic'
 Bundle 'sjl/gundo.vim'
 Bundle 'tmhedberg/matchit'
 Bundle 'tomtom/tcomment_vim'
@@ -329,3 +329,5 @@ iab lorem Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusm
 autocmd InsertEnter * :set number
 autocmd InsertLeave * :set relativenumber
 " }
+
+let g:syntastic_oho_checkers=['php']
