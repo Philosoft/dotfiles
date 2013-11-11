@@ -13,45 +13,57 @@ call vundle#rc()
 	" non git-hub repos
 	" Bundle 'git://git.blah.com/lol.git
 	" }
+Bundle 'itchyny/lightline.vim'
 Bundle 'gmarik/vundle'
 Bundle 'kshenoy/vim-signature'
-Bundle 'python.vim'
-Bundle 'vimwiki'
+"Bundle 'python.vim'
+"Bundle 'vimwiki'
 Bundle 'L9'
-Bundle 'vim-scripts/bufexplorer.zip'
-Bundle 'bling/vim-airline'
-
-Bundle 'weierophinney/paster.vim'
+" Bundle 'vim-scripts/bufexplorer.zip'
+"" Bundle 'bling/vim-airline'
+"
+"Bundle 'weierophinney/paster.vim'
 Bundle 'groenewege/vim-less'
-
-" vim enhanchments {
+"
+"" vim enhanchments {
 Bundle 'mhinz/vim-startify'
-" }
+"" }
+"
+"" programming helpers {
+""Bundle 'ervandew/supertab'
+"Bundle 'gregsexton/MatchTag'
+Bundle 'SirVer/ultisnips'
 
-" programming helpers {
-"Bundle 'ervandew/supertab'
-Bundle 'gregsexton/MatchTag'
 Bundle 'honza/vim-snippets'
 Bundle 'kien/ctrlp.vim'
 Bundle 'kien/rainbow_parentheses.vim'
 Bundle 'majutsushi/tagbar'
 Bundle 'mattn/emmet-vim'
+Bundle 'mattn/livestyle-vim'
 Bundle 'mileszs/ack.vim'
-Bundle 'msanders/snipmate.vim'
+"Bundle 'msanders/snipmate.vim'
 Bundle 'nathanaelkane/vim-indent-guides'
 Bundle 'scrooloose/nerdtree'
-" Bundle 'scrooloose/syntastic'
+Bundle 'scrooloose/syntastic'
 Bundle 'sjl/gundo.vim'
 Bundle 'tmhedberg/matchit'
 Bundle 'tomtom/tcomment_vim'
 Bundle 'tpope/vim-abolish'
 Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-surround'
-" }
-Bundle 'Lokaltog/vim-easymotion'
 
-" colorschemes {
-Bundle 'tomasr/molokai'
+Bundle 'vim-scripts/camelcasemotion'
+Bundle 'Raimondi/delimitMate'
+Bundle 'jakobwesthoff/whitespacetrail'
+
+	" php specific {
+		Bundle 'spf13/PIV'
+	" }
+"" }
+"Bundle 'Lokaltog/vim-easymotion'
+"
+"" colorschemes {
+"Bundle 'tomasr/molokai'
 Bundle 'altercation/vim-colors-solarized'
 " } colorschemes
 " }
@@ -73,30 +85,16 @@ if has("gui_running")
 	set guioptions+=LlRrb guioptions-=LlRrb " remove scrollbars
 	set guioptions-=m
 	set guioptions-=T
-	colorscheme molokai
-	set bg=dark
+	set guitablabel=[%N]\ %m%t " [tabNum] modified? filename
+	let g:lightline = { 'colorscheme': 'solarized' }
+	" colorscheme molokai
+	" set bg=dark
+	colorscheme solarized
+	set bg=light
 	" Используем символы как в TextMate для табуляции и конца строки
 	set listchars=tab:▸·,eol:¬,extends:»,precedes:«
 	set list
 	set showbreak=↪
-	
-	" vim-airline {
-	let g:airline_enable_branch=1
-	let g:airline_branch_prefix=1
-	let g:airline_enable_syntastic=1
-	let g:airline_theme='molokai'
-  " unicode symbols
-  let g:airline_left_sep = '»'
-  let g:airline_left_sep = '▶'
-  let g:airline_right_sep = '«'
-  let g:airline_right_sep = '◀'
-  let g:airline_linecolumn_prefix = '␊ '
-  let g:airline_linecolumn_prefix = '␤ '
-  let g:airline_linecolumn_prefix = '¶ '
-  let g:airline_branch_prefix = '⎇ '
-  let g:airline_paste_symbol = 'ρ'
-  let g:airline_paste_symbol = 'Þ'
-  let g:airline_paste_symbol = '∥'
 	" }
 else
     set bg=dark
@@ -106,13 +104,13 @@ set t_Co=256
 "}
 
 "=== Some opts === {
-set autochdir "Автоматически менять каталог
+" set autochdir "Автоматически менять каталог
 set nocompatible
 set novisualbell
 set t_vb=
 set confirm "Диалоги вместо сообщений об ошибках
 "set clipboard+=unnamed " share windows clipboard
-set clipboard=unnamedplus,unnamed,exclude:cons\|linux
+" set clipboard=unnamedplus,unnamed,exclude:cons\|linux
 "default clipboard=autoselect,exclude:cons\|linux,unnamed
 
 set spelllang=en,ru          " Языки для проверки правописания
@@ -146,7 +144,7 @@ set smarttab
 set noexpandtab
 set shiftround
 set autoindent
-set smartindent
+"set smartindent
 inoremap # X#
 "backspace стирает отступ и перевод строки
 set backspace=indent,eol,start
@@ -316,6 +314,14 @@ map <F2> :NERDTreeToggle<CR>
 let g:SuperTabDefaultCompletionType = "<C-x><C-o>"
 "}
 
+" ctrlP {
+let g:ctrlp_use_caching = 1
+let g:ctrlp_clear_cache_on_exit = 0
+let g:ctrlp_cache_dir = $HOME . '/.cache/ctrlp'
+nnoremap <leader>b :CtrlPBuffer<CR>
+"nnoremap <leader>
+" }
+
 " commands {
 
 "command Thtml :%!tidy -q -i --show-errors 0 "Tidy up hmtl in current buffer
@@ -328,6 +334,11 @@ iab lorem Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusm
 " autocommands {
 autocmd InsertEnter * :set number
 autocmd InsertLeave * :set relativenumber
+
+autocmd BufRead *.php :IndentGuidesEnable
+autocmd BufRead *.less :set ft=less.css
 " }
 
-let g:syntastic_oho_checkers=['php']
+let b:did_indent = 1 " psr-1 and 4 space-indent sucks
+
+let g:syntastic_php_checkers=['php']
