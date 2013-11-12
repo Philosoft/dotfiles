@@ -13,59 +13,50 @@ call vundle#rc()
 	" non git-hub repos
 	" Bundle 'git://git.blah.com/lol.git
 	" }
-Bundle 'itchyny/lightline.vim'
-Bundle 'gmarik/vundle'
-Bundle 'kshenoy/vim-signature'
-"Bundle 'python.vim'
-"Bundle 'vimwiki'
-Bundle 'L9'
-" Bundle 'vim-scripts/bufexplorer.zip'
-"" Bundle 'bling/vim-airline'
-"
-"Bundle 'weierophinney/paster.vim'
-Bundle 'groenewege/vim-less'
-"
-"" vim enhanchments {
-Bundle 'mhinz/vim-startify'
-"" }
-"
-"" programming helpers {
-""Bundle 'ervandew/supertab'
-"Bundle 'gregsexton/MatchTag'
-Bundle 'SirVer/ultisnips'
 
-Bundle 'honza/vim-snippets'
-Bundle 'kien/ctrlp.vim'
-Bundle 'kien/rainbow_parentheses.vim'
-Bundle 'majutsushi/tagbar'
-Bundle 'mattn/emmet-vim'
-Bundle 'mattn/livestyle-vim'
-Bundle 'mileszs/ack.vim'
-"Bundle 'msanders/snipmate.vim'
-Bundle 'nathanaelkane/vim-indent-guides'
-Bundle 'scrooloose/nerdtree'
-Bundle 'scrooloose/syntastic'
-Bundle 'sjl/gundo.vim'
-Bundle 'tmhedberg/matchit'
-Bundle 'tomtom/tcomment_vim'
-Bundle 'tpope/vim-abolish'
-Bundle 'tpope/vim-fugitive'
-Bundle 'tpope/vim-surround'
-
-Bundle 'vim-scripts/camelcasemotion'
-Bundle 'Raimondi/delimitMate'
-Bundle 'jakobwesthoff/whitespacetrail'
+	" Bundle 'vim-scripts/bufexplorer.zip'
+	" Bundle 'Lokaltog/vim-easymotion'
+	Bundle 'L9'
+	Bundle 'gmarik/vundle'
+	Bundle 'groenewege/vim-less'
+	Bundle 'itchyny/lightline.vim'
+	Bundle 'kshenoy/vim-signature'
+	"
+	" vim enhanchments {
+	Bundle 'mhinz/vim-startify'
+	"" }
+	"
+	" programming helpers {
+	Bundle 'Raimondi/delimitMate'
+	Bundle 'SirVer/ultisnips'
+	Bundle 'honza/vim-snippets'
+	Bundle 'jakobwesthoff/whitespacetrail'
+	Bundle 'kien/ctrlp.vim'
+	Bundle 'kien/rainbow_parentheses.vim'
+	Bundle 'majutsushi/tagbar'
+	Bundle 'mattn/emmet-vim'
+	Bundle 'mattn/livestyle-vim'
+	Bundle 'mileszs/ack.vim'
+	Bundle 'nathanaelkane/vim-indent-guides'
+	Bundle 'scrooloose/nerdtree'
+	Bundle 'scrooloose/syntastic'
+	Bundle 'sjl/gundo.vim'
+	Bundle 'tmhedberg/matchit'
+	Bundle 'tomtom/tcomment_vim'
+	Bundle 'tpope/vim-abolish'
+	Bundle 'tpope/vim-fugitive'
+	Bundle 'tpope/vim-surround'
+	Bundle 'vim-scripts/camelcasemotion'
 
 	" php specific {
 		Bundle 'spf13/PIV'
 	" }
-"" }
-"Bundle 'Lokaltog/vim-easymotion'
-"
-"" colorschemes {
-"Bundle 'tomasr/molokai'
-Bundle 'altercation/vim-colors-solarized'
-" } colorschemes
+" }
+
+	" colorschemes {
+	Bundle 'tomasr/molokai'
+	Bundle 'altercation/vim-colors-solarized'
+	" } colorschemes
 " }
 
 filetype plugin indent on
@@ -104,7 +95,7 @@ set t_Co=256
 "}
 
 "=== Some opts === {
-" set autochdir "Автоматически менять каталог
+set autochdir "Автоматически менять каталог
 set nocompatible
 set novisualbell
 set t_vb=
@@ -335,7 +326,7 @@ nnoremap <leader>b :CtrlPBuffer<CR>
 autocmd InsertEnter * :set number
 autocmd InsertLeave * :set relativenumber
 
-autocmd BufRead *.php :IndentGuidesEnable
+" autocmd BufRead *.php :IndentGuidesEnable
 autocmd BufRead *.less :set ft=less.css
 " }
 
