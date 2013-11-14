@@ -14,8 +14,8 @@ call vundle#rc()
 	" Bundle 'git://git.blah.com/lol.git
 	" }
 
-	" Bundle 'vim-scripts/bufexplorer.zip'
 	" Bundle 'Lokaltog/vim-easymotion'
+	Bundle 'vim-scripts/bufexplorer.zip'
 	Bundle 'L9'
 	Bundle 'gmarik/vundle'
 	Bundle 'groenewege/vim-less'
@@ -29,7 +29,7 @@ call vundle#rc()
 	" programming helpers {
 	Bundle 'Raimondi/delimitMate'
 	Bundle 'SirVer/ultisnips'
-	Bundle 'honza/vim-snippets'
+	" Bundle 'honza/vim-snippets'
 	Bundle 'jakobwesthoff/whitespacetrail'
 	Bundle 'kien/ctrlp.vim'
 	Bundle 'kien/rainbow_parentheses.vim'
@@ -335,6 +335,8 @@ let b:did_indent = 1 " psr-1 and 4 space-indent sucks
 let g:syntastic_php_checkers=['php']
 
 " ultisnips {
+let g:UltiSnipsUsePythonVersion = 2
 let g:UltiSnipsEditSplit = 'horizontal'
 let g:UltiSnipsSnippetsDir = '~/.vim/snippets'
+let g:UltiSnipsSnippetDirectories = ['snippets']
 " }
