@@ -21,6 +21,8 @@ call vundle#rc()
 	Bundle 'groenewege/vim-less'
 	Bundle 'itchyny/lightline.vim'
 	Bundle 'kshenoy/vim-signature'
+	Bundle 'osyo-manga/vim-over'
+	Bundle 'tpope/vim-unimpaired'
 	"
 	" vim enhanchments {
 	Bundle 'mhinz/vim-startify'
@@ -309,7 +311,7 @@ let g:SuperTabDefaultCompletionType = "<C-x><C-o>"
 let g:ctrlp_use_caching = 1
 let g:ctrlp_clear_cache_on_exit = 0
 let g:ctrlp_cache_dir = $HOME . '/.cache/ctrlp'
-nnoremap <leader>b :CtrlPBuffer<CR>
+" nnoremap <leader>b :CtrlPBuffer<CR>
 "nnoremap <leader>
 " }
 
@@ -339,4 +341,11 @@ let g:UltiSnipsUsePythonVersion = 2
 let g:UltiSnipsEditSplit = 'horizontal'
 let g:UltiSnipsSnippetsDir = '~/.vim/snippets'
 let g:UltiSnipsSnippetDirectories = ['snippets']
+" }
+
+" vimOver
+nnoremap <leader>s :OverCommandLine<cr>
+
+" complex {
+let mapleader = ","
 " }
