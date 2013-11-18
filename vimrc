@@ -4,6 +4,10 @@ filetype off
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 
+" complex {
+let mapleader = "," " this needs to be here - above all mappings
+" }
+
 " == bundles == {
 	" = examples {
 	" original repos on github
@@ -345,7 +349,3 @@ let g:UltiSnipsSnippetDirectories = ['snippets']
 
 " vimOver
 nnoremap <leader>s :OverCommandLine<cr>
-
-" complex {
-let mapleader = ","
-" }
