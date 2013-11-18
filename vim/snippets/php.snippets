@@ -1,0 +1,30 @@
+snippet vd
+var_dump(\$${0:variable});
+endsnippet
+
+snippet vdd
+var_dump(\$${0:variable}); die();
+endsnippet
+
+snippet trp
+\$this->renderPartial("theme.views.${0:path}");
+endsnippet
+
+snippet <?
+<?php ${0:code} ?>
+endsnippet
+
+snippet if
+if (${0:condition}) {
+${1:code};
+}${2}
+endsnippet
+
+snippet ife
+if (${0:condition}) {
+${1:code};
+}
+else {
+	${2:else code}
+}${3}
+endsnippet
