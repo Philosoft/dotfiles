@@ -12,7 +12,7 @@ let config_list = [
 	\ 'leader.vim',
 	\ 'keymappings.vim',
 	\ 'languages.vim',
-	\ 'plugin_settings/*.vim'
+	\ 'plugins_settings/*.vim'
 \]
 
 for files in config_list
