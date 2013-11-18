@@ -15,16 +15,43 @@ snippet <?
 endsnippet
 
 snippet if
-if (${0:condition}) {
-${1:code};
-}${2}
+if (${1:condition}) {
+	${2:code};
+}${3}
 endsnippet
 
 snippet ife
-if (${0:condition}) {
-${1:code};
+if (${1:condition}) {
+	${2:code};
 }
 else {
-	${2:else code}
-}${3}
+	${3:else code}
+}${4}
+endsnippet
+
+snippet ?
+<?php ${0:code} ?>
+endsnippet
+
+snippet ?b
+<?php
+	${0:code}
+?>
+endsnippet
+
+snippet foreach
+foreach (\$${1:what} as \$${2:what}) {
+	${3:code};
+}
+endsnippet
+
+snippet ''=
+'${1:key}' => '${2:value}',
+endsnippet
+
+snippet me
+array (
+	'anchor' => '${1:anchor}',
+	'href' => '#',
+),
 endsnippet

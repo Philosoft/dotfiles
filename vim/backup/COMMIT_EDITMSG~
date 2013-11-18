@@ -1,32 +1,15 @@
 
 # Please enter the commit message for your changes. Lines starting
 # with '#' will be ignored, and an empty message aborts the commit.
-# On branch master
-# Changes to be committed:
-#   (use "git reset HEAD <file>..." to unstage)
+# В ветке master
+# Your branch is ahead of 'origin/master' by 3 commits.
+#   (use "git push" to publish your local commits)
 #
-#	modified:   vim/backup/.vimrc~
-#	modified:   vim/backup/COMMIT_EDITMSG~
-#	deleted:    vim/bundle/FuzzyFinder
-#	modified:   vim/bundle/zencoding-vim
-#	deleted:    vim/tmp/.svw
-#	modified:   vimrc
+# Изменения для закрепления:
+#   (используйте "git reset HEAD <file>..."  чтобы убрать из буфера)
 #
-# Changes not staged for commit:
-#   (use "git add <file>..." to update what will be committed)
-#   (use "git checkout -- <file>..." to discard changes in working directory)
-#   (commit or discard the untracked or modified content in submodules)
+#	новый файл:   js/menu.js
+#	изменён:   less/custom/blocks/topMenu.less
+#	изменён:   views/blocks/topMenu.php
+#	изменён:   views/layouts/footer.php
 #
-#	modified:   config (modified content, untracked content)
-#	modified:   vim/bundle/L9 (untracked content)
-#	modified:   vim/bundle/bufexplorer.zip (untracked content)
-#	modified:   vim/bundle/paster.vim (untracked content)
-#	modified:   vim/bundle/vimwiki (untracked content)
-#
-# Untracked files:
-#   (use "git add <file>..." to include in what will be committed)
-#
-#	vim/bundle/ctrlp.vim/
-#	vim/bundle/rainbow_parentheses.vim/
-#	vim/bundle/tcomment_vim/
-#	vim/bundle/vim-indent-guides/
