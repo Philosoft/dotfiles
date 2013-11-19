@@ -10,7 +10,7 @@ let config_list = [
 	\ 'menu.vim',
 	\ 'settings.vim',
 	\ 'leader.vim',
-	\ 'keymappings.vim',
+	\ 'generic_mappings.vim',
 	\ 'languages.vim',
 	\ 'plugins_settings/*.vim'
 \]
@@ -59,20 +59,10 @@ set autoindent
 inoremap # X#
 "backspace стирает отступ и перевод строки
 set backspace=indent,eol,start
-"Shortcut to rapidly toggle `set list`
-nmap <leader>l :set list!<CR>
-" Use the same symbols as TextMate for tabstops and EOLs
-set listchars=tab:▸·,eol:¬
-set list
-set showbreak=↪
 ""}
 
 " включает поддержку строк вида vim:st=2‥
 set modeline
-
-" переключение между буферами
-" nmap <c-p> :bp<CR>
-" nmap <c-n> :bn<CR>
 
 ""=== Прокрутка === {
 ""set scrolloff=7
@@ -96,14 +86,8 @@ set viminfo+=h "Сохранять историю
 
 set sessionoptions-=blank "Не сохранять пустые окна
 
-nmap <leader>, :nohl<cr>
-
 "Изменяемые размеры окон
 set modifiable
-
-" mappings {
-map <leader>hs :nohl<CR>
-" }
 
 function! ToggleNumbering()
 	if(&relativenumber == 1)
@@ -112,19 +96,6 @@ function! ToggleNumbering()
 		set relativenumber
 	endif
 endfunc
-
-nnoremap <leader>r :call ToggleNumbering()<CR>
-
-" tagbar {
-"let g:tagbar_left=1
-nnoremap <silent> <F9> :TagbarToggle<CR>
-" }
-
-nnoremap <F5> :GundoToggle<CR>
-" NERDTree {
-map <F2> :NERDTreeToggle<CR>
-" }
-"
 
 " commands {
 " command Thtml :%!tidy -utf8 -q -i --show-errors 0 "Tidy up hmtl in current buffer
@@ -139,6 +110,3 @@ autocmd BufRead *.less :set ft=less.css
 " }
 
 let b:did_indent = 1 " psr-1 and 4 space-indent sucks
-
-" vimOver
-nnoremap <leader>s :OverCommandLine<cr>
