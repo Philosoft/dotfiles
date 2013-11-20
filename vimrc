@@ -105,9 +105,6 @@ endfunc
 " autocommands {
 autocmd InsertEnter * :set number
 autocmd InsertLeave * :set relativenumber
-
-" autocmd BufRead *.php :IndentGuidesEnable
-autocmd BufRead *.less :set ft=less.css
 " }
 
 let b:did_indent = 1 " psr-1 and 4 space-indent sucks

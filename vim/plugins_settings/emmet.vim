@@ -13,10 +13,4 @@ let g:user_emmet_settings = {
 	\ 'less' : {
 	\   'extends' : 'css',
 	\ },
-	\ 'less.css' : {
-	\   'extends' : 'css',
-	\ },
-	\ 'css.less' : {
-	\   'extends' : 'css',
-	\ },
 \ }
