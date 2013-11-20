@@ -12,7 +12,8 @@ let config_list = [
 	\ 'leader.vim',
 	\ 'generic_mappings.vim',
 	\ 'languages.vim',
-	\ 'plugins_settings/*.vim'
+	\ 'plugins_settings/*.vim',
+	\ 'filetypes/*.vim'
 \]
 
 for files in config_list
