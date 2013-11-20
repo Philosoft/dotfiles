@@ -22,6 +22,12 @@ for files in config_list
   endfor
 endfor
 
+" hostname-specific config
+let hostfile = $HOME . '/.vim/vimrc-' . substitute(hostname(), "\\..*", "", "")
+if filereadable(hostfile)
+  exe 'source ' . hostfile
+endif
+
 "=== Some opts === {
 set autochdir "Автоматически менять каталог
 set novisualbell
