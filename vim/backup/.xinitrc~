@@ -1,16 +1,12 @@
-#!/bin/bash
-
-# Настройка клавиатуры
-setxkbmap us -option; setxkbmap "us,ru" -option "grp:toggle,grp_led:scroll,compose:menu,ctrl:nocaps"
-numlockx on
-
-# Настройка иксов
-xrdb -merge "${HOME}/.Xdefaults" ; xrdb -merge "${HOME}/.XCompose"
-
-# Настройка курсора
+# xrandr --output VGA1 --mode 1600x900 --right-of HDMI1
+# xrandr --output HDMI1 --mode 1920x1080 --left-of VGA1
+setxkbmap -layout "us,ru" -option "grp:toggle,ctrl:nocaps,compose:rwin"
+xrdb -merge ~/.Xdefaults
 xsetroot -cursor_name left_ptr
+numlockx on
+xbindkeys &
+(dropbox start &) &
+compton -b
+ck-launch-session dbus-launch awesome
 
-
-# Запуск WM
-exec ck-launch-session dbus-launch awesome
-#ck-launch-session dbus-launch openbox-session
+# vim:ft=sh

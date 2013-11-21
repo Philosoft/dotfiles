@@ -33,7 +33,9 @@ call vundle#rc()
 	Bundle 'SirVer/ultisnips'
 	" Bundle 'honza/vim-snippets'
 	Bundle 'jakobwesthoff/whitespacetrail'
-	Bundle 'kien/ctrlp.vim'
+	" Bundle 'kien/ctrlp.vim'
+	Bundle "Shougo/unite.vim"
+	Bundle "Shougo/vimproc.vim"
 	Bundle 'kien/rainbow_parentheses.vim'
 	Bundle 'majutsushi/tagbar'
 	Bundle 'mattn/emmet-vim'

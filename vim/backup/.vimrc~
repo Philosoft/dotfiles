@@ -59,12 +59,6 @@ set autoindent
 inoremap # X#
 "backspace стирает отступ и перевод строки
 set backspace=indent,eol,start
-"Shortcut to rapidly toggle `set list`
-nmap <leader>l :set list!<CR>
-" Use the same symbols as TextMate for tabstops and EOLs
-set listchars=tab:▸·,eol:¬
-set list
-set showbreak=↪
 ""}
 
 " включает поддержку строк вида vim:st=2‥
