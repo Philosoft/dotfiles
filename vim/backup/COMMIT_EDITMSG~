@@ -2,12 +2,14 @@
 # Please enter the commit message for your changes. Lines starting
 # with '#' will be ignored, and an empty message aborts the commit.
 # В ветке master
+# Your branch is ahead of 'origin/master' by 8 commits.
+#   (use "git push" to publish your local commits)
+#
 # Изменения для закрепления:
 #   (используйте "git reset HEAD <file>..."  чтобы убрать из буфера)
 #
-#	новый файл:   less/custom/blocks/mainPage-slider.less
-#	изменён:   less/custom/index.less
-#	изменён:   less/custom/variables.less
-#	новый файл:   views/blocks/mainPage-slider.php
-#	изменён:   views/layouts/mainPage.php
+#	изменён:   less/custom/blocks/topMenu.less
+#	изменён:   views/Shop/products/show.php
+#	изменён:   views/blocks/order-form.php
+#	изменён:   views/layouts/footer.php
 #

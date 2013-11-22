@@ -30,8 +30,11 @@ if has("gui_running")
 else
     set bg=dark
 endif
-"256 цветов
-set t_Co=256
+
+" Force 256 color mode if available
+if $TERM =~ "-256color"
+	set t_Co=256
+endif
 " }
 
 "=== Строка статуса и командная строка === {

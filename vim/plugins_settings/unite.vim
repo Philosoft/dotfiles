@@ -23,12 +23,20 @@ nnoremap <leader>y :<C-u>Unite -no-split -buffer-name=yank history/yank<cr>
 
 	" unite itself {
 		" overwrite some of defaults or/and add my own
-		autocmd FileType nite call s:unite_my_settings()
+		autocmd FileType unite call s:unite_my_settings()
 		function! s:unite_my_settings() " {
 			nmap <buffer> <ESC> <Plug>(unite_exit)
 			
 			imap <buffer> <c-j> <plug>(unite_select_next_line)
 			imap <buffer> <c-k> <plug>(unite_select_prev_line)
+
+			" splits
+			imap <silent><buffer><expr> <C-s> unite#do_action('split')
+			imap <silent><buffer><expr> <C-v> unite#do_action('vsplit')
+			imap <silent><buffer><expr> <C-t> unite#do_action('tabopen')
+
+			" F5 for flush cache
+			imap <buffer> <F5> <Plug>(unite_redraw)
 		endfunction " }
 	" }
 " }
