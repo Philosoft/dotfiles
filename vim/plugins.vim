@@ -70,8 +70,7 @@ call neobundle#rc(expand('~/.vim/bundle/'))
 	NeoBundle 'altercation/vim-colors-solarized'
 	NeoBundle 'nanotech/jellybeans.vim'
 	NeoBundle 'chriskempson/tomorrow-theme', {
-				\ 'rtp': "~/.vim/bundle/tommorow-theme/vim",
-				\ 'script_type': "colors",
+				\ 'rtp': 'vim',
 				\ }
 	" } colorschemes
 	
