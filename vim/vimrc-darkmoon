@@ -1,3 +1,5 @@
 set guifont=DroidSansMono
 let g:molokai_original = 1
 colorscheme molokai
+
+let g:lightline.colorscheme = 'default'
