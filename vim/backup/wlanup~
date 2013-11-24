@@ -1,3 +1,0 @@
-sudo iwconfig essid "DLink"
-sudo ifconfig wlan0 up
-sudo dhcpcd wlan0

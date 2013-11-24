@@ -1,6 +1,0 @@
-set xlabel "Температура"
-set yrange [0 : 1.1]
-set grid
-set terminal type png
-set output "temp.png"
-plot "temp.txt" u 1:2 t "Малая" w lines,  "temp.txt" u 1:3 t "Средняя" w lines, "temp.txt" u 1:4 t "Большая" w lines

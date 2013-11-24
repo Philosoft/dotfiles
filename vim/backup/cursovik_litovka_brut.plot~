@@ -1,7 +1,0 @@
-set ytics 0.025
-set xlabel 'F, м²'
-set ylabel 'v, м³/c'
-set zlabel 'C₅'
-set terminal png
-set output "/tmp/test.png"
-splot "/tmp/brut" u 1:2:3 t "C₅(F, v)"

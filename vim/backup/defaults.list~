@@ -1,3 +1,0 @@
-[Default Applications]
-application/x-bittorent=/usr/share/applications/transmission.desktop
-x-scheme-handler/magnet=/usr/share/applications/transmission.desktop

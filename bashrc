@@ -83,23 +83,21 @@ shopt -s cdspell
 # }}}
 
 # Функции {{{
-makespectrums()
-{
-  find "${@}" -maxdepth 3 -name "*.mp3" |
-  while read file
-  do
-    file="$(readlink -f "${file}")"
-    local dirname="$(dirname "${file}")/_album_info/spectrums/"
-    local basename="$(basename "${file}")"
-    [ ! -e "${dirname}${basename%.mp3}.png" ] && (mkdir -p "${dirname}" ; sndfile-spectrogram --dyn-range=100 "${file}" 800 480 "${dirname}${basename%.flac}.png")
-    echo $file complete
-  done
+makespectrums() {
+	find "${@}" -maxdepth 3 -name "*.mp3" |
+	while read file
+	do
+		file="$(readlink -f "${file}")"
+		local dirname="$(dirname "${file}")/_album_info/spectrums/"
+		local basename="$(basename "${file}")"
+		[ ! -e "${dirname}${basename%.mp3}.png" ] && (mkdir -p "${dirname}" ; sndfile-spectrogram --dyn-range=100 "${file}" 800 480 "${dirname}${basename%.flac}.png")
+		echo $file complete
+	done
 
-  unset file
+	unset file
 }
 
-luakit_flash_watch()
-{
+luakit_flash_watch() {
 	local pid=$(pgrep luakit)
 	movs=''
 	for i in /proc/$pid/fd/* ; do
@@ -115,8 +113,7 @@ luakit_flash_watch()
 	done
 }
 
-luakit_flash_save()
-{
+luakit_flash_save() {
 	local pid=$(pgrep luakit)
 	movs=''
 	for i in /proc/$pid/fd/* ; do
@@ -133,14 +130,11 @@ luakit_flash_save()
 
 # Автозапуск {{{
 if [[ -z $DISPLAY ]]; then
-  #echo -e "\n\n\n" >> .X.log
-  #exec startx &>> .X.log
-  echo '============================='
-  startx
+	echo '============================='
+	startx
 else
-	#exec zsh
-    if [[ -x $(which fortune) ]]; then
-        fortune
-    fi
+	if [[ -x $(command -v fortune) ]]; then
+		fortune
+	fi
 fi
 # }}}

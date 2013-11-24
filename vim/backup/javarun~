@@ -1,2 +1,0 @@
-javac -cp ":jfreechart-1.0.16.jar:jcommon-1.0.16" $1
-java -cp ":jfreechart-1.0.16.jar:jcommon-1.0.16" $1

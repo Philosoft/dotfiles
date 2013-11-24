@@ -1,6 +1,0 @@
-[[ -d ~/bin ]] && export PATH=$PATH:~/bin
-[[ -d ~/bin/boris/bin ]] && export PATH=$PATH:~/bin/boris/bin
-
-alias mc='mc -S darkfar'
-
-# vim:ft=sh

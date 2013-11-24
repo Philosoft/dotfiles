@@ -8,3 +8,5 @@ vim/session/
 vim/session/*
 vim/bundle/
 vim/bundle/*
+vim/bundle/**
+/vim/bundle/*

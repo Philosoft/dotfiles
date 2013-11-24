@@ -19,7 +19,6 @@ call neobundle#rc(expand('~/.vim/bundle/'))
 
 	NeoBundle 'vim-scripts/bufexplorer.zip'
 	NeoBundle 'L9'
-	" NeoBundle 'gmarik/vundle'
 	NeoBundle 'groenewege/vim-less'
 	NeoBundle 'itchyny/lightline.vim'
 	NeoBundle 'kshenoy/vim-signature'

@@ -1,2 +1,0 @@
-feh *bmp &
-for i in *bmp; do bmp2jpg "$i"; done ; feh *jpg

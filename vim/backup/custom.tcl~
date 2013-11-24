@@ -1,9 +1,0 @@
-set load_default_xrdb 0
-option readfile $::configdir/newlook.xrdb userDefault
-
-{::::gr_group_list linux}
-{::::userpriority 8}
-{::::gr_server_list conference.xilitra.ru}
-{::ifacetk::roster::collapsed_group_list {jaa@default.rs {Undefined 0}}}
-{::::gr_nick_list jaa_tkabber}
-{::ifacetk::roster::show_offline_group_list {jaa@default.rs {Undefined 0}}}

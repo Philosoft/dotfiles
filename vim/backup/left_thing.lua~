@@ -1,6 +1,0 @@
-thing = widget({ type = "textbox" })
-thing.text = "H"
-
-panel = awful.wibox({ position = "left", screen = 1 })
-panel.widgets = { layout = awful.widget.layout.vertical, thing }
-panel.floating = true
