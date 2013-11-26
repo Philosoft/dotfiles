@@ -1,6 +1,5 @@
 " settings {
 call unite#filters#matcher_default#use(['matcher_fuzzy'])
-
 " let's track our yanking
 let g:unite_source_history_yank_enable = 1
 " let's be more xdg-friendly

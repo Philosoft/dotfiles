@@ -1,17 +1,13 @@
-snippet vd
+snippet vd "simple var_dump"
 var_dump(\$${0:variable});
 endsnippet
 
-snippet vdd
+snippet vdd "var_dump & die"
 var_dump(\$${0:variable}); die();
 endsnippet
 
 snippet trp
 \$this->renderPartial("theme.views.${0:path}");
-endsnippet
-
-snippet <?
-<?php ${0:code} ?>
 endsnippet
 
 snippet if
@@ -37,6 +33,10 @@ snippet ?b
 <?php
 	${0:code}
 ?>
+endsnippet
+
+snippet <?
+<?php ${0:code} ?>
 endsnippet
 
 snippet foreach
