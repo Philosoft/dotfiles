@@ -19,7 +19,6 @@ call neobundle#rc(expand('~/.vim/bundle/'))
 
 	NeoBundle 'vim-scripts/bufexplorer.zip'
 	NeoBundle 'L9'
-	NeoBundle 'groenewege/vim-less'
 	NeoBundle 'itchyny/lightline.vim'
 	NeoBundle 'kshenoy/vim-signature'
 	NeoBundle 'osyo-manga/vim-over'
@@ -59,8 +58,11 @@ call neobundle#rc(expand('~/.vim/bundle/'))
 	" }
 	
 	" html {
-	NeoBundle "othree/html5.vim"
-	NeoBundle "Valloric/MatchTagAlways"
+	NeoBundle 'othree/html5.vim'
+	NeoBundle 'Valloric/MatchTagAlways'
+	" }
+	" less {
+	NeoBundle 'groenewege/vim-less'
 	" }
 " }
 
