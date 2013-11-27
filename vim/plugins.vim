@@ -30,7 +30,7 @@ call neobundle#rc(expand('~/.vim/bundle/'))
 	"
 	" programming helpers {
 
-	NeoBundle "Valloric/YouCompleteMe.git"
+	" NeoBundle "Valloric/YouCompleteMe.git"
 	" NeoBundle 'honza/vim-snippets'
 	" NeoBundle 'kien/ctrlp.vim'
 	NeoBundle "Shougo/unite.vim"
