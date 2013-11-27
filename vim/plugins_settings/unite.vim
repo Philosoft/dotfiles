@@ -27,7 +27,7 @@ nnoremap <leader>y :<C-u>Unite -no-split -buffer-name=yank history/yank<cr>
 			nmap <buffer> <ESC> <Plug>(unite_exit)
 			
 			imap <buffer> <c-j> <plug>(unite_select_next_line)
-			imap <buffer> <c-k> <plug>(unite_select_prev_line)
+			imap <buffer> <c-k> <plug>(unite_select_previous_line)
 
 			" splits
 			imap <silent><buffer><expr> <C-s> unite#do_action('split')
