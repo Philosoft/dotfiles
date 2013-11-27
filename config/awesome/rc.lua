@@ -72,7 +72,7 @@ layouts =
 -- {{{ Tags
 -- Define a tag table which hold all screen tags.
 tags = {
-       names = { "1", "im", "web", "term", "mail", "music", "files", "misc" },
+       names = { "scratch", "im", "web", "term", "mail", "music", "files", "misc" },
        l = {awful.layout.suit.tile.bottom,
             awful.layout.suit.tile.left,
             awful.layout.suit.max,
@@ -349,8 +349,10 @@ awful.rules.rules = {
         properties = { floating = true } },
     { rule = { class = "gimp" },
         properties = { floating = true } },
-    -- Set Firefox to always map on tags number 3 of screen 1.
+    -- Set Firefox and luakit to always map on tags number 3 of screen 1.
     { rule = { class = "Firefox" },
+        properties = { tag = tags[1][3] } },
+    { rule = { class = "luakit" },
         properties = { tag = tags[1][3] } },
     { rule = { class = "Gajim" },
         properties = { tag = tags[1][2] }, callback = awful.client.setslave },
