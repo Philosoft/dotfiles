@@ -5,13 +5,21 @@ let g:unite_source_history_yank_enable = 1
 " let's be more xdg-friendly
 let g:unite_data_directory = expand('~/.cache/.unite')
 
+" if we has ag than use it
+if executable('ag')
+	" Use ag in unite grep source
+	let g:unite_source_grep_command = 'ag'
+	let g:unite_source_grep_default_opts = 
+				\ '--line-numbers --nocolor --no-group --hidden --ginore ' .
+				\ '''.hg'' --ignore ''.svn'' --ignore ''.git'' --ignore ''.bzr'''
+	let g:unite_source_grep_recursive_opt = ''
+
 " if we have ack we should use it ;)
-if executable('ack-grep')
+elseif executable('ack-grep')
 	let g:unite_source_grep_command = 'ack-grep'
 	let g:unite_source_grep_default_opts = '--no-heading --no-color -a -H'
 	let g:unite_source_grep_recursive_opt = ''
 endif
-
 " }
 
 " mappings {
