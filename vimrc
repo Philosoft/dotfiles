@@ -116,7 +116,7 @@ autocmd InsertLeave * :set relativenumber
 let b:did_indent = 1 " psr-1 and 4 space-indent sucks
 "set iskeyword+=- " append - to keyword so -separated vars would work
 if has('unnamedplus')
-	set clipboard+=unnamedplus
+	set clipboard+=unnamedplus,unnamed
 else
 	set clipboard+=unnamed
 endif
