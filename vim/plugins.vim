@@ -5,6 +5,8 @@ set runtimepath+=~/.vim/bundle/neobundle.vim/
 call neobundle#rc(expand('~/.vim/bundle/'))
 
 " == bundles == {
+" asdasd
+"
 	" = examples {
 	" original repos on github
 	" NeoBundle 'tpop/vim-fugitive'
@@ -16,6 +18,8 @@ call neobundle#rc(expand('~/.vim/bundle/'))
 	"
 	NeoBundleFetch "Shougo/neobundle.vim"
 	NeoBundle "Shougo/vimproc.vim"
+
+	NeoBundle 'takac/vim-hardtime'
 
 	NeoBundle 'vim-scripts/bufexplorer.zip'
 	NeoBundle 'L9'
@@ -45,7 +49,8 @@ call neobundle#rc(expand('~/.vim/bundle/'))
 	NeoBundle 'nathanaelkane/vim-indent-guides'
 	NeoBundle 'scrooloose/nerdtree'
 	NeoBundle 'scrooloose/syntastic'
-	NeoBundle 'sjl/gundo.vim'
+	" NeoBundle 'sjl/gundo.vim'
+	NeoBundle 'mbbill/undotree'
 	NeoBundle 'tmhedberg/matchit'
 	NeoBundle 'tomtom/tcomment_vim'
 	NeoBundle 'tpope/vim-abolish'
