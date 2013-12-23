@@ -19,6 +19,8 @@ call neobundle#rc(expand('~/.vim/bundle/'))
 	NeoBundleFetch "Shougo/neobundle.vim"
 	NeoBundle "Shougo/vimproc.vim"
 
+	NeoBundle 'junegunn/vim-easy-align'
+
 	NeoBundle 'takac/vim-hardtime'
 
 	NeoBundle 'vim-scripts/bufexplorer.zip'
