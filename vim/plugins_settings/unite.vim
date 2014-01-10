@@ -24,7 +24,7 @@ endif
 
 " mappings {
 nnoremap <c-p> :<C-u>Unite -no-split -start-insert file_rec/async:!<cr>
-nnoremap <c-b> :<C-u>Unite -no-split -start-insert buffer<cr>
+nnoremap <leader>ub :<C-u>Unite -no-split -start-insert buffer<cr>
 
 nnoremap <leader>y :<C-u>Unite -no-split -buffer-name=yank history/yank<cr>
 
