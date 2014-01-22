@@ -17,7 +17,13 @@ call neobundle#rc(expand('~/.vim/bundle/'))
 	" }
 	"
 	NeoBundleFetch "Shougo/neobundle.vim"
-	NeoBundle "Shougo/vimproc.vim"
+	NeoBundle "Shougo/vimproc.vim", {
+					\ 'build':
+					\ {
+						\ 'unix':
+						\ 'make -f make_unix.mak'
+					\ }
+				\ }
 
 	NeoBundle 'junegunn/vim-easy-align'
 
@@ -61,7 +67,7 @@ call neobundle#rc(expand('~/.vim/bundle/'))
 	NeoBundle 'vim-scripts/camelcasemotion'
 
 	" php specific {
-		NeoBundle 'spf13/PIV'
+		" NeoBundle 'spf13/PIV'
 	" }
 	
 	" html {
