@@ -41,35 +41,25 @@ call neobundle#rc(expand('~/.vim/bundle/'))
 	"" }
 	"
 	" programming helpers {
-
-	" NeoBundle "Valloric/YouCompleteMe.git"
-	" NeoBundle 'honza/vim-snippets'
-	" NeoBundle 'kien/ctrlp.vim'
 	NeoBundle "Shougo/unite.vim"
 	NeoBundle 'Raimondi/delimitMate'
 	NeoBundle 'SirVer/ultisnips'
-	NeoBundle 'jakobwesthoff/whitespacetrail'
-	NeoBundle 'kien/rainbow_parentheses.vim'
 	NeoBundle 'majutsushi/tagbar'
 	NeoBundle 'mattn/emmet-vim'
-	NeoBundle 'mattn/livestyle-vim'
 	NeoBundle 'mileszs/ack.vim'
 	NeoBundle 'nathanaelkane/vim-indent-guides'
 	NeoBundle 'scrooloose/nerdtree'
+	NeoBundle 'tpope/vim-vinegar'
 	NeoBundle 'scrooloose/syntastic'
-	" NeoBundle 'sjl/gundo.vim'
-	NeoBundle 'mbbill/undotree'
+	NeoBundle 'sjl/gundo.vim'
 	NeoBundle 'tmhedberg/matchit'
 	NeoBundle 'tomtom/tcomment_vim'
 	NeoBundle 'tpope/vim-abolish'
 	NeoBundle 'tpope/vim-fugitive'
+	NeoBundle 'gregsexton/gitv'
 	NeoBundle 'tpope/vim-surround'
 	NeoBundle 'vim-scripts/camelcasemotion'
 
-	" php specific {
-		" NeoBundle 'spf13/PIV'
-	" }
-	
 	" html {
 	NeoBundle 'othree/html5.vim'
 	NeoBundle 'Valloric/MatchTagAlways'
@@ -82,13 +72,8 @@ call neobundle#rc(expand('~/.vim/bundle/'))
 	" colorschemes {
 	NeoBundle 'tomasr/molokai'
 	NeoBundle 'altercation/vim-colors-solarized'
-	NeoBundle 'nanotech/jellybeans.vim'
-	NeoBundle 'chriskempson/tomorrow-theme', {
-				\ 'rtp': 'vim',
-				\ }
 	" } colorschemes
 	
-	NeoBundle "kien/tabman.vim"
 	NeoBundle "tpope/vim-repeat"
 " }
 
