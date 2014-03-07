@@ -15,7 +15,8 @@ alias openports='netstat --all --numeric --programs --inet'
 alias da='date "+%A, %B %d, %Y [%T]"'
 alias du1='du --max-depth=1 -h'
 
-alias df='pydf'
+[[ $(command -v pydf) ]] && alias df='pydf'
+
 alias eject='eject /dev/sr0'
 
 if [ -f /usr/bin/grc ]; then
@@ -29,3 +30,5 @@ if [ -f /usr/bin/grc ]; then
 fi
 
 [[ $(command -v pacman-color) ]] && alias pacman='pacman-color'
+
+# vim:ft=sh

@@ -16,6 +16,7 @@ export CLASSPATH="/home/philosoft/jlibs/jfreechart-1.0.13.jar:/home/philosoft/jl
 export _JAVA_OPTIONS=-Dawt.useSystemAAFontSettings=on
 # }
 export LD_LIBRARY_PATH='/home/philosoft/jlibs/j3d-1_5_2-linux-amd64/lib/amd64/'
+export LD_PRELOAD="/home/philosoft/lib/stderred/build/libstderred.so${LD_PRELOAD:+:$LD_PRELOAD}"
 # }}}
 
 # Истроия {{{
@@ -137,4 +138,6 @@ else
 		fortune
 	fi
 fi
+
+eval $(ssh-agent -s)
 # }}}

@@ -1,0 +1,14 @@
+{
+	"manifest_version": 2,
+	"content_scripts": [
+	{
+		"js":[ "redmine.user.js" ],
+		"matches":[ "http://redmine.ded.devpulse.ru/*" ],
+		"run_at":"document_end"
+	}
+	],
+		"description" : "Улучшения для redmine",
+		"name" : "Redmine. Enhanced",
+		"permissions" : [ "http://redmine.ded.devpulse.ru/*", "unlimitedStorage"],
+		"version" : "1.0.0"
+}
