@@ -63,3 +63,5 @@ URxvt.keysym.C-delete: perl:matcher:list
 URxvt.urlLauncher: firefox-bin
 URxvt.underlineURLs: true
 !! }}}
+
+xscreensaver.newLoginCommand: dm-tool switch-to-greeter
