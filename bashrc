@@ -138,6 +138,4 @@ else
 		fortune
 	fi
 fi
-
-eval $(ssh-agent -s)
 # }}}
