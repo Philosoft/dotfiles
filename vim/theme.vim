@@ -1,6 +1,6 @@
 "=== Внешний вид === {
-set nu
-syn on
+set number
+syntax on
 set foldenable
 set lazyredraw " не показывать выполнение макросов
 
