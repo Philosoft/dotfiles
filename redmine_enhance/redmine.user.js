@@ -16,4 +16,11 @@
 			el.style.color = "white";
 		}
 	});
+
+	elements = document.querySelectorAll("td.status");
+	Array.prototype.forEach.call(elements, function(el){
+		if (el.textContent === "Обратная связь" ){
+			el.style.background = "gold";
+		}
+	});
 })(window);

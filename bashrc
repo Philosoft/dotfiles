@@ -8,7 +8,7 @@ set -o emacs
 export EDITOR='vim'
 export GTK_IM_MODULE='xim'
 export LANG='ru_RU.UTF-8'
-export PAGER='vimpager'
+[[ -x $(command -v vimpager) ]] && export PAGER='vimpager' || export PAGER='less'
 export PATH="/home/$USER/bin:$PATH"
 # :: Java variables {
 export CLASSPATH="/home/philosoft/jlibs/jfreechart-1.0.13.jar:/home/philosoft/jlibs/jcommon-1.0.16.jar:/home/philosoft/jlibs/j3d-1_5_2-linux-amd64/lib/ext/j3dcore.jar:/home/philosoft/jlibs/j3d-1_5_2-linux-amd64/lib/ext/vecmath.jar:/home/philosoft/jlibs/j3d-1_5_2-linux-amd64/lib/ext/j3dutils.jar:./"
@@ -130,12 +130,7 @@ luakit_flash_save() {
 # }}}
 
 # Автозапуск {{{
-if [[ -z $DISPLAY ]]; then
-	echo '============================='
-	startx
-else
-	if [[ -x $(command -v fortune) ]]; then
-		fortune
-	fi
+if [[ -x $(command -v fortune) ]]; then
+	fortune
 fi
 # }}}

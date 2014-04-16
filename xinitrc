@@ -23,6 +23,11 @@ syndaemon -d -k -i 0.2
 # Настройка курсора
 xsetroot -cursor_name left_ptr
 
+# звук {
+pulseaudio --start
+pasystray &
+# }
+
 # Запуск WM
-exec ck-launch-session dbus-launch awesome
+exec awesome
 #ck-launch-session dbus-launch openbox-session
