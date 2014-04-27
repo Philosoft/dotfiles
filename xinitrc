@@ -28,6 +28,9 @@ pulseaudio --start
 pasystray &
 # }
 
+# флешки и т.п.
+[[ $(command -v pcmanfm) ]] && pcmanfm -d
+
 # Запуск WM
 exec awesome
 #ck-launch-session dbus-launch openbox-session
