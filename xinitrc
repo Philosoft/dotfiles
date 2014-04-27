@@ -29,7 +29,7 @@ pasystray &
 # }
 
 # флешки и т.п.
-[[ $(command -v pcmanfm) ]] && pcmanfm -d
+[[ $(command -v pcmanfm) ]] && nohup pcmanfm -d &>/dev/null &
 
 # Запуск WM
 exec awesome
