@@ -46,7 +46,7 @@ call neobundle#rc(expand('~/.vim/bundle/'))
 	NeoBundle 'SirVer/ultisnips'
 	NeoBundle 'majutsushi/tagbar'
 	NeoBundle 'mattn/emmet-vim'
-	NeoBundle 'mileszs/ack.vim'
+	NeoBundle 'rking/ag.vim'
 	NeoBundle 'nathanaelkane/vim-indent-guides'
 	NeoBundle 'scrooloose/nerdtree'
 	NeoBundle 'tpope/vim-vinegar'
