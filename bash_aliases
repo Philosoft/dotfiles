@@ -31,4 +31,14 @@ fi
 
 [[ $(command -v pacman-color) ]] && alias pacman='pacman-color'
 
+if [[ $(command -v pm-suspned) ]]; then
+	alias suspend='pm-suspend'
+	alias hibernate='pm-hibernate'
+fi
+
+if [[ $(command -v systemctl) ]]; then
+	alias suspend='systemctl suspend'
+	alias hibernate='systemctl hibernate'
+fi
+
 # vim:ft=sh
