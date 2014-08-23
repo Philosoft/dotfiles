@@ -11,16 +11,16 @@ set showbreak=↪
 
 "Разный фон для gui и консоли
 if has("gui_running")
+	colorscheme molokai
+	set background=dark
+
 	set guioptions+=LlRrb guioptions-=LlRrb " remove scrollbars
 	set guioptions-=m " remove menu
 	set guioptions-=T " remove toolbar
 
-	set guifont=Mensch
+	set guifont="Meslog LG M"
 	set guitablabel=[%N]\ %m%t " [tabNum] modified? filename
 	let g:molokai_original=1 " just in case we want to change colorscheme in runtime
-
-	colorscheme solarized
-	set bg=light
 
 	" Используем символы как в TextMate для табуляции и конца строки {
 	set listchars=tab:▸·,eol:¬,extends:»,precedes:«

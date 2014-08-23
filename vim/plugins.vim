@@ -60,6 +60,19 @@ call neobundle#rc(expand('~/.vim/bundle/'))
 	NeoBundle 'tpope/vim-surround'
 	NeoBundle 'vim-scripts/camelcasemotion'
 
+	NeoBundle 'vimwiki/vimwiki'
+
+	" frontend {
+	NeoBundle 'digitaltoad/vim-jade'
+	NeoBundle 'mustache/vim-mustache-handlebars'
+	" }
+
+	" php {
+	NeoBundle 'tobyS/pdv', {
+				\ 'depends': 'tobyS/vmustache'
+				\ }
+	" }
+
 	" html {
 	NeoBundle 'othree/html5.vim'
 	NeoBundle 'Valloric/MatchTagAlways'
