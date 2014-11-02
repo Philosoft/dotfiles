@@ -88,6 +88,7 @@ call neobundle#rc(expand('~/.vim/bundle/'))
 	" } colorschemes
 	
 	NeoBundle "tpope/vim-repeat"
+	NeoBundle 'haya14busa/incsearch.vim'
 " }
 
 filetype plugin indent on
