@@ -2,7 +2,7 @@
 " set nocompatible isn't neccesary when vim load settings from g?vimrc
 filetype off
 set runtimepath+=~/.vim/bundle/neobundle.vim/
-call neobundle#rc(expand('~/.vim/bundle/'))
+call neobundle#begin(expand('~/.vim/bundle/'))
 
 " == bundles == {
 " asdasd
@@ -89,6 +89,8 @@ call neobundle#rc(expand('~/.vim/bundle/'))
 	
 	NeoBundle "tpope/vim-repeat"
 " }
+
+call neobundle#end()
 
 filetype plugin indent on
 
