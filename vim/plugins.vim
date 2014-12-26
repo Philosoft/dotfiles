@@ -4,9 +4,7 @@ filetype off
 set runtimepath+=~/.vim/bundle/neobundle.vim/
 call neobundle#begin(expand('~/.vim/bundle/'))
 
-" == bundles == {
-" asdasd
-"
+	" == bundles == {
 	" = examples {
 	" original repos on github
 	" NeoBundle 'tpop/vim-fugitive'
