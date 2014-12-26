@@ -13,13 +13,17 @@ call neobundle#begin(expand('~/.vim/bundle/'))
 	" non git-hub repos
 	" NeoBundle 'git://git.blah.com/lol.git
 	" }
-	"
+	let g:make = 'make'
+	"if system('uname -o') =~ '^GNU/'
+	"	let g:make = 'make'
+	"endif
+
 	NeoBundleFetch "Shougo/neobundle.vim"
 	NeoBundle "Shougo/vimproc.vim", {
 					\ 'build':
 					\ {
 						\ 'unix':
-						\ 'make -f make_unix.mak'
+						\ g:make
 					\ }
 				\ }
 
