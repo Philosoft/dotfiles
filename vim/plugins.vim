@@ -2,11 +2,9 @@
 " set nocompatible isn't neccesary when vim load settings from g?vimrc
 filetype off
 set runtimepath+=~/.vim/bundle/neobundle.vim/
-call neobundle#rc(expand('~/.vim/bundle/'))
+call neobundle#begin(expand('~/.vim/bundle/'))
 
-" == bundles == {
-" asdasd
-"
+	" == bundles == {
 	" = examples {
 	" original repos on github
 	" NeoBundle 'tpop/vim-fugitive'
@@ -15,13 +13,17 @@ call neobundle#rc(expand('~/.vim/bundle/'))
 	" non git-hub repos
 	" NeoBundle 'git://git.blah.com/lol.git
 	" }
-	"
+	let g:make = 'make'
+	"if system('uname -o') =~ '^GNU/'
+	"	let g:make = 'make'
+	"endif
+
 	NeoBundleFetch "Shougo/neobundle.vim"
 	NeoBundle "Shougo/vimproc.vim", {
 					\ 'build':
 					\ {
 						\ 'unix':
-						\ 'make -f make_unix.mak'
+						\ g:make
 					\ }
 				\ }
 
@@ -90,6 +92,8 @@ call neobundle#rc(expand('~/.vim/bundle/'))
 	NeoBundle "tpope/vim-repeat"
 	NeoBundle 'haya14busa/incsearch.vim'
 " }
+
+call neobundle#end()
 
 filetype plugin indent on
 
