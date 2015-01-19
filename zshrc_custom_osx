@@ -1,0 +1,9 @@
+grc_resource="$(brew --prefix)/etc/grc.bashrc"
+[[ -f $grc_resource ]] && source "$grc_resource"
+
+if [[ $(command -v grc) ]]; then
+	alias cat='grc cat'
+	alias tail='grc tail'
+fi
+
+export PATH="$(brew --prefix homebrew/php/php55)/bin:~/bin:$PATH"

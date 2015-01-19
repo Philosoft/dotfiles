@@ -1,0 +1,10 @@
+# generic plugins
+plugins=(git composer common-aliases yii2)
+
+# os-specific plugins
+
+case $(uname) in
+	"Darwin")
+		plugins=("${plugins[@]}" "brew" "osx")
+		;;
+esac
