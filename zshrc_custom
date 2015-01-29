@@ -7,7 +7,7 @@ alias -g @y='@77.88.8.8'
 
 alias digg='dig any @g'
 alias digy='dig any @y'
-alias xenu='wine ~/.wine/drive_c/Program\ Files/Xenu/Xenu.exe'
+alias xenu='nohup wine ~/.wine/drive_c/Program\ Files/Xenu/Xenu.exe &>/dev/null &'
 ### }
 fpath=(~/.zsh-completions/src $fpath) # depends on https://github.com/zsh-users/zsh-completions
 compinit
