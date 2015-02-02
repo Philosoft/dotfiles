@@ -1,5 +1,5 @@
 ## custom settings {
-export PATH=$PATH:$HOME/bin/
+export PATH=$PATH:$HOME/bin
 
 ### aliases {
 alias -g @g='@8.8.8.8'
