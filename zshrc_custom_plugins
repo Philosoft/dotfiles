@@ -5,6 +5,6 @@ plugins=(git composer common-aliases yii2)
 
 case $(uname) in
 	"Darwin")
-		plugins=("${plugins[@]}" "brew" "osx")
+		plugins=("${plugins[@]}" "brew" "brew-cask" "osx")
 		;;
 esac
