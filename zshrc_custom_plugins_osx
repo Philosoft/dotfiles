@@ -1,0 +1,2 @@
+# generic plugins
+plugins=("${plugins[@]}" "brew")
