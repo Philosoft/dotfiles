@@ -1,5 +1,5 @@
 # generic plugins
-plugins=(git composer common-aliases yii2)
+plugins=(git composer common-aliases yii2 bgnotify)
 
 # os-specific plugins
 
