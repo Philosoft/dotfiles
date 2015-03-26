@@ -1,10 +1,16 @@
-"amixer set Master toggle"
+"/usr/bin/xbacklight '+5'"
+    XF86KbdBrightnessUp
+
+"/usr/bin/xbacklight '-5'"
+    XF86KbdBrightnessDown
+
+"/home/philosoft/bin/pulseaudio-ctl mute"
     XF86AudioMute
 
-"amixer set Master 1+"
+"/home/philosoft/bin/pulseaudio-ctl up"
     XF86AudioRaiseVolume
 
-"amixer set Master 1-"
+"/home/philosoft/bin/pulseaudio-ctl down"
     XF86AudioLowerVolume
 
 "player_ctrl.sh toggle"
