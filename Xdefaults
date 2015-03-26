@@ -1,7 +1,7 @@
 ! Шрифты {{{
 ! *faceName:FreeSans:style=Medium
 ! *font: xft:FreeSans-12
-Xft.dpi: 96.0
+Xft.dpi: 141.0
 Xft.hinting:   true
 Xft.autohint: 1
 Xft.lcdfilter: lcddefault
@@ -10,10 +10,12 @@ Xft.antialias: true
 Xft.rgba: rgb
 !! }}}
 
-xterm*faceName: Monospace:pixelsize=13
+xterm*faceName: Monospace
+xterm*faceSize: 10
 
 !Cursor theme {{{
 Xcursor.theme: ~/.icons/default
+Xcursor.size: 24
 !}}}
 
 !Цветовая схема консли [zenburn] {{{

@@ -18,7 +18,7 @@ if has("gui_running")
 	set guioptions-=m " remove menu
 	set guioptions-=T " remove toolbar
 
-	set guifont="Meslog LG M"
+	set guifont=Mensch\ 10
 	set guitablabel=[%N]\ %m%t " [tabNum] modified? filename
 	let g:molokai_original=1 " just in case we want to change colorscheme in runtime
 
