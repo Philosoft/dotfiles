@@ -6,8 +6,8 @@ setxkbmap us -option; setxkbmap "us,ru" -option "grp:toggle,grp_led:scroll,ctrl:
 numlockx on
 #
 ## облака {
-dropbox start &
-yandex-disk start &
+[[ $(command -v dropbox) ]] && dropbox start &
+[[ $(command -v yandex-disk) ]] && yandex-disk start &
 ## }
 #
 # Настройка иксов
@@ -33,6 +33,8 @@ pasystray &
 xrandr --dpi 141x133
 
 [[ -f ~/.fehbg ]] && eval $(cat ~/.fehbg)
+
+nohup nm-applet &>/dev/null &
 #
 ## Запуск WM
 #exec awesome
