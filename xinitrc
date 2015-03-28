@@ -16,7 +16,7 @@ xrdb -merge "${HOME}/.Xdefaults" ; xrdb -merge "${HOME}/.XCompose"
 ## мультимедиа клавиши
 xbindkeys -f /home/philosoft/.xbindkeysrc &
 # полнофункциональный тачпад
-synclient TapButton1=1 TapButton2=2 TapButton3=3 &
+synclient TapButton1=1 TapButton2=2 TapButton3=3 HorizTwoFingerScroll=1 &
 # отключать тач во время печати
 syndaemon -d -k -i 0.2
 
