@@ -7,7 +7,7 @@ if [[ $(command -v grc) ]]; then
 fi
 
 if [[ $(command -v thefuck) ]]; then
-	alias fuck='eval $(thefuck $(fc -ln -1 | tail -n 1)); fc -R'
+	eval "$(thefuck-alias)"
 fi
 
 export PATH="$(brew --prefix homebrew/php/php55)/bin:~/bin:$PATH"
