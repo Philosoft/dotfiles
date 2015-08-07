@@ -29,6 +29,7 @@ if filereadable(hostfile)
 endif
 
 "=== Some opts === {
+set hidden
 set autochdir "Автоматически менять каталог
 set novisualbell
 set t_vb=

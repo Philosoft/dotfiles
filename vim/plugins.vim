@@ -40,12 +40,13 @@ call neobundle#begin(expand('~/.vim/bundle/'))
 	"
 	" vim enhanchments {
 	NeoBundle 'mhinz/vim-startify'
+	NeoBundle 'szw/vim-ctrlspace'
 	"" }
 	"
 	" programming helpers {
 	NeoBundle "Shougo/unite.vim"
 	NeoBundle 'Raimondi/delimitMate'
-	NeoBundle 'SirVer/ultisnips'
+	" NeoBundle 'SirVer/ultisnips'
 	NeoBundle 'majutsushi/tagbar'
 	NeoBundle 'mattn/emmet-vim'
 	NeoBundle 'rking/ag.vim'
@@ -62,7 +63,7 @@ call neobundle#begin(expand('~/.vim/bundle/'))
 	NeoBundle 'tpope/vim-surround'
 	NeoBundle 'vim-scripts/camelcasemotion'
 
-	NeoBundle 'vimwiki/vimwiki'
+	" NeoBundle 'vimwiki/vimwiki'
 
 	" frontend {
 	NeoBundle 'digitaltoad/vim-jade'
@@ -92,6 +93,7 @@ call neobundle#begin(expand('~/.vim/bundle/'))
 	NeoBundle "tpope/vim-repeat"
 	NeoBundle 'haya14busa/incsearch.vim'
 " }
+	NeoBundle "ConradIrwin/vim-bracketed-paste"
 
 call neobundle#end()
 

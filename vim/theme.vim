@@ -11,8 +11,8 @@ set showbreak=↪
 
 "Разный фон для gui и консоли
 if has("gui_running")
-	colorscheme molokai
-	set background=dark
+	colorscheme solarized
+	set background=light
 
 	set guioptions+=LlRrb guioptions-=LlRrb " remove scrollbars
 	set guioptions-=m " remove menu
