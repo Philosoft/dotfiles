@@ -28,6 +28,7 @@ call neobundle#begin(expand('~/.vim/bundle/'))
 				\ }
 
 	NeoBundle 'junegunn/vim-easy-align'
+	NeoBundle 'godlygeek/tabular'
 
 	NeoBundle 'takac/vim-hardtime'
 
