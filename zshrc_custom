@@ -15,7 +15,7 @@ alias -g @y='@77.88.8.8'
 
 alias digg='dig any @g'
 alias digy='dig any @y'
-alias getip='digg @g +short a'
+alias getip='dig @g +short a'
 alias xenu='nohup wine ~/.wine/drive_c/Program\ Files/Xenu/Xenu.exe &>/dev/null &'
 alias cil='curl -IL'
 ### }
