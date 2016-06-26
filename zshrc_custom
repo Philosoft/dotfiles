@@ -18,6 +18,15 @@ alias digy='dig any @y'
 alias getip='dig @g +short a'
 alias xenu='nohup wine ~/.wine/drive_c/Program\ Files/Xenu/Xenu.exe &>/dev/null &'
 alias cil='curl -IL'
+
+case $(uname) in
+    "Darwin")
+        alias -g c=' pbcopy'
+        ;;
+    "Linux")
+        alias -g c=' xclip -selection clipboard'
+        ;;
+esac
 ### }
 fpath=(~/.zsh-completions/src $fpath) # depends on https://github.com/zsh-users/zsh-completions
 compinit
