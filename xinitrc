@@ -1,5 +1,10 @@
 #!/bin/bash
 
+eval $(gnome-keyring-daemon --start)
+export SSH_AUTH_SOCK
+export GNOME_KEYRING_PID
+export GNOME_KEYRING_CONTROL
+
 ## Настройка клавиатуры
 setxkbmap us -option; setxkbmap "us,ru" -option "grp:toggle,grp_led:scroll,ctrl:nocaps"
 ## включаем дополнительный цифровой блок
@@ -35,6 +40,7 @@ xrandr --dpi 141x133
 [[ -f ~/.fehbg ]] && eval $(cat ~/.fehbg)
 
 nohup nm-applet &>/dev/null &
+[[ $(command -v xscreensaver) ]] && nohup xscreensaver &>/dev/null &
 #
 ## Запуск WM
 #exec awesome
