@@ -19,8 +19,8 @@ alias getip='dig @g +short a'
 alias xenu='nohup wine ~/.wine/drive_c/Program\ Files/Xenu/Xenu.exe &>/dev/null &'
 alias cil='curl -IL'
 if [[ $(command -v pulseaudio-ctl ) ]]; then
-    alias unmute='pulseaudio-ctl mute --no'
-    alias mute='pulseaudio-ctl mute --yes'
+    alias unmute='pulseaudio-ctl mute no'
+    alias mute='pulseaudio-ctl mute yes'
 fi
 
 case $(uname) in
