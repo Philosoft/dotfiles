@@ -7,7 +7,7 @@ ZSH_HIGHLIGHT_PATTERNS=('rm -rf *' 'fg=white,bold,bg=red')
 
 
 ## custom settings {
-export PATH=$HOME/bin:/usr/local/bin:$PATH
+export PATH=$HOME/bin:/usr/local/bin:./node_modules/.bin/:$PATH
 
 ### aliases {
 alias -g @g='@8.8.8.8'
@@ -18,6 +18,10 @@ alias digy='dig any @y'
 alias getip='dig @g +short a'
 alias xenu='nohup wine ~/.wine/drive_c/Program\ Files/Xenu/Xenu.exe &>/dev/null &'
 alias cil='curl -IL'
+if [[ $(command -v pulseaudio-ctl ) ]]; then
+    alias unmute='pulseaudio-ctl mute --no'
+    alias mute='pulseaudio-ctl mute --yes'
+fi
 
 case $(uname) in
     "Darwin")
