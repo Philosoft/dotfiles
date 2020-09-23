@@ -1,2 +1,2 @@
-call tcomment#DefineType('less', '// %s')
-call tcomment#DefineType('less_block', '/* %s */')
+call tcomment#type#Define('less', '// %s')
+call tcomment#type#Define('less_block', '/* %s */')

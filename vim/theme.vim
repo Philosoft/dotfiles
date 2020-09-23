@@ -10,15 +10,15 @@ set list
 set showbreak=↪
 
 "Разный фон для gui и консоли
+set background=light
 if has("gui_running")
 	colorscheme solarized
-	set background=light
 
 	set guioptions+=LlRrb guioptions-=LlRrb " remove scrollbars
 	set guioptions-=m " remove menu
 	set guioptions-=T " remove toolbar
 
-	set guifont=Mensch\ 10
+	set guifont=Hack\ 10
 	set guitablabel=[%N]\ %m%t " [tabNum] modified? filename
 	let g:molokai_original=1 " just in case we want to change colorscheme in runtime
 
@@ -28,7 +28,6 @@ if has("gui_running")
 	set showbreak=↪
 	" }
 else
-    set bg=dark
 endif
 
 " Force 256 color mode if available

@@ -96,6 +96,8 @@ call neobundle#begin(expand('~/.vim/bundle/'))
 " }
 	NeoBundle "ConradIrwin/vim-bracketed-paste"
 
+    NeoBundle "chr4/nginx.vim"
+
 call neobundle#end()
 
 filetype plugin indent on

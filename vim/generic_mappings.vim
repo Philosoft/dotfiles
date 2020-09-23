@@ -22,3 +22,18 @@ nnoremap <A-7> 7gt
 nnoremap <A-8> 8gt
 nnoremap <A-9> 9gt
 " }
+
+" GUI {
+"" normal mode {
+nnoremap <C-a> ggVG
+"" }
+
+"" visual mode {
+vnoremap <C-a> ggVG
+vnoremap <C-c> "+y
+"" }
+
+"" insert mode {
+imap <C-v> "+pa
+"" }
+" }
