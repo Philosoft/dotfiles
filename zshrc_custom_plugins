@@ -1,5 +1,5 @@
 # generic plugins
-plugins=(git git-flow composer common-aliases yii2 bgnotify z extract)
+plugins=(git git-flow composer common-aliases yii2 bgnotify z extract docker)
 
 # os-specific plugins
 
