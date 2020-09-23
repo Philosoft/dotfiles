@@ -3,11 +3,16 @@ COMPLETION_WAITING_DOTS="true"
 
 ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern cursor)
 ZSH_HIGHLIGHT_PATTERNS=('rm -rf *' 'fg=white,bold,bg=red')
+
+ZSH_TMUX_AUTOSTART=true
+ZSH_TMUX_AUTOSTART_ONCE=true
 ## }
 
 
 ## custom settings {
-export PATH=$HOME/bin:/usr/local/bin:./node_modules/.bin/:$PATH
+export PATH=$HOME/bin:/usr/local/bin:$HOME/.composer/bin/:./node_modules/.bin/:$PATH
+# forbid tmux to change window name on every program start
+export DISABLE_AUTO_TITLE=true
 
 ### aliases {
 alias -g @g='@8.8.8.8'
@@ -35,3 +40,8 @@ esac
 fpath=(~/.zsh-completions/src $fpath) # depends on https://github.com/zsh-users/zsh-completions
 compinit
 ## }
+
+###
+# linuxbrew
+###
+eval $(/home/thephilosoft/.linuxbrew/bin/brew shellenv)
