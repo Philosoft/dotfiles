@@ -1,106 +1,88 @@
-"=== Vundle plugins === {
-" set nocompatible isn't neccesary when vim load settings from g?vimrc
-filetype off
-set runtimepath+=~/.vim/bundle/neobundle.vim/
-call neobundle#begin(expand('~/.vim/bundle/'))
+if &compatible
+  set nocompatible               " Be iMproved
+endif
 
-	" == bundles == {
-	" = examples {
-	" original repos on github
-	" NeoBundle 'tpop/vim-fugitive'
-	" vim-script repos
-	" NeoBundle 'FuzzyFinder'
-	" non git-hub repos
-	" NeoBundle 'git://git.blah.com/lol.git
-	" }
-	let g:make = 'make'
-	"if system('uname -o') =~ '^GNU/'
-	"	let g:make = 'make'
-	"endif
+" Required:
+set runtimepath+=/home/thephilosoft/.vim/dein/repos/github.com/Shougo/dein.vim
 
-	NeoBundleFetch "Shougo/neobundle.vim"
-	NeoBundle "Shougo/vimproc.vim", {
-					\ 'build':
-					\ {
-						\ 'unix':
-						\ g:make
-					\ }
-				\ }
+" Required:
+if dein#load_state('/home/thephilosoft/.vim/dein')
+    call dein#begin('/home/thephilosoft/.vim/dein')
 
-	NeoBundle 'junegunn/vim-easy-align'
-	NeoBundle 'godlygeek/tabular'
+    " Let dein manage dein
+    " Required:
+    call dein#add('/home/thephilosoft/.vim/dein/repos/github.com/Shougo/dein.vim')
 
-	NeoBundle 'takac/vim-hardtime'
+    call dein#add('junegunn/vim-easy-align')
+    call dein#add('godlygeek/tabular')
 
-	NeoBundle 'vim-scripts/bufexplorer.zip'
-	NeoBundle 'L9'
-	NeoBundle 'itchyny/lightline.vim'
-	NeoBundle 'kshenoy/vim-signature'
-	NeoBundle 'osyo-manga/vim-over'
-	NeoBundle 'tpope/vim-unimpaired'
-	"
-	" vim enhanchments {
-	NeoBundle 'mhinz/vim-startify'
-	NeoBundle 'szw/vim-ctrlspace'
-	"" }
-	"
-	" programming helpers {
-	NeoBundle "Shougo/unite.vim"
-	NeoBundle 'Raimondi/delimitMate'
-	" NeoBundle 'SirVer/ultisnips'
-	NeoBundle 'majutsushi/tagbar'
-	NeoBundle 'mattn/emmet-vim'
-	NeoBundle 'rking/ag.vim'
-	NeoBundle 'nathanaelkane/vim-indent-guides'
-	NeoBundle 'scrooloose/nerdtree'
-	NeoBundle 'tpope/vim-vinegar'
-	NeoBundle 'scrooloose/syntastic'
-	NeoBundle 'sjl/gundo.vim'
-	NeoBundle 'tmhedberg/matchit'
-	NeoBundle 'tomtom/tcomment_vim'
-	NeoBundle 'tpope/vim-abolish'
-	NeoBundle 'tpope/vim-fugitive'
-	NeoBundle 'gregsexton/gitv'
-	NeoBundle 'tpope/vim-surround'
-	NeoBundle 'vim-scripts/camelcasemotion'
+    call dein#add('takac/vim-hardtime')
 
-	" NeoBundle 'vimwiki/vimwiki'
+    call dein#add('vim-scripts/bufexplorer.zip')
+    call dein#add('vim-scripts/L9')
+    call dein#add('itchyny/lightline.vim')
+    call dein#add('kshenoy/vim-signature')
+    call dein#add('osyo-manga/vim-over')
+    call dein#add('tpope/vim-unimpaired')
 
-	" frontend {
-	NeoBundle 'digitaltoad/vim-jade'
-	NeoBundle 'mustache/vim-mustache-handlebars'
-	" }
+    " vim enhanchments {
+    call dein#add('mhinz/vim-startify')
+    call dein#add('szw/vim-ctrlspace')
+    "" }
+    "
+    " programming helpers {
+    call dein#add("Shougo/unite.vim")
+    call dein#add('Raimondi/delimitMate')
+    call dein#add('majutsushi/tagbar')
+    call dein#add('mattn/emmet-vim')
+    call dein#add('rking/ag.vim')
+    call dein#add('nathanaelkane/vim-indent-guides')
+    call dein#add('scrooloose/nerdtree')
+    call dein#add('tpope/vim-vinegar')
+    call dein#add('scrooloose/syntastic')
+    call dein#add('sjl/gundo.vim')
+    call dein#add('tmhedberg/matchit')
+    call dein#add('tomtom/tcomment_vim')
+    call dein#add('tpope/vim-abolish')
+    call dein#add('tpope/vim-fugitive')
+    call dein#add('gregsexton/gitv')
+    call dein#add('tpope/vim-surround')
+    call dein#add('vim-scripts/camelcasemotion')
 
-	" php {
-	NeoBundle 'tobyS/pdv', {
-				\ 'depends': 'tobyS/vmustache'
-				\ }
-	" }
+    " NeoBundle 'vimwiki/vimwiki'
 
-	" html {
-	NeoBundle 'othree/html5.vim'
-	NeoBundle 'Valloric/MatchTagAlways'
-	" }
-	" less {
-	NeoBundle 'groenewege/vim-less'
-	" }
-" }
+    " frontend {
+    call dein#add('digitaltoad/vim-jade')
+    call dein#add('mustache/vim-mustache-handlebars')
+    " }
 
-	" colorschemes {
-	NeoBundle 'tomasr/molokai'
-	NeoBundle 'altercation/vim-colors-solarized'
-	" } colorschemes
-	
-	NeoBundle "tpope/vim-repeat"
-	NeoBundle 'haya14busa/incsearch.vim'
-" }
-	NeoBundle "ConradIrwin/vim-bracketed-paste"
+    " html {
+    call dein#add('othree/html5.vim')
+    call dein#add('Valloric/MatchTagAlways')
+    " }
 
-    NeoBundle "chr4/nginx.vim"
+    " colorschemes {
+    call dein#add('tomasr/molokai')
+    call dein#add('altercation/vim-colors-solarized')
+    " } colorschemes
 
-call neobundle#end()
+    call dein#add("tpope/vim-repeat")
+    call dein#add('haya14busa/incsearch.vim')
+    " }
+    call dein#add("ConradIrwin/vim-bracketed-paste")
 
-filetype plugin indent on
+    call dein#add("chr4/nginx.vim")
+    call dein#add("cespare/vim-toml")
 
-NeoBundleCheck
-"}
+    " Required:
+    call dein#end()
+    call dein#save_state()
+endif
+
+"	NeoBundle "Shougo/vimproc.vim", {
+"					\ 'build':
+"					\ {
+"						\ 'unix':
+"						\ g:make
+"					\ }
+"				\ }
