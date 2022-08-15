@@ -10,7 +10,7 @@ set list
 set showbreak=↪
 
 "Разный фон для gui и консоли
-set background=light
+set background=dark
 if has("gui_running")
 	colorscheme solarized
 

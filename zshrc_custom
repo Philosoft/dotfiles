@@ -47,4 +47,8 @@ compinit
 ###
 # linuxbrew
 ###
-eval $(/home/thephilosoft/.linuxbrew/bin/brew shellenv)
+if [[ -d ${HOME}/.linuxbrew/ ]]; then
+	eval $(${HOME}.linuxbrew/bin/brew shellenv)
+fi
+
+export EDITOR=vim
